@@ -18,11 +18,11 @@ import { FormControl } from '@angular/forms';
 import { defaultSnackbarOptions } from '../../shared/snackbar-options';
 import { finalize, catchError, map } from "rxjs/operators";
 
+import './file-permissions-modal.component.scss';
+import '../../../../src/app/shared/modal.component.scss';
 @Component({
   selector: 'file-permissions-modal',
-  templateUrl: './file-permissions-modal.component.html',
-  styleUrls: ['./file-permissions-modal.component.scss',
-  '../../../../src/app/shared/modal.component.scss'],
+  templateUrl: './file-permissions-modal.component.html'
 })
 export class FilePermissionsModal {
 
@@ -67,8 +67,7 @@ export class FilePermissionsModal {
     private dialogRef: MatDialogRef<FilePermissionsModal>,
     private http: HttpClient,
     private snackBar: MatSnackBar,
-  ) 
-  {
+  ) {
     this.node = data.event;
     this.name = this.node.name;
     this.path = this.node.path;
@@ -101,8 +100,8 @@ export class FilePermissionsModal {
     const modeString = this.octalMode;
     let modeStringSym = "";
     for (let i = 0; i < 3; i++) {
-      let value =  modeString.charAt(i);
-      switch(value) {
+      let value = modeString.charAt(i);
+      switch (value) {
         case "0":
           modeStringSym += "---";
           break;
@@ -276,8 +275,8 @@ export class FilePermissionsModal {
   }
 
   savePermissions() {
-    let url :string = ZoweZLUX.uriBroker.unixFileUri('chmod', this.path, undefined, undefined, undefined, false, undefined, undefined, undefined, this.octalMode, this.recursive);
-    this.http.post(url, null, {observe: 'response'}).pipe(
+    let url: string = ZoweZLUX.uriBroker.unixFileUri('chmod', this.path, undefined, undefined, undefined, false, undefined, undefined, undefined, this.octalMode, this.recursive);
+    this.http.post(url, null, { observe: 'response' }).pipe(
       finalize(() => this.closeDialog()),
     ).subscribe(
       (res: any) => {
@@ -286,7 +285,7 @@ export class FilePermissionsModal {
             'Dismiss', defaultSnackbarOptions);
           this.node.mode = parseInt(this.octalMode, 10);
         } else {
-          this.snackBar.open(res.status + " - A problem was encountered: " + res.statusText, 
+          this.snackBar.open(res.status + " - A problem was encountered: " + res.statusText,
             'Dismiss', defaultSnackbarOptions);
         }
       },
@@ -295,7 +294,7 @@ export class FilePermissionsModal {
       }
     );
   }
-  
+
   closeDialog() {
     const needUpdate = this.isDirectory;
     this.dialogRef.close(needUpdate);
@@ -321,10 +320,10 @@ export class FilePermissionsModal {
     }
   }
 
-  private handleErrorObservable (error: Response | any) {
+  private handleErrorObservable(error: Response | any) {
     console.error(error.message || error);
-    this.snackBar.open(error.status + " - A problem was encountered: " + error._body, 
-    'Dismiss', defaultSnackbarOptions);
+    this.snackBar.open(error.status + " - A problem was encountered: " + error._body,
+      'Dismiss', defaultSnackbarOptions);
     return throwError(error.message || error);
   }
 }

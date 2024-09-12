@@ -9,7 +9,7 @@
   Copyright Contributors to the Zowe Project.
 */
 
-import { TreeNode } from 'primeng/primeng';
+import { TreeNode } from 'primeng/api/treenode';
 
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient, HttpResponse, HttpHeaders } from '@angular/common/http';

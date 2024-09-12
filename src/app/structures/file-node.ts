@@ -9,7 +9,7 @@
   Copyright Contributors to the Zowe Project.
 */
 
-import { TreeNode } from 'primeng/primeng';
+import { TreeNode } from "primeng/api/treenode";
 
 /**
  * Types currently supported with a workspace

@@ -1,26 +1,27 @@
 {
-  "extends": "./zlux/zlux-app-manager/virtual-desktop/plugin-config/tsconfig.base.json",
+  "extends": "../zlux-app-manager/virtual-desktop/plugin-config/tsconfig.base.json",
   "include": [
     "src/**/*.ts",
-    //"../zlux-platform/interface/src/mvd-hosting.d.ts"
+    "../zlux-platform/interface/src/index.d.ts"
   ],
-  "compileOnSave": false,
+  "files": [
+    "src/plugin.ts",
+  ],
   "compilerOptions": {
-    "outDir": "./out_tsc",
-    "baseUrl": "./src/app",
-    "sourceMap": true,
     "declaration": true,
     "declarationDir": ".",
     "module": "amd",
     "moduleResolution": "node",
-    "skipLibCheck": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "skipLibCheck": true,
     "target": "es5",
     "lib": [
       "es2016",
       "dom"
-    ],
-    "paths": {}
+    ]
+  },
+  "angularCompilerOptions": {
+    "enableIvy": true
   }
 }

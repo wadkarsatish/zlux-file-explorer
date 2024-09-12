@@ -15,7 +15,7 @@ import { Component, ElementRef, OnInit, ViewEncapsulation, OnDestroy, Input, Eve
 import { take, finalize, debounceTime } from 'rxjs/operators';
 import { ProjectStructure, DatasetAttributes, Member } from '../../structures/editor-project';
 import { Angular2InjectionTokens, Angular2PluginWindowActions, ContextMenuItem } from 'pluginlib/inject-resources';
-import { TreeNode } from 'primeng/primeng';
+import { TreeNode } from 'primeng/api/treenode';
 import { DownloaderService } from '../../services/downloader.service';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -39,12 +39,12 @@ import { PersistentDataService } from '../../services/persistentData.service'; *
 const CSS_NODE_DELETING = "filebrowsermvs-node-deleting";
 const SEARCH_ID = 'mvs';
 
+import './filebrowsermvs.component.css';
 @Component({
   selector: 'file-browser-mvs',
   templateUrl: './filebrowsermvs.component.html',
   encapsulation: ViewEncapsulation.None,
-  styleUrls: ['./filebrowsermvs.component.css'],
-  providers: [DatasetCrudService, /*PersistentDataService,*/ SearchHistoryService ]
+  providers: [DatasetCrudService, /*PersistentDataService,*/ SearchHistoryService]
 })
 export class FileBrowserMVSComponent implements OnInit, OnDestroy {
 
@@ -59,7 +59,7 @@ export class FileBrowserMVSComponent implements OnInit, OnDestroy {
   // private updateInterval: number = 3000000;
 
   /* Tree UI and modals */
-  @ViewChild(TreeComponent)  private treeComponent: TreeComponent;
+  @ViewChild(TreeComponent) private treeComponent: TreeComponent;
   public hideExplorer: boolean;
   private rightClickPropertiesPanel: ContextMenuItem[];
   public isLoading: boolean;
@@ -67,16 +67,16 @@ export class FileBrowserMVSComponent implements OnInit, OnDestroy {
   private rightClickPropertiesDatasetFolder: ContextMenuItem[];
 
   /* Quick search (Alt + P) stuff */
-  @ViewChild('searchMVS') searchMVS: ElementRef;
+  @ViewChild('searchMVS') public searchMVS: ElementRef;
   private searchCtrl: any;
   private searchValueSubscription: Subscription;
-  private showSearch: boolean;
+  public showSearch: boolean;
 
   /* Data and navigation */
-  private path: string;
-  private selectedNode: any;
+  public path: string;
+  public selectedNode: any;
   //TODO: Define interface types for mvs-data/data
-  private data: any; //Main data displayed in the visual tree as nodes
+  public data: any; //Main data displayed in the visual tree as nodes
   private dataCached: any;  // Used for filtering against quick search
   private rightClickedFile: any;
   //TODO: May not needed anymore? (may need replacing w/ rightClickedFile)
@@ -87,20 +87,20 @@ export class FileBrowserMVSComponent implements OnInit, OnDestroy {
   private deleteVsamSubscription: Subscription;
   //TODO: May not needed anymore? (could be cleaned up into deleteSubscription)
   private deleteNonVsamSubscription: Subscription;
-  private additionalQualifiers: boolean;
-  
+  public additionalQualifiers: boolean;
 
-  constructor(private elementRef:ElementRef,
-              private utils:UtilsService,
-              private mvsSearchHistory: SearchHistoryService,
-              private snackBar: MatSnackBar,
-              private datasetService: DatasetCrudService,
-              private downloadService:DownloaderService,
-              private dialog: MatDialog,
-              @Inject(Angular2InjectionTokens.LOGGER) private log: ZLUX.ComponentLogger,
-              @Inject(Angular2InjectionTokens.PLUGIN_DEFINITION) private pluginDefinition: ZLUX.ContainerPluginDefinition,
-              @Optional() @Inject(Angular2InjectionTokens.WINDOW_ACTIONS) private windowActions: Angular2PluginWindowActions
-             ) {
+
+  constructor(private elementRef: ElementRef,
+    private utils: UtilsService,
+    public mvsSearchHistory: SearchHistoryService,
+    public snackBar: MatSnackBar,
+    public datasetService: DatasetCrudService,
+    public downloadService: DownloaderService,
+    public dialog: MatDialog,
+    @Inject(Angular2InjectionTokens.LOGGER) private log: ZLUX.ComponentLogger,
+    @Inject(Angular2InjectionTokens.PLUGIN_DEFINITION) private pluginDefinition: ZLUX.ContainerPluginDefinition,
+    @Optional() @Inject(Angular2InjectionTokens.WINDOW_ACTIONS) private windowActions: Angular2PluginWindowActions
+  ) {
     /* TODO: Legacy, capabilities code (unused for now) */
     //this.componentClass = ComponentClass.FileBrowser;
     //this.initalizeCapabilities();
@@ -113,7 +113,7 @@ export class FileBrowserMVSComponent implements OnInit, OnDestroy {
     this.searchCtrl = new FormControl();
     this.searchValueSubscription = this.searchCtrl.valueChanges.pipe(
       debounceTime(500), // By default, 500 ms until user input, for quick search to update results
-    ).subscribe((value) => {this.searchInputChanged(value)});
+    ).subscribe((value) => { this.searchInputChanged(value) });
     this.selectedNode = null;
   }
 
@@ -141,7 +141,7 @@ export class FileBrowserMVSComponent implements OnInit, OnDestroy {
     //     this.getTreeForQueryAsync(this.path).then((response: any) => {
     //       let newData = response;
     //       this.updateTreeData(this.data, newData);
-          
+
     //       if (this.showSearch) {
     //         if (this.dataCached) {
     //           this.updateTreeData(this.dataCached, newData);
@@ -155,7 +155,7 @@ export class FileBrowserMVSComponent implements OnInit, OnDestroy {
     this.initializeRightClickProperties();
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     if (this.searchValueSubscription) {
       this.searchValueSubscription.unsubscribe();
     }
@@ -178,17 +178,17 @@ export class FileBrowserMVSComponent implements OnInit, OnDestroy {
   updateTreeData(destinationData: any, newData: any) {
     //Only update if data sets are added/removed
     // TODO: Add a more in-depth check for DS updates (check DS properties too?)
-    if(destinationData.length != newData.length){
+    if (destinationData.length != newData.length) {
       this.log.debug("Change in dataset count detected. Updating tree...");
       let expandedFolders = destinationData.filter(dataObj => dataObj.expanded);
       //checks if the query response contains the same PDS' that are currently expanded
       let newDataHasExpanded = newData.filter(dataObj => expandedFolders.some(expanded => expanded.label === dataObj.label));
       //Keep currently expanded datasets expanded after update
-      if(newDataHasExpanded.length > 0){
+      if (newDataHasExpanded.length > 0) {
         let expandedNewData = newData.map((obj) => {
           let retObj = {};
           newDataHasExpanded.forEach((expandedObj) => {
-            if(obj.label == expandedObj.label){
+            if (obj.label == expandedObj.label) {
               obj.expanded = true;
             }
             retObj = obj;
@@ -211,37 +211,55 @@ export class FileBrowserMVSComponent implements OnInit, OnDestroy {
 
   initializeRightClickProperties() {
     this.rightClickPropertiesDatasetFile = [
-      { text: "Request Open in New Browser Tab", action:() => {
-        this.openInNewTab.emit(this.rightClickedFile);
-      }},
-      { text: "Copy Link", action:() => {
-        this.copyLink(this.rightClickedFile);
-      }},
-      { text: "Properties", action:() => { 
-        this.showPropertiesDialog(this.rightClickedFile);
-      }},
-      { text: "Delete", action:() => { 
-        this.showDeleteDialog(this.rightClickedFile); 
-      }},
-      { text: "Download", action:() => { 
-        this.attemptDownload(this.rightClickedFile); 
-      }}
+      {
+        text: "Request Open in New Browser Tab", action: () => {
+          this.openInNewTab.emit(this.rightClickedFile);
+        }
+      },
+      {
+        text: "Copy Link", action: () => {
+          this.copyLink(this.rightClickedFile);
+        }
+      },
+      {
+        text: "Properties", action: () => {
+          this.showPropertiesDialog(this.rightClickedFile);
+        }
+      },
+      {
+        text: "Delete", action: () => {
+          this.showDeleteDialog(this.rightClickedFile);
+        }
+      },
+      {
+        text: "Download", action: () => {
+          this.attemptDownload(this.rightClickedFile);
+        }
+      }
     ];
     this.rightClickPropertiesDatasetFolder = [
-      { text: "Copy Link", action:() => {
-        this.copyLink(this.rightClickedFile);
-      }},
-      { text: "Properties", action:() => { 
-        this.showPropertiesDialog(this.rightClickedFile);
-      }},
-      { text: "Delete", action:() => { 
-        this.showDeleteDialog(this.rightClickedFile);
-      }}
+      {
+        text: "Copy Link", action: () => {
+          this.copyLink(this.rightClickedFile);
+        }
+      },
+      {
+        text: "Properties", action: () => {
+          this.showPropertiesDialog(this.rightClickedFile);
+        }
+      },
+      {
+        text: "Delete", action: () => {
+          this.showDeleteDialog(this.rightClickedFile);
+        }
+      }
     ];
     this.rightClickPropertiesPanel = [
-      { text: "Show/Hide Search", action:() => { 
-        this.toggleSearch();
-      }}
+      {
+        text: "Show/Hide Search", action: () => {
+          this.toggleSearch();
+        }
+      }
     ];
   }
 
@@ -256,7 +274,7 @@ export class FileBrowserMVSComponent implements OnInit, OnDestroy {
       width: '600px'
     }
 
-    let fileDeleteRef:MatDialogRef<DeleteFileModal> = this.dialog.open(DeleteFileModal, fileDeleteConfig);
+    let fileDeleteRef: MatDialogRef<DeleteFileModal> = this.dialog.open(DeleteFileModal, fileDeleteConfig);
     this.deleteSubscription = fileDeleteRef.componentInstance.onDelete.subscribe(() => {
       let vsamCSITypes = ['R', 'D', 'G', 'I', 'C'];
       if (vsamCSITypes.indexOf(rightClickedFile.data.datasetAttrs.csiEntryType) != -1) {
@@ -272,42 +290,42 @@ export class FileBrowserMVSComponent implements OnInit, OnDestroy {
     this.deletionQueue.set(rightClickedFile.data.path, rightClickedFile);
     rightClickedFile.styleClass = CSS_NODE_DELETING;
     this.deleteNonVsamSubscription = this.datasetService.deleteNonVsamDatasetOrMember(rightClickedFile)
-    .subscribe(
-      resp => {
-        this.isLoading = false;
-        this.snackBar.open(resp.msg,
-        'Dismiss', defaultSnackbarOptions);
-        this.removeChild(rightClickedFile);
-        this.deletionQueue.delete(rightClickedFile.data.path);
-        rightClickedFile.styleClass = "";
-        this.deleteClick.emit(this.rightClickedEvent.node);
-      },
-      error => {
-        if (error.status == '500') { //Internal Server Error
-          this.snackBar.open("Failed to delete: '" + rightClickedFile.data.path + "' This is probably due to a server agent problem.",
-          'Dismiss', defaultSnackbarOptions);
-        } else if (error.status == '404') { //Not Found
-          this.snackBar.open(rightClickedFile.data.path + ' has already been deleted or does not exist.', 
-          'Dismiss', defaultSnackbarOptions);
+      .subscribe(
+        resp => {
+          this.isLoading = false;
+          this.snackBar.open(resp.msg,
+            'Dismiss', defaultSnackbarOptions);
           this.removeChild(rightClickedFile);
-        } else if (error.status == '400') { //Bad Request
-          this.snackBar.open("Failed to delete '" + rightClickedFile.data.path + "' This is probably due to a permission problem.",
-          'Dismiss', defaultSnackbarOptions);
-        } else { //Unknown
-          this.snackBar.open("Unknown error '" + error.status + "' occurred for: " + rightClickedFile.data.path, 
-          'Dismiss', longSnackbarOptions);
-          // Error info gets printed in uss.crud.service.ts
+          this.deletionQueue.delete(rightClickedFile.data.path);
+          rightClickedFile.styleClass = "";
+          this.deleteClick.emit(this.rightClickedEvent.node);
+        },
+        error => {
+          if (error.status == '500') { //Internal Server Error
+            this.snackBar.open("Failed to delete: '" + rightClickedFile.data.path + "' This is probably due to a server agent problem.",
+              'Dismiss', defaultSnackbarOptions);
+          } else if (error.status == '404') { //Not Found
+            this.snackBar.open(rightClickedFile.data.path + ' has already been deleted or does not exist.',
+              'Dismiss', defaultSnackbarOptions);
+            this.removeChild(rightClickedFile);
+          } else if (error.status == '400') { //Bad Request
+            this.snackBar.open("Failed to delete '" + rightClickedFile.data.path + "' This is probably due to a permission problem.",
+              'Dismiss', defaultSnackbarOptions);
+          } else { //Unknown
+            this.snackBar.open("Unknown error '" + error.status + "' occurred for: " + rightClickedFile.data.path,
+              'Dismiss', longSnackbarOptions);
+            // Error info gets printed in uss.crud.service.ts
+          }
+          this.deletionQueue.delete(rightClickedFile.data.path);
+          this.isLoading = false;
+          rightClickedFile.styleClass = "";
+          this.log.severe(error);
         }
-        this.deletionQueue.delete(rightClickedFile.data.path);
-        this.isLoading = false;
-        rightClickedFile.styleClass = "";
-        this.log.severe(error);
-      }
-    );
+      );
 
     setTimeout(() => {
       if (this.deleteNonVsamSubscription.closed == false) {
-        this.snackBar.open('Deleting ' + rightClickedFile.data.path + '... Larger payloads may take longer. Please be patient.', 
+        this.snackBar.open('Deleting ' + rightClickedFile.data.path + '... Larger payloads may take longer. Please be patient.',
           'Dismiss', quickSnackbarOptions);
       }
     }, 4000);
@@ -318,46 +336,46 @@ export class FileBrowserMVSComponent implements OnInit, OnDestroy {
     this.deletionQueue.set(rightClickedFile.data.path, rightClickedFile);
     rightClickedFile.styleClass = CSS_NODE_DELETING;
     this.deleteVsamSubscription = this.datasetService.deleteVsamDataset(rightClickedFile)
-    .subscribe(
-      resp => {
-        this.isLoading = false;
-        this.snackBar.open(resp.msg,
-        'Dismiss', defaultSnackbarOptions);
-        //Update vs removing node since symbolicly linked data/index of vsam can be named anything
-        this.updateTreeView(this.path);
-        this.deletionQueue.delete(rightClickedFile.data.path);
-        rightClickedFile.styleClass = "";
-        this.deleteClick.emit(this.rightClickedEvent.node);
-      },
-      error => {
-        if (error.status == '500') { //Internal Server Error
-          this.snackBar.open("Failed to delete: '" + rightClickedFile.data.path + "' This is probably due to a server agent problem.",
-          'Dismiss', defaultSnackbarOptions);
-        } else if (error.status == '404') { //Not Found
-          this.snackBar.open(rightClickedFile.data.path + ' has already been deleted or does not exist.', 
-          'Dismiss', defaultSnackbarOptions);
+      .subscribe(
+        resp => {
+          this.isLoading = false;
+          this.snackBar.open(resp.msg,
+            'Dismiss', defaultSnackbarOptions);
+          //Update vs removing node since symbolicly linked data/index of vsam can be named anything
           this.updateTreeView(this.path);
-        } else if (error.status == '400') { //Bad Request
-          this.snackBar.open("Failed to delete '" + rightClickedFile.data.path + "' This is probably due to a permission problem.",
-          'Dismiss', defaultSnackbarOptions);
-        } else if (error.status == '403') { //Bad Request
-          this.snackBar.open("Failed to delete '" + rightClickedFile.data.path + "'" + ". " + JSON.parse(error._body)['msg'],
-          'Dismiss', defaultSnackbarOptions);
-        } else { //Unknown
-          this.snackBar.open("Unknown error '" + error.status + "' occurred for: " + rightClickedFile.data.path, 
-          'Dismiss', longSnackbarOptions);
-          //Error info gets printed in uss.crud.service.ts
+          this.deletionQueue.delete(rightClickedFile.data.path);
+          rightClickedFile.styleClass = "";
+          this.deleteClick.emit(this.rightClickedEvent.node);
+        },
+        error => {
+          if (error.status == '500') { //Internal Server Error
+            this.snackBar.open("Failed to delete: '" + rightClickedFile.data.path + "' This is probably due to a server agent problem.",
+              'Dismiss', defaultSnackbarOptions);
+          } else if (error.status == '404') { //Not Found
+            this.snackBar.open(rightClickedFile.data.path + ' has already been deleted or does not exist.',
+              'Dismiss', defaultSnackbarOptions);
+            this.updateTreeView(this.path);
+          } else if (error.status == '400') { //Bad Request
+            this.snackBar.open("Failed to delete '" + rightClickedFile.data.path + "' This is probably due to a permission problem.",
+              'Dismiss', defaultSnackbarOptions);
+          } else if (error.status == '403') { //Bad Request
+            this.snackBar.open("Failed to delete '" + rightClickedFile.data.path + "'" + ". " + JSON.parse(error._body)['msg'],
+              'Dismiss', defaultSnackbarOptions);
+          } else { //Unknown
+            this.snackBar.open("Unknown error '" + error.status + "' occurred for: " + rightClickedFile.data.path,
+              'Dismiss', longSnackbarOptions);
+            //Error info gets printed in uss.crud.service.ts
+          }
+          this.deletionQueue.delete(rightClickedFile.data.path);
+          this.isLoading = false;
+          rightClickedFile.styleClass = "";
+          this.log.severe(error);
         }
-        this.deletionQueue.delete(rightClickedFile.data.path);
-        this.isLoading = false;
-        rightClickedFile.styleClass = "";
-        this.log.severe(error);
-      }
-    );
+      );
 
     setTimeout(() => {
       if (this.deleteVsamSubscription.closed == false) {
-        this.snackBar.open('Deleting ' + rightClickedFile.data.path + '... Larger payloads may take longer. Please be patient.', 
+        this.snackBar.open('Deleting ' + rightClickedFile.data.path + '... Larger payloads may take longer. Please be patient.',
           'Dismiss', quickSnackbarOptions);
       }
     }, 4000);
@@ -423,17 +441,17 @@ export class FileBrowserMVSComponent implements OnInit, OnDestroy {
     let dataset = rightClickedFile.data.path;
     let filename = rightClickedFile.label;
     let downloadObject = rightClickedFile;
-    let url:string = ZoweZLUX.uriBroker.datasetContentsUri(dataset);
+    let url: string = ZoweZLUX.uriBroker.datasetContentsUri(dataset);
 
-    this.downloadService.fetchFileHandler(url,filename, downloadObject).then((res) => {
-                    // TODO: Download queue code for progress bar could go here
-                });
+    this.downloadService.fetchFileHandler(url, filename, downloadObject).then((res) => {
+      // TODO: Download queue code for progress bar could go here
+    });
   }
 
   copyLink(rightClickedFile: any) {
     let link = '';
-    if(rightClickedFile.type == 'file'){
-       link = `${window.location.origin}${window.location.pathname}?pluginId=${this.pluginDefinition.getBasePlugin().getIdentifier()}:data:${encodeURIComponent(`{"type":"openDataset","name":"${rightClickedFile.data.path}","toggleTree":true}`)}`;
+    if (rightClickedFile.type == 'file') {
+      link = `${window.location.origin}${window.location.pathname}?pluginId=${this.pluginDefinition.getBasePlugin().getIdentifier()}:data:${encodeURIComponent(`{"type":"openDataset","name":"${rightClickedFile.data.path}","toggleTree":true}`)}`;
     } else {
       link = `${window.location.origin}${window.location.pathname}?pluginId=${this.pluginDefinition.getBasePlugin().getIdentifier()}:data:${encodeURIComponent(`{"type":"openDSList","name":"${rightClickedFile.data.path}","toggleTree":false}`)}`;
     }
@@ -487,7 +505,7 @@ export class FileBrowserMVSComponent implements OnInit, OnDestroy {
   searchInputChanged(input: string) {
     input = input.toUpperCase(); // Client-side the DS are uppercase
     if (this.dataCached) {
-      this.data = _.cloneDeep(this.dataCached); 
+      this.data = _.cloneDeep(this.dataCached);
     }
     this.filterNodesByLabel(this.data, input);
   }
@@ -503,25 +521,25 @@ export class FileBrowserMVSComponent implements OnInit, OnDestroy {
           i--;
         } // TODO: Refactor ".data" of USS node and ".type" of DS node to be the same thing 
         else if (data[i].type = "folder") { // If some children didn't get filtered out (aka we got some matches) and we have a folder
-        // then we want to expand the node so the user can see their results in the search bar
+          // then we want to expand the node so the user can see their results in the search bar
           data[i].expanded = true;
         }
       }
     }
   }
 
-  getDOMElement(): HTMLElement{
+  getDOMElement(): HTMLElement {
     return this.elementRef.nativeElement;
   }
 
-  getSelectedPath(): string{
+  getSelectedPath(): string {
     //TODO:how do we want to want to handle caching vs message to app to open said path
     return this.path;
   }
 
-  onNodeClick($event: any): void{
+  onNodeClick($event: any): void {
     this.selectedNode = $event.node;
-    if($event.node.type == 'folder'){
+    if ($event.node.type == 'folder') {
       $event.node.expanded = !$event.node.expanded;
       if (this.showSearch) { // Update search bar cached data
         let nodeCached = this.findNodeByPath(this.dataCached, $event.node.data.path)[0];
@@ -554,10 +572,10 @@ export class FileBrowserMVSComponent implements OnInit, OnDestroy {
     }
     this.nodeClick.emit($event.node);
   }
-    
-  onNodeDblClick($event: any): void{
+
+  onNodeDblClick($event: any): void {
     this.selectedNode = $event.node;
-    if(this.selectedNode.data?.hasChildren && this.selectedNode.children?.length > 0){
+    if (this.selectedNode.data?.hasChildren && this.selectedNode.children?.length > 0) {
       this.path = $event.node.data.path;
       if (this.path) {
         this.getTreeForQueryAsync(this.path).then((res) => {
@@ -572,13 +590,13 @@ export class FileBrowserMVSComponent implements OnInit, OnDestroy {
     this.nodeDblClick.emit($event.node);
   }
 
-  onNodeRightClick(event:any) {
+  onNodeRightClick(event: any) {
     let node = event.node;
     let rightClickProperties;
-    if(node.type === 'file'){
+    if (node.type === 'file') {
       rightClickProperties = this.rightClickPropertiesDatasetFile;
     }
-    else{
+    else {
       rightClickProperties = this.rightClickPropertiesDatasetFolder;
     }
     if (this.windowActions) {
@@ -593,7 +611,7 @@ export class FileBrowserMVSComponent implements OnInit, OnDestroy {
     this.rightClickedFile = node;
     this.rightClickedEvent = event;
     this.rightClick.emit(event.node);
-    event.originalEvent.preventDefault(); 
+    event.originalEvent.preventDefault();
   }
 
   onPanelRightClick($event: any) {
@@ -610,7 +628,7 @@ export class FileBrowserMVSComponent implements OnInit, OnDestroy {
   collapseTree(): void {
     let dataArray = this.data;
     for (let i: number = 0; i < dataArray.length; i++) {
-      if(this.data[i].expanded == true){
+      if (this.data[i].expanded == true) {
         this.data[i].expanded = false;
       }
     }
@@ -626,17 +644,17 @@ export class FileBrowserMVSComponent implements OnInit, OnDestroy {
       }
     }, (error) => {
       if (error.status == '0') {
-        this.snackBar.open("Failed to communicate with the App server: " + error.status, 
-            'Dismiss', defaultSnackbarOptions);
+        this.snackBar.open("Failed to communicate with the App server: " + error.status,
+          'Dismiss', defaultSnackbarOptions);
       } else if (error.status == '400' && path == '') {
-        this.snackBar.open("No dataset name specified: " + error.status, 
-            'Dismiss', defaultSnackbarOptions);
+        this.snackBar.open("No dataset name specified: " + error.status,
+          'Dismiss', defaultSnackbarOptions);
       } else if (error.status == '400') {
-        this.snackBar.open("Bad request: " + error.status, 
-            'Dismiss', defaultSnackbarOptions);
+        this.snackBar.open("Bad request: " + error.status,
+          'Dismiss', defaultSnackbarOptions);
       } else {
-        this.snackBar.open("An unknown error occurred: " + error.status, 
-            'Dismiss', defaultSnackbarOptions);
+        this.snackBar.open("An unknown error occurred: " + error.status,
+          'Dismiss', defaultSnackbarOptions);
       }
       this.log.severe(error);
     });
@@ -655,7 +673,7 @@ export class FileBrowserMVSComponent implements OnInit, OnDestroy {
   setPath(path: any) {
     this.path = path;
   }
-  
+
   getTreeForQueryAsync(path: string): Promise<any> {
     return new Promise((resolve, reject) => {
       this.isLoading = true;
@@ -663,9 +681,9 @@ export class FileBrowserMVSComponent implements OnInit, OnDestroy {
         this.onDataChanged(res);
         let parents: TreeNode[] = [];
         let parentMap = {};
-        if(res.datasets.length > 0){
-          for(let i:number = 0; i < res.datasets.length; i++){
-            let currentNode:TreeNode = {};
+        if (res.datasets.length > 0) {
+          for (let i: number = 0; i < res.datasets.length; i++) {
+            let currentNode: TreeNode = {};
             currentNode.children = [];
             currentNode.label = res.datasets[i].name.replace(/^\s+|\s+$/, '');
             //data.id attribute is not used by either parent or child, but required as part of the ProjectStructure interface
@@ -686,17 +704,17 @@ export class FileBrowserMVSComponent implements OnInit, OnDestroy {
             };
             currentNode.data = currentNodeData;
             let migrated = this.utils.isDatasetMigrated(currentNode.data.datasetAttrs);
-            if(currentNode.data.datasetAttrs.dsorg
-                && currentNode.data.datasetAttrs.dsorg.organization === 'partitioned'){
+            if (currentNode.data.datasetAttrs.dsorg
+              && currentNode.data.datasetAttrs.dsorg.organization === 'partitioned') {
               currentNode.type = 'folder';
               currentNode.expanded = false;
-              if(migrated){
+              if (migrated) {
                 currentNode.icon = 'fa fa-clock-o';
               } else {
                 currentNode.expandedIcon = 'fa fa-folder-open';
                 currentNode.collapsedIcon = 'fa fa-folder';
               }
-              if(res.datasets[i].members){
+              if (res.datasets[i].members) {
                 currentNode.data.hasChildren = true;
                 this.addChildren(currentNode, res.datasets[i].members);
               }
@@ -709,7 +727,7 @@ export class FileBrowserMVSComponent implements OnInit, OnDestroy {
           }
           this.isLoading = false;
         } else {
-          this.snackBar.open("No datasets were found for '" + path + "'", 
+          this.snackBar.open("No datasets were found for '" + path + "'",
             'Dismiss', quickSnackbarOptions);
           //data set probably doesnt exist
           this.isLoading = false;
@@ -722,8 +740,8 @@ export class FileBrowserMVSComponent implements OnInit, OnDestroy {
     })
   }
 
-  addChildren(parentNode: TreeNode, members: Member[]): void{
-    for(let i: number = 0; i < members.length; i++){
+  addChildren(parentNode: TreeNode, members: Member[]): void {
+    for (let i: number = 0; i < members.length; i++) {
       let childNode: TreeNode = {};
       childNode.type = 'file';
       childNode.icon = 'fa fa-file';
@@ -759,12 +777,12 @@ export class FileBrowserMVSComponent implements OnInit, OnDestroy {
     }
   }
 
-  refreshHistory(path:string) {
+  refreshHistory(path: string) {
     const sub = this.mvsSearchHistory
-                  .saveSearchHistory(path)
-                  .subscribe(()=>{
-                    if(sub) sub.unsubscribe();
-                  });
+      .saveSearchHistory(path)
+      .subscribe(() => {
+        if (sub) sub.unsubscribe();
+      });
   }
 
   clearSearchHistory(): void {
@@ -772,16 +790,16 @@ export class FileBrowserMVSComponent implements OnInit, OnDestroy {
     this.mvsSearchHistory.onInit(SEARCH_ID);
   }
 
-/**
-* [levelUp: function to ascend up a level in the file/folder tree]
-* @param index [tree index where the 'folder' parent is accessed]
-*/
-  levelUp(): void{
-    if(!this.path.includes('.')){
+  /**
+  * [levelUp: function to ascend up a level in the file/folder tree]
+  * @param index [tree index where the 'folder' parent is accessed]
+  */
+  levelUp(): void {
+    if (!this.path.includes('.')) {
       this.path = '';
     }
     let regex = new RegExp(/\.[^\.]+$/);
-    if(this.path.substr(this.path.length - 2, 2) == '.*'){
+    if (this.path.substr(this.path.length - 2, 2) == '.*') {
       this.path = this.path.replace(regex, '').replace(regex, '.*');
     } else {
       this.path = this.path.replace(regex, '.*')
@@ -791,10 +809,10 @@ export class FileBrowserMVSComponent implements OnInit, OnDestroy {
 
   checkIfInDeletionQueueAndMessage(pathAndName: string, message: string): boolean {
     if (this.deletionQueue.has(pathAndName)) {
-      this.snackBar.open('Deletion in progress: ' + pathAndName + "' " + message, 
-            'Dismiss', defaultSnackbarOptions);
+      this.snackBar.open('Deletion in progress: ' + pathAndName + "' " + message,
+        'Dismiss', defaultSnackbarOptions);
       return true;
-    } 
+    }
     return false;
   }
 
@@ -827,20 +845,20 @@ export class FileBrowserMVSComponent implements OnInit, OnDestroy {
           close: 'true'
         }
 
-        if(attributes.averageRecordUnit) {
+        if (attributes.averageRecordUnit) {
           datasetAttributes['avgr'] = attributes.averageRecordUnit;
         }
-        if(attributes.blockSize) {
+        if (attributes.blockSize) {
           datasetAttributes['blksz'] = parseInt(attributes.blockSize);
         }
 
         this.datasetService.createDataset(datasetAttributes, attributes.name).subscribe(resp => {
           this.snackBar.open(`Dataset: ${attributes.name} created successfully.`, 'Dismiss', quickSnackbarOptions);
-          this.createDataset.emit({status: 'success', name: attributes.name, org: attributes.organization, initData: dsCreateConfig.data.data});
+          this.createDataset.emit({ status: 'success', name: attributes.name, org: attributes.organization, initData: dsCreateConfig.data.data });
         }, error => {
           this.snackBar.open(`Failed to create the dataset: ${error.error}`, 'Dismiss', longSnackbarOptions);
-          this.createDataset.emit({status: 'error', error: error.error, name: attributes.name});
-          }
+          this.createDataset.emit({ status: 'error', error: error.error, name: attributes.name });
+        }
         );
       }
     });

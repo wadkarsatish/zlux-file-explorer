@@ -12,11 +12,11 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { findFileTagByCodeset, FileTag } from '../../shared/file-tag';
 
+import './file-properties-modal.component.scss';
+import '../../../../src/app/shared/modal.component.scss';
 @Component({
   selector: 'file-properties-modal',
-  templateUrl: './file-properties-modal.component.html',
-  styleUrls: ['./file-properties-modal.component.scss',
-  '../../../../src/app/shared/modal.component.scss'],
+  templateUrl: './file-properties-modal.component.html'
 })
 export class FilePropertiesModal implements OnInit {
 
@@ -34,8 +34,7 @@ export class FilePropertiesModal implements OnInit {
 
   constructor(
     @Inject(MAT_DIALOG_DATA) data,
-  ) 
-  {
+  ) {
     const node = data.event;
     this.fileName = node.name;
     this.fileCreatedAt = node.createdAt;

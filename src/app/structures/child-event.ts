@@ -10,7 +10,7 @@
   Copyright Contributors to the Zowe Project.
 */
 
-import {TreeNode} from 'primeng/primeng';
+import {TreeNode} from 'primeng/api/treenode';
 
 export class FileTreeNode implements TreeNode { 
   public label: string;

@@ -12,6 +12,8 @@ import { MatSelect } from '@angular/material/select';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CustomErrorStateMatcher } from '../../shared/error-state-matcher';
 
+import './create-dataset-modal.component.scss';
+import '../../../../src/app/shared/modal.component.scss';
 interface templateParams {
   allocationUnit: string,
   primarySpace: string,
@@ -25,7 +27,7 @@ interface dsntParams {
   organization: string;
 }
 
-const TEMPLATE = new Map<string, templateParams> ([
+const TEMPLATE = new Map<string, templateParams>([
   ['JCL', {
     allocationUnit: 'TRK',
     primarySpace: '300',
@@ -60,7 +62,7 @@ const TEMPLATE = new Map<string, templateParams> ([
   }],
 ]);
 
-const DATASETNAMETYPE = new Map<string, dsntParams> ([
+const DATASETNAMETYPE = new Map<string, dsntParams>([
   ['PDS', {
     organization: 'PO',
   }],
@@ -77,12 +79,10 @@ const DATASETNAMETYPE = new Map<string, dsntParams> ([
 
 @Component({
   selector: 'create-dataset-modal',
-  templateUrl: './create-dataset-modal.component.html',
-  styleUrls: ['./create-dataset-modal.component.scss',
-  '../../../../src/app/shared/modal.component.scss']
+  templateUrl: './create-dataset-modal.component.html'
 })
 export class CreateDatasetModal {
-  private properties = {
+  public properties = {
     template: '',
     name: '',
     allocationUnit: '',
@@ -96,34 +96,34 @@ export class CreateDatasetModal {
     datasetNameType: '',
     organization: ''
   };
-  private numericPattern: string;
-  private numericPatternExZero: string;
-  private datasetNamePattern: string;
-  private alphaNumericPattern: string;
-  private templateOptions: string[];
-  private allocationUnitOptions: string[];
-  private datasetNameTypeOptions: string[];
-  private recordFormatOptions: string[];
-  private organizationOptions: string[];
-  private recordUnitOptions: string[];
-  private matcher = new CustomErrorStateMatcher();
-  private isDirBlockValid: boolean = true;
-  private dirBlockError: string;
-  private dirBlockTouched: boolean = false;
-  private isPrimeSpaceValid: boolean = true;
-  private isSecondSpaceValid: boolean = true;
-  private isRecLengthValid: boolean = true;
-  private isBlockSizeValid: boolean = true;
-  private primarySpaceError: string = "Primary space value cannot be more than '16777215' ";
-  private secondarySpaceError: string = "Secondary space value cannot be more than '16777215' ";
-  private recordLengthError: string = "Record length cannot be more than '32760' bytes";
-  private blockSizeError: string = "Block size cannot be more than '32760' bytes";
-  private isRecordFormatValid: boolean = true;
-  private recordFormatErrorMessage: string;
-  private blockSizeTouched: boolean = false;
-  private isAllocUnitValid: boolean = true;
-  private allocUnitErrorMessage: string = "If allocation unit is 'BLK' then record format must be blocked type: FB, VB, VBA";
-  private isRecFormatTouched: boolean = false;
+  public numericPattern: string;
+  public numericPatternExZero: string;
+  public datasetNamePattern: string;
+  public alphaNumericPattern: string;
+  public templateOptions: string[];
+  public allocationUnitOptions: string[];
+  public datasetNameTypeOptions: string[];
+  public recordFormatOptions: string[];
+  public organizationOptions: string[];
+  public recordUnitOptions: string[];
+  public matcher = new CustomErrorStateMatcher();
+  public isDirBlockValid: boolean = true;
+  public dirBlockError: string;
+  public dirBlockTouched: boolean = false;
+  public isPrimeSpaceValid: boolean = true;
+  public isSecondSpaceValid: boolean = true;
+  public isRecLengthValid: boolean = true;
+  public isBlockSizeValid: boolean = true;
+  public primarySpaceError: string = "Primary space value cannot be more than '16777215' ";
+  public secondarySpaceError: string = "Secondary space value cannot be more than '16777215' ";
+  public recordLengthError: string = "Record length cannot be more than '32760' bytes";
+  public blockSizeError: string = "Block size cannot be more than '32760' bytes";
+  public isRecordFormatValid: boolean = true;
+  public recordFormatErrorMessage: string;
+  public blockSizeTouched: boolean = false;
+  public isAllocUnitValid: boolean = true;
+  public allocUnitErrorMessage: string = "If allocation unit is 'BLK' then record format must be blocked type: FB, VB, VBA";
+  public isRecFormatTouched: boolean = false;
 
   @ViewChild('dirblocks') dirblocks: ElementRef;
   @ViewChild('primeSpace') primeSpace: ElementRef;
@@ -134,8 +134,8 @@ export class CreateDatasetModal {
   @ViewChild('dsorg') dsorg: ElementRef;
 
 
-  constructor(private el: ElementRef, @Inject(MAT_DIALOG_DATA) data ) {
-    if(data && data.data) {
+  constructor(private el: ElementRef, @Inject(MAT_DIALOG_DATA) data) {
+    if (data && data.data) {
       this.properties.name = data.data.dsName;
       this.properties.datasetNameType = data.data.dsNameType;
       this.properties.organization = data.data.dsOrg;
@@ -147,12 +147,12 @@ export class CreateDatasetModal {
     this.numericPatternExZero = "^[1-9][0-9]*$";
     this.datasetNamePattern = "^[a-zA-Z#$@][a-zA-Z0-9#$@-]{0,7}([.][a-zA-Z#$@][a-zA-Z0-9#$@-]{0,7}){0,21}$";
     this.alphaNumericPattern = "^[a-zA-Z0-9]*$";
-    this.templateOptions = ['JCL','COBOL','PLX', 'XML'];
-    this.allocationUnitOptions = ['BLK','TRK','CYL', 'KB', 'MB', 'BYTE', 'RECORD'];
+    this.templateOptions = ['JCL', 'COBOL', 'PLX', 'XML'];
+    this.allocationUnitOptions = ['BLK', 'TRK', 'CYL', 'KB', 'MB', 'BYTE', 'RECORD'];
     this.recordFormatOptions = ['F', 'FB', 'V', 'VB', 'VBA', 'U'];
-    this.datasetNameTypeOptions = ['PDS','LIBRARY', 'BASIC', 'LARGE'];
+    this.datasetNameTypeOptions = ['PDS', 'LIBRARY', 'BASIC', 'LARGE'];
     this.organizationOptions = ['PS', 'PO'];
-    this.recordUnitOptions = ['U', 'K', 'M', ];
+    this.recordUnitOptions = ['U', 'K', 'M',];
     this.properties.template = '';
     this.properties.averageRecordUnit = '';
   }
@@ -167,17 +167,17 @@ export class CreateDatasetModal {
       this.dsorg.nativeElement.setAttribute('style', 'margin-bottom: 0px; border-bottom: 0px');
     }, 3000)
 
-    if(!datasetNameType) {
+    if (!datasetNameType) {
       this.properties.organization = 'PS';
     } else {
       this.properties.organization = DATASETNAMETYPE.get(datasetNameType)?.organization;
     }
-    if(this.dirBlockTouched) {
+    if (this.dirBlockTouched) {
       this.checkForValidDirBlockCombination();
     }
   }
 
-  setTemplateProperties(template: string): void  {
+  setTemplateProperties(template: string): void {
     this.dirblocks.nativeElement.setAttribute('style', 'margin-bottom: -7px; border-bottom: 2px solid #000099');
     this.allocUnit._elementRef.nativeElement.setAttribute('style', 'padding-bottom: 5px; margin-bottom: -7px; border-bottom: 2px solid #000099');
     this.primeSpace.nativeElement.setAttribute('style', 'margin-bottom: -6px; border-bottom: 2px solid #000099');
@@ -196,7 +196,7 @@ export class CreateDatasetModal {
 
     this.dirBlockTouched = true;
 
-    if(!template) {
+    if (!template) {
       this.properties.allocationUnit = '';
       this.properties.primarySpace = '';
       this.properties.secondarySpace = '';
@@ -208,12 +208,12 @@ export class CreateDatasetModal {
     this.properties.allocationUnit = TEMPLATE.get(template).allocationUnit;
     this.properties.primarySpace = TEMPLATE.get(template).primarySpace;
     this.properties.secondarySpace = TEMPLATE.get(template).secondarySpace;
-    if(this.properties.organization == 'PS') {
+    if (this.properties.organization == 'PS') {
       this.properties.directoryBlocks = '0';
     } else {
       this.properties.directoryBlocks = TEMPLATE.get(template).directoryBlocks;
     }
-    this.isDirBlockValid=true;
+    this.isDirBlockValid = true;
     this.properties.recordFormat = TEMPLATE.get(template).recordFormat;
     this.properties.recordLength = TEMPLATE.get(template).recordLength;
     this.checkForValidDirBlockCombination();
@@ -224,7 +224,7 @@ export class CreateDatasetModal {
 
   onDirBlockChange(value): void {
     this.dirBlockTouched = true;
-    if(parseInt(this.properties.directoryBlocks) > 16777215) {
+    if (parseInt(this.properties.directoryBlocks) > 16777215) {
       this.isDirBlockValid = false;
       this.dirBlockError = 'Directory blocks cannot be more than 16777215';
     } else {
@@ -232,11 +232,11 @@ export class CreateDatasetModal {
     }
   }
 
-  checkForValidDirBlockCombination():void {
-    if(this.properties.organization == 'PS') {
-      if(this.properties.directoryBlocks == '') {
+  checkForValidDirBlockCombination(): void {
+    if (this.properties.organization == 'PS') {
+      if (this.properties.directoryBlocks == '') {
         this.isDirBlockValid = true;
-      } else if(parseInt(this.properties.directoryBlocks) > 0){
+      } else if (parseInt(this.properties.directoryBlocks) > 0) {
         this.isDirBlockValid = false;
         this.dirBlockError = 'Directory blocks must be 0 for the sequential dataset';
       } else {
@@ -244,10 +244,10 @@ export class CreateDatasetModal {
       }
     }
 
-    if(this.properties.organization == 'PO') {
-      if(this.properties.directoryBlocks == '') {
+    if (this.properties.organization == 'PO') {
+      if (this.properties.directoryBlocks == '') {
         this.isDirBlockValid = true;
-      } else if(parseInt(this.properties.directoryBlocks) < 1) {
+      } else if (parseInt(this.properties.directoryBlocks) < 1) {
         this.isDirBlockValid = false;
         this.dirBlockError = 'Directory blocks must be greater than 0 for the partitioned dataset';
       } else {
@@ -265,7 +265,7 @@ export class CreateDatasetModal {
         this.isRecordFormatValid = true;
       }
     }
-    if(this.properties.recordFormat == 'FB') {
+    if (this.properties.recordFormat == 'FB') {
       if (this.properties.blockSize !== '' && (parseInt(this.properties.blockSize) % parseInt(this.properties.recordLength)) != 0) {
         this.isRecordFormatValid = false;
         this.recordFormatErrorMessage = 'Block size must be a multiple of the record length for fixed blocked record format';
@@ -274,7 +274,7 @@ export class CreateDatasetModal {
       }
     }
     if (this.properties.recordFormat == 'V' || this.properties.recordFormat == 'VB') {
-      if (this.properties.blockSize !== '' && parseInt(this.properties.blockSize) < (parseInt(this.properties.recordLength)+4)) {
+      if (this.properties.blockSize !== '' && parseInt(this.properties.blockSize) < (parseInt(this.properties.recordLength) + 4)) {
         this.isRecordFormatValid = false;
         this.recordFormatErrorMessage = 'Block size must be atleast 4 more than the record length for V, VB, VBA record format';
       } else {
@@ -285,7 +285,7 @@ export class CreateDatasetModal {
       if (parseInt(this.properties.recordLength) < 5) {
         this.isRecordFormatValid = false;
         this.recordFormatErrorMessage = 'Record length must be atleast 5 for VBA record format';
-      } else if (this.properties.blockSize !== '' && parseInt(this.properties.blockSize) < (parseInt(this.properties.recordLength)+4)) {
+      } else if (this.properties.blockSize !== '' && parseInt(this.properties.blockSize) < (parseInt(this.properties.recordLength) + 4)) {
         this.isRecordFormatValid = false;
         this.recordFormatErrorMessage = 'Block size must be atleast 4 more than the record length for V, VB, VBA record format';
       } else {
@@ -293,18 +293,18 @@ export class CreateDatasetModal {
       }
     }
     if (this.properties.recordFormat == 'U') {
-     if (parseInt(this.properties.recordLength) > 0) {
-      this.isRecordFormatValid = false;
-      this.recordFormatErrorMessage = 'Record length must be equal to 0 for undefined record format';
-     } else {
-      this.isRecordFormatValid = true;
-     }
+      if (parseInt(this.properties.recordLength) > 0) {
+        this.isRecordFormatValid = false;
+        this.recordFormatErrorMessage = 'Record length must be equal to 0 for undefined record format';
+      } else {
+        this.isRecordFormatValid = true;
+      }
     }
   }
 
   checkForValidAllocUnitCombination(): void {
     if (this.properties.allocationUnit == 'BLK') {
-      if (this.properties.recordFormat !== 'FB' && this.properties.recordFormat !== 'VB' && this.properties.recordFormat !== 'VBA' ) {
+      if (this.properties.recordFormat !== 'FB' && this.properties.recordFormat !== 'VB' && this.properties.recordFormat !== 'VBA') {
         this.isAllocUnitValid = false;
       } else {
         this.isAllocUnitValid = true;
@@ -315,7 +315,7 @@ export class CreateDatasetModal {
   }
 
   onPrimeSpaceChange(primarySpace): void {
-    if(parseInt(primarySpace) > 16777215) {
+    if (parseInt(primarySpace) > 16777215) {
       this.isPrimeSpaceValid = false;
     } else {
       this.isPrimeSpaceValid = true;
@@ -323,7 +323,7 @@ export class CreateDatasetModal {
   }
 
   onSecondSpaceChange(SecondarySpace): void {
-    if(parseInt(SecondarySpace) > 16777215) {
+    if (parseInt(SecondarySpace) > 16777215) {
       this.isSecondSpaceValid = false;
     } else {
       this.isSecondSpaceValid = true;
@@ -331,19 +331,19 @@ export class CreateDatasetModal {
   }
 
   onRecLengthChange(recordLength): void {
-    if(parseInt(recordLength) > 32760) {
+    if (parseInt(recordLength) > 32760) {
       this.isRecLengthValid = false;
     } else {
       this.isRecLengthValid = true;
     }
-    if(this.blockSizeTouched || this.properties.recordFormat =='U' || this.properties.recordFormat == 'VBA') {
+    if (this.blockSizeTouched || this.properties.recordFormat == 'U' || this.properties.recordFormat == 'VBA') {
       this.checkForValidRecordFormatCombination();
     }
   }
 
   onBlockSizeChange(blockSize): void {
     this.blockSizeTouched = true;
-    if(parseInt(blockSize) > 32760) {
+    if (parseInt(blockSize) > 32760) {
       this.isBlockSizeValid = false;
     } else {
       this.isBlockSizeValid = true;
@@ -353,14 +353,14 @@ export class CreateDatasetModal {
 
   onRecordFormatChange(value): void {
     this.isRecFormatTouched = true;
-    if(this.blockSizeTouched || this.properties.recordFormat =='U') {
+    if (this.blockSizeTouched || this.properties.recordFormat == 'U') {
       this.checkForValidRecordFormatCombination();
     }
     this.checkForValidAllocUnitCombination();
   }
 
   onAllocUnitChange(value): void {
-    if(this.isRecFormatTouched) {
+    if (this.isRecFormatTouched) {
       this.checkForValidAllocUnitCombination();
     }
   }

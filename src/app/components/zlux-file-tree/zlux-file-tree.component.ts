@@ -13,16 +13,11 @@
 declare var require: any;
 
 import {
-  NgModule, Component,
+  Component,
   Input, Output, ViewChild, ViewEncapsulation,
   ElementRef, ChangeDetectorRef,
   EventEmitter, OnInit, OnDestroy, Inject
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ContextMenuModule, TreeModule, MenuModule, DialogModule } from 'primeng/primeng';
-import { TreeComponent } from '../tree/tree.component';
-import { ZluxTabbingModule } from '@zlux/widgets';
 // import {FileContents} from '../../structures/filecontents';
 import { tab } from '../../structures/tab';
 //import {ComponentClass} from '../../../../../../zlux-platform/interface/src/registry/classes';
@@ -38,55 +33,27 @@ import { tab } from '../../structures/tab';
 //TODO: Implement new capabilities from zlux-platform
 import { FileBrowserMVSComponent } from '../filebrowsermvs/filebrowsermvs.component';
 import { FileBrowserUSSComponent } from '../filebrowseruss/filebrowseruss.component';
-import { FilePropertiesModal } from '../file-properties-modal/file-properties-modal.component';
-import { DeleteFileModal } from '../delete-file-modal/delete-file-modal.component';
-import { CreateFolderModal } from '../create-folder-modal/create-folder-modal.component';
-import { CreateFileModal } from '../create-file-modal/create-file-modal.component';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { MatButtonModule } from '@angular/material/button';
-import { MatButtonToggleModule } from '@angular/material/button-toggle';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
-import { MatListModule } from '@angular/material/list';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatTableModule } from '@angular/material/table';
-import { MatSelectModule } from '@angular/material/select';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { DatasetPropertiesModal } from '../dataset-properties-modal/dataset-properties-modal.component';
-import { FilePermissionsModal } from '../file-permissions-modal/file-permissions-modal.component';
-import { FileOwnershipModal } from '../file-ownership-modal/file-ownership-modal.component';
-import { FileTaggingModal } from '../file-tagging-modal/file-tagging-modal.component';
-import { InputTextModule } from 'primeng/inputtext';
 import { Subscription } from 'rxjs';
-import { UploadModal } from '../upload-files-modal/upload-files-modal.component';
-import { CreateDatasetModal } from '../create-dataset-modal/create-dataset-modal.component'
 
 /* Services */
-import { UploaderService } from '../../services/uploader.service';
-import { DownloaderService } from '../../services/downloader.service';
 import { UtilsService } from '../../services/utils.service';
 import { KeyCode } from '../../services/keybinding.service';
 import { KeybindingService } from '../../services/keybinding.service';
-import { ɵAnimationGroupPlayer } from '@angular/animations';
 import { Angular2InjectionTokens } from 'pluginlib/inject-resources';
 
+import './zlux-file-tree.component.css';
 @Component({
   selector: 'zlux-file-tree',
   templateUrl: './zlux-file-tree.component.html',
   encapsulation: ViewEncapsulation.None,
-  styleUrls: ['./zlux-file-tree.component.css'],
   providers: [UtilsService/*, PersistentDataService*/]
 })
 
 export class ZluxFileTreeComponent implements OnInit, OnDestroy {
   //componentClass: ComponentClass;
-  private currentIndex: number;
-  private tabs: Array<tab>;
-  private showUpArrow: boolean;
+  public currentIndex: number;
+  public tabs: Array<tab>;
+  public showUpArrow: boolean;
   private keyBindingSub: Subscription = new Subscription();
 
   @ViewChild(FileBrowserUSSComponent)
@@ -99,19 +66,18 @@ export class ZluxFileTreeComponent implements OnInit, OnDestroy {
   fileExplorerGlobal: ElementRef<any>;
 
   constructor(/*private persistentDataService: PersistentDataService,*/
-    private utils: UtilsService, 
+    private utils: UtilsService,
     private elemRef: ElementRef,
     private cd: ChangeDetectorRef,
     private appKeyboard: KeybindingService,
-    @Inject(Angular2InjectionTokens.LOGGER) private log: ZLUX.ComponentLogger,)
-  {
+    @Inject(Angular2InjectionTokens.LOGGER) private log: ZLUX.ComponentLogger,) {
     //this.componentClass = ComponentClass.FileBrowser;
     this.currentIndex = 0;
     this.tabs = [{ index: 0, name: "USS" }, { index: 1, name: "Datasets" }];
     this.showUpArrow = true;
   }
 
-  @Input() set spawnModal(typeAndData:any) {
+  @Input() set spawnModal(typeAndData: any) {
     if (typeAndData == undefined) {
       return;
     }
@@ -119,7 +85,7 @@ export class ZluxFileTreeComponent implements OnInit, OnDestroy {
     let data = typeAndData.data;
     let isDataset = (data.data && data.data.datasetAttrs) ? true : false;
 
-    switch(type){
+    switch (type) {
       case 'properties':
         isDataset ? this.mvsComponent.showPropertiesDialog(data) : this.ussComponent.showPropertiesDialog(data);
         break;
@@ -156,12 +122,12 @@ export class ZluxFileTreeComponent implements OnInit, OnDestroy {
 
   @Input() set toggleSearchInput(value: any) {
     if (value) {
-      if( value.path.startsWith("/")) {
-        if(this.ussComponent) {
+      if (value.path.startsWith("/")) {
+        if (this.ussComponent) {
           this.ussComponent.toggleSearch();
         }
       } else {
-        if(this.mvsComponent) {
+        if (this.mvsComponent) {
           this.mvsComponent.toggleSearch();
         }
       }
@@ -202,56 +168,56 @@ export class ZluxFileTreeComponent implements OnInit, OnDestroy {
     // }
     // this.persistentDataService.setData(obj)
     //   .subscribe((res: any) => { });
-    switch(this.theme) { 
-      case 'carbon': { 
-         this.headerStyle =  {
+    switch (this.theme) {
+      case 'carbon': {
+        this.headerStyle = {
           'background-color': '#3d70b2',
           'color': 'white',
-          'width':'99.7%',
-          'text-align':'right'
+          'width': '99.7%',
+          'text-align': 'right'
         };
-         this.inputStyle = {
-          'background-color': '#eee', 
-          'color': 'black', 
-          'border':'2px solid #3d70b2',
+        this.inputStyle = {
+          'background-color': '#eee',
+          'color': 'black',
+          'border': '2px solid #3d70b2',
           'margin-top': '20px'
         };
         this.searchStyle = {
           'min-width': '250px',
           'display': 'inline-block',
           'height': '40px',
-          'width':'90%',
+          'width': '90%',
         };
-  
+
         this.treeStyle = {
-          'color':'#646464'
+          'color': '#646464'
         };
-  
+
         this.style = {
-          'background-color':'#F4F7FB',
+          'background-color': '#F4F7FB',
           'margin-top': '10px',
-          'max-height':'320px',
+          'max-height': '320px',
           'overflow-y': 'scroll',
-          'padding':'0px',   
-          'margin-left':'0px'       
+          'padding': '0px',
+          'margin-left': '0px'
         };
-  
-         break; 
-      } 
+
+        break;
+      }
       default: {
-        this.treeStyle = {'filter': 'brightness(3)', 'color':'white'};
-         break; 
-      } 
+        this.treeStyle = { 'filter': 'brightness(3)', 'color': 'white' };
+        break;
+      }
     }
     const fileExplorerGlobalElement = this.fileExplorerGlobal.nativeElement;
     this.appKeyboard.registerKeyUpEvent(fileExplorerGlobalElement);
-    this.appKeyboard.registerKeyDownEvent(fileExplorerGlobalElement); 
+    this.appKeyboard.registerKeyDownEvent(fileExplorerGlobalElement);
     this.keyBindingSub.add(this.appKeyboard.keydownEvent
       .subscribe((event) => {
         if (event.which === KeyCode.KEY_P && !event.ctrlKey) {
           this.toggleSearch();
         }
-    }));
+      }));
   }
 
   ngOnDestroy() {
@@ -313,15 +279,15 @@ export class ZluxFileTreeComponent implements OnInit, OnDestroy {
     this.showUpArrow = show;
   }
 
-  onCopyClick($event:any){
+  onCopyClick($event: any) {
     this.copyClick.emit($event);
   }
 
-  onDeleteClick($event:any){
+  onDeleteClick($event: any) {
     this.deleteClick.emit($event);
   }
 
-  onUSSRenameEvent($event:any){
+  onUSSRenameEvent($event: any) {
     this.ussRenameEvent.emit($event);
   }
 
@@ -329,15 +295,15 @@ export class ZluxFileTreeComponent implements OnInit, OnDestroy {
   //   this.newFileClick.emit($event);
   // }
 
-  onNewFolderClick($event:any){
+  onNewFolderClick($event: any) {
     this.newFolderClick.emit($event);
   }
 
-  onFileUploaded($event:any){
+  onFileUploaded($event: any) {
     this.fileUploaded.emit($event);
   }
 
-  onNodeClick($event:any){
+  onNodeClick($event: any) {
     this.nodeClick.emit($event);
   }
 
@@ -357,7 +323,7 @@ export class ZluxFileTreeComponent implements OnInit, OnDestroy {
     this.rightClick.emit($event);
   }
 
-  onOpenInNewTab($event:any){
+  onOpenInNewTab($event: any) {
     this.openInNewTab.emit($event);
   }
 
@@ -375,8 +341,7 @@ export class ZluxFileTreeComponent implements OnInit, OnDestroy {
 
   setIndex(inputIndex: number) {
     this.currentIndex = inputIndex;
-    if (this.currentIndex == 0)
-    {
+    if (this.currentIndex == 0) {
       this.ussSelect.emit();
     } else {
       this.datasetSelect.emit();
@@ -418,15 +383,15 @@ export class ZluxFileTreeComponent implements OnInit, OnDestroy {
 
   refreshFileMetadatdaByPath(path: string) {
     return this.ussComponent.refreshFileMetadatdaUsingPath(path);
-   }
+  }
 
   zluxOnMessage(eventContext: any): Promise<void> {
-    return new Promise((resolve,reject)=> {
+    return new Promise((resolve, reject) => {
 
-      if (!eventContext || !eventContext.action){
+      if (!eventContext || !eventContext.action) {
         return reject('Event context missing or malformed');
       }
-      if (eventContext.action === 'save-file'){
+      if (eventContext.action === 'save-file') {
         // This is no longer needed as Editor takes over any file edit/context functions.
         // this.parentUssEdit = eventContext;
         // console.log("parentUssEdit:" + this.parentUssEdit)
@@ -442,68 +407,6 @@ export class ZluxFileTreeComponent implements OnInit, OnDestroy {
     });
   }
 }
-
-@NgModule({
-  declarations: [FileBrowserMVSComponent, 
-    FileBrowserUSSComponent, 
-    ZluxFileTreeComponent, 
-    FilePropertiesModal,
-    FilePermissionsModal,
-    FileOwnershipModal,
-    FileTaggingModal,
-    DatasetPropertiesModal,
-    DeleteFileModal,
-    CreateFolderModal,
-    CreateFileModal,
-    UploadModal,
-    TreeComponent,
-    CreateDatasetModal],
-  imports: [
-    CommonModule, 
-    FormsModule, 
-    TreeModule, 
-    MenuModule, 
-    MatDialogModule,
-    DialogModule, 
-    ContextMenuModule,
-    MatTableModule,
-    MatSnackBarModule,
-    MatFormFieldModule,
-    MatIconModule,
-    MatInputModule,
-    MatListModule,
-    MatCheckboxModule,
-    MatButtonModule,
-    MatButtonToggleModule,
-    MatTooltipModule,
-    MatSelectModule,
-    MatAutocompleteModule,
-    ZluxTabbingModule,
-    MatSlideToggleModule,
-    InputTextModule,
-    ReactiveFormsModule
-  ],
-  exports: [ZluxFileTreeComponent],
-  entryComponents: [
-    ZluxFileTreeComponent,
-    FilePermissionsModal,
-    FilePropertiesModal,
-    FileOwnershipModal,
-    FileTaggingModal,
-    DatasetPropertiesModal,
-    DeleteFileModal,
-    CreateFolderModal,
-    CreateFileModal,
-    UploadModal,
-    CreateDatasetModal
-  ],
-  providers: [
-    KeybindingService,
-    UploaderService,
-    DownloaderService
-  ]
-})
-export class ZluxFileTreeModule { }
 
 export interface ZluxFileTreeStyle { //TODO: We can specify which UI things can/cannot be changed.
 } // For the sake of customizeability, I don't see why there should be restrictions at the moment.

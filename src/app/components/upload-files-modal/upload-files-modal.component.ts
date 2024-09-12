@@ -14,18 +14,18 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { UploaderService } from '../../services/uploader.service';
 import { defaultSnackbarOptions } from '../../shared/snackbar-options';
 
+import './upload-files-modal.component.scss';
+import '../../../../src/app/shared/modal.component.scss';
 @Component({
   selector: 'upload-files-modal',
-  templateUrl: './upload-files-modal.component.html',
-  styleUrls: ['./upload-files-modal.component.scss',
-  '../../../../src/app/shared/modal.component.scss'],
+  templateUrl: './upload-files-modal.component.html'
 })
 export class UploadModal {
 
-  private folderPath = "";
+  public folderPath = "";
   public onUpload = new EventEmitter();
   @ViewChild('fileUpload') fileUpload: ElementRef;
-  private files: Array<File>;
+  public files: Array<File>;
   private fileEncodings: Array<string>;
   private encodings = [
     // { TODO: API Bug - Upload fails with Binary as target for now
@@ -34,19 +34,19 @@ export class UploadModal {
     //     selected: true
     // },
     {
-        name: 'UTF-8',
-        value: 'UTF-8',
-        selected: false
+      name: 'UTF-8',
+      value: 'UTF-8',
+      selected: false
     },
     {
-        name: 'ISO-8859-1',
-        value: 'ISO-8859-1',
-        selected: false
+      name: 'ISO-8859-1',
+      value: 'ISO-8859-1',
+      selected: false
     },
     {
-        name: 'International EBCDIC 1047',
-        value: 'IBM-1047',
-        selected: false
+      name: 'International EBCDIC 1047',
+      value: 'IBM-1047',
+      selected: false
     },
     // { TODO: These encodings don't work yet in API
     //     name: 'German/Austrian EBCDIC 273',
@@ -181,12 +181,11 @@ export class UploadModal {
   ];
   private filteredOptions = [];
   private selectedOption = "";
-  private selectedOptionValid = false;
+  public selectedOptionValid = false;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) data, private uploader: UploaderService, private snackBar: MatSnackBar
-  ) 
-  {
+  ) {
     const node = data.event;
     if (node.data && node.data == "Folder") {
       this.folderPath = node.path;
@@ -196,7 +195,7 @@ export class UploadModal {
       this.folderPath = node;
     }
     this.files = new Array<File>();
-    this.fileEncodings = new Array<string>(); 
+    this.fileEncodings = new Array<string>();
     this.filteredOptions = this.fileEncodings;
   }
 
@@ -234,16 +233,16 @@ export class UploadModal {
 
   uploadHandlerSetup(): void {
 
-      // We should make a queue that holds the list of files we wish to upload
-      // That queue should likely be stored in a service (probably the uploader service that exists)
+    // We should make a queue that holds the list of files we wish to upload
+    // That queue should likely be stored in a service (probably the uploader service that exists)
 
-      const filesCopy = this.files;
-      const fileEncodingsCopy = this.fileEncodings;
-      let fileIdx = 0;
-      const uploadFiles = () => {
-        if (fileIdx < filesCopy.length) {
-          const file = filesCopy[fileIdx];
-          this.uploader.chunkAndSendFile(file, this.folderPath, this.selectedOption)
+    const filesCopy = this.files;
+    const fileEncodingsCopy = this.fileEncodings;
+    let fileIdx = 0;
+    const uploadFiles = () => {
+      if (fileIdx < filesCopy.length) {
+        const file = filesCopy[fileIdx];
+        this.uploader.chunkAndSendFile(file, this.folderPath, this.selectedOption)
           .subscribe(
             value => { // TODO: Future upload progress bar
             },
@@ -252,12 +251,12 @@ export class UploadModal {
             () => {
               this.onUpload.emit();
               this.snackBar.open(file.name + ' has been successfully uploaded. ',
-          'Dismiss', defaultSnackbarOptions);
+                'Dismiss', defaultSnackbarOptions);
             }
           );
-        }
       }
-      uploadFiles();
+    }
+    uploadFiles();
   }
 
 }

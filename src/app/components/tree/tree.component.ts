@@ -9,11 +9,13 @@
   Copyright Contributors to the Zowe Project.
 */
 
-declare var require:any;
-import { Component, Input, Output, EventEmitter, ViewEncapsulation, ElementRef, ViewChild, AfterContentInit, OnDestroy} from '@angular/core';
-import { TreeNode } from 'primeng/primeng';
+declare var require: any;
+import { Component, Input, Output, EventEmitter, ViewEncapsulation, ElementRef, ViewChild, AfterContentInit, OnDestroy } from '@angular/core';
+import { TreeNode } from 'primeng/api/treenode';
 import { FileTreeNode } from '../../structures/child-event';
 import { FileNode } from '../../structures/file-node';
+
+import './tree.component.css';
 /**
  * [The tree component serves collapse/expansion of file/datasets]
  * @param  selector     [tree-root]
@@ -25,9 +27,7 @@ import { FileNode } from '../../structures/file-node';
 @Component({
   selector: 'tree-root',
   templateUrl: './tree.component.html',
-  encapsulation: ViewEncapsulation.None,
-  styleUrls: ['./tree.component.css'],
-  providers: []
+  encapsulation: ViewEncapsulation.None
 })
 /**
  * [Input treeData supplies the tree structure]
@@ -38,6 +38,7 @@ import { FileNode } from '../../structures/file-node';
  */
 export class TreeComponent implements AfterContentInit, OnDestroy {
   @Input() treeData: TreeNode;
+  @Input() treeId: TreeNode;
   @Input() style: any;
   @Input() treeStyle: any;
   @Output() clickEvent = new EventEmitter<FileTreeNode>();
@@ -52,17 +53,17 @@ export class TreeComponent implements AfterContentInit, OnDestroy {
     this.lastClickedNodeName = null;
   }
 
-/**
- * [nodeSelect provides the child folder click event to the parent file/folder tree tab]
- * @param  _event [click event]
- * @return        [void]
- */
+  /**
+   * [nodeSelect provides the child folder click event to the parent file/folder tree tab]
+   * @param  _event [click event]
+   * @return        [void]
+   */
   nodeSelect(_event?: any) {
-    if (_event){
+    if (_event) {
       if (this.lastClickedNodeName == null || this.lastClickedNodeName != (_event.node.name || _event.node.data.name)) {
         this.lastClickedNodeName = _event.node.name || _event.node.data.name;
-        this.clickEvent.emit(_event); 
-        setTimeout( () => (this.lastClickedNodeName = null), this.lastClickedNodeTimeout);
+        this.clickEvent.emit(_event);
+        setTimeout(() => (this.lastClickedNodeName = null), this.lastClickedNodeTimeout);
       } else {
         this.dblClickEvent.emit(_event);
       }
@@ -70,14 +71,14 @@ export class TreeComponent implements AfterContentInit, OnDestroy {
   }
 
   nodeRightClickSelect(_event?: any) {
-    if (_event){
+    if (_event) {
       this.rightClickEvent.emit(_event);
       _event.originalEvent.stopPropagation();
     }
   }
 
   panelRightClickSelect(_event?: any) {
-    if (_event){
+    if (_event) {
       _event.preventDefault();
       this.panelRightClickEvent.emit(_event);
     }
@@ -87,7 +88,7 @@ export class TreeComponent implements AfterContentInit, OnDestroy {
     this.fileExplorerTree.nativeElement.addEventListener('contextmenu', this.panelRightClickSelect.bind(this));
   }
 
-  unselectNode(){
+  unselectNode() {
     this.selectedNode = null;
   }
 

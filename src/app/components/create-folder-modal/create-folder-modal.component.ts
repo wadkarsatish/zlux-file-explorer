@@ -11,25 +11,23 @@
 import { Component, Inject, EventEmitter } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
+import './create-folder-modal.component.scss';
+import '../../../../src/app/shared/modal.component.scss';
 @Component({
   selector: 'create-folder-modal',
-  templateUrl: './create-folder-modal.component.html',
-  styleUrls: ['./create-folder-modal.component.scss',
-  '../../../../src/app/shared/modal.component.scss'],
+  templateUrl: './create-folder-modal.component.html'
 })
 export class CreateFolderModal {
-
-  private folderName = "";
-  private folderPath = "";
-  private folderPathObtainedFromNode = "";
+  public folderName = "";
+  public folderPath = "";
+  public folderPathObtainedFromNode = "";
   // Block unallowed characters and "." and ".." etc
-  public folderPattern = /(([^\x00-\x1F!"$'\(\)*,\/:;<>\?\[\\\]\{\|\}\x7F\s]+)$)/; 
+  public folderPattern = /(([^\x00-\x1F!"$'\(\)*,\/:;<>\?\[\\\]\{\|\}\x7F\s]+)$)/;
   onCreate = new EventEmitter();
 
   constructor(
     @Inject(MAT_DIALOG_DATA) data,
-  ) 
-  {
+  ) {
     const node = data.event;
     if (node.path) {
       this.folderPath = node.path;
@@ -43,7 +41,7 @@ export class CreateFolderModal {
     let onCreateResponse = new Map();
 
     onCreateResponse.set("pathAndName", this.folderPath + "/" + this.folderName);
-    if (this.folderPath != this.folderPathObtainedFromNode) { 
+    if (this.folderPath != this.folderPathObtainedFromNode) {
       //If the user changed the path obtained from the node or the node has never been opened...
       onCreateResponse.set("updateExistingTree", false); //then we can't update the tree.
     } else { //If the user kept the path obtained from the node...

@@ -11,11 +11,11 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
+import './dataset-properties-modal.component.scss';
+import '../../../../src/app/shared/modal.component.scss';
 @Component({
   selector: 'dataset-properties-modal',
-  templateUrl: './dataset-properties-modal.component.html',
-  styleUrls: ['./dataset-properties-modal.component.scss',
-  '../../../../src/app/shared/modal.component.scss'],
+  templateUrl: './dataset-properties-modal.component.html'
 })
 export class DatasetPropertiesModal implements OnInit {
 
@@ -36,8 +36,7 @@ export class DatasetPropertiesModal implements OnInit {
 
   constructor(
     @Inject(MAT_DIALOG_DATA) data,
-  ) 
-  {
+  ) {
     const node = data.event;
     if (node.data) {
       const data = node.data;
@@ -82,7 +81,7 @@ export class DatasetPropertiesModal implements OnInit {
   }
 
   formatRecordFormat(recordFormat: string): string {
-    switch(recordFormat) {
+    switch (recordFormat) {
       case "U":
         recordFormat = "U - Undefined"
         break;
@@ -150,7 +149,7 @@ export class DatasetPropertiesModal implements OnInit {
 
   formatOrganization(organization?: string): string {
     if (organization) {
-      switch(organization) {
+      switch (organization) {
         case "sequential":
           organization = "PS - Sequential"
           break;
@@ -171,7 +170,7 @@ export class DatasetPropertiesModal implements OnInit {
   }
 
   formatCSIEntryType(CSIEntryType: string): string {
-    switch(CSIEntryType) {
+    switch (CSIEntryType) {
       case "A":
         CSIEntryType = "A - non-VSAM data set"
         break;

@@ -12,18 +12,17 @@ import { Component, Inject, EventEmitter } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { HttpClient } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { defaultSnackbarOptions } from '../../shared/snackbar-options';
 
+import './create-file-modal.component.scss';
+import '../../../../src/app/shared/modal.component.scss';
 @Component({
   selector: 'create-file-modal',
-  templateUrl: './create-file-modal.component.html',
-  styleUrls: ['./create-file-modal.component.scss',
-  '../../../../src/app/shared/modal.component.scss'],
+  templateUrl: './create-file-modal.component.html'
 })
 export class CreateFileModal {
-  private fileName: string;
-  private dirPath: string;
-  private folderPathObtainedFromNode = "";
+  public fileName: string;
+  public dirPath: string;
+  public folderPathObtainedFromNode = "";
   // Block unallowed characters and "." and ".." etc
   public filePattern = /(([^\x00-\x1F!"$'\(\)*,\/:;<>\?\[\\\]\{\|\}\x7F\s]+)$)/; 
   onFileCreate = new EventEmitter();

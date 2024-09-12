@@ -9,8 +9,8 @@
   Copyright Contributors to the Zowe Project.
 */
 
-export { ZluxFileTreeModule as FileTreeModule, ZluxFileTreeComponent as FileTreeComponent  } from './app/components/zlux-file-tree/zlux-file-tree.component';
-
+export { ZluxFileTreeComponent as FileTreeComponent } from './app/components/zlux-file-tree/zlux-file-tree.component';
+export { ZluxFileTreeModule as FileTreeModule } from './app/components/zlux-file-tree/zlux-file-tree.module';
 
 /*
   This program and the accompanying materials are

@@ -16,11 +16,12 @@ import { HttpClient } from '@angular/common/http';
 import { defaultSnackbarOptions } from '../../shared/snackbar-options';
 import { finalize, catchError, map } from "rxjs/operators";
 
+import './file-ownership-modal.component.scss';
+import '../../../../src/app/shared/modal.component.scss';
+
 @Component({
   selector: 'file-ownership-modal',
-  templateUrl: './file-ownership-modal.component.html',
-  styleUrls: ['./file-ownership-modal.component.scss',
-    '../../../../src/app/shared/modal.component.scss'],
+  templateUrl: './file-ownership-modal.component.html'
 })
 export class FileOwnershipModal {
 
@@ -34,14 +35,15 @@ export class FileOwnershipModal {
   public isDirectory = false;
   public recursive = false;
   public node = null;
+  public folderName = '';
+  public folderPath = '';
 
   constructor(
     @Inject(MAT_DIALOG_DATA) data,
     private dialogRef: MatDialogRef<FileOwnershipModal>,
     private http: HttpClient,
     private snackBar: MatSnackBar,
-  ) 
-  {
+  ) {
     this.node = data.event;
     this.name = this.node.name;
     this.path = this.node.path;
@@ -69,8 +71,8 @@ export class FileOwnershipModal {
     let modeStringSym = "";
 
     for (let i = 0; i < 3; i++) {
-      let value =  modeString.charAt(i);
-      switch(value) {
+      let value = modeString.charAt(i);
+      switch (value) {
         case "0":
           modeStringSym += "---";
           break;
@@ -101,37 +103,37 @@ export class FileOwnershipModal {
   }
 
   saveOwnerInfo() {
-    let url :string = ZoweZLUX.uriBroker.unixFileUri('chown', this.path, undefined, undefined, undefined, false, undefined, undefined, undefined, undefined, this.recursive, this.owner, this.group);
-    this.http.post(url, null, {observe: 'response'}).pipe(
+    let url: string = ZoweZLUX.uriBroker.unixFileUri('chown', this.path, undefined, undefined, undefined, false, undefined, undefined, undefined, undefined, this.recursive, this.owner, this.group);
+    this.http.post(url, null, { observe: 'response' }).pipe(
       finalize(() => this.closeDialog()),
     ).subscribe(
-        (res: any) => {
-          if (res.status == 200) {
-            this.snackBar.open(this.path + ' has been successfully changed to Owner: ' + this.owner + " Group: " + this.group + ".",
-              'Dismiss', defaultSnackbarOptions);
-            this.node.owner = this.owner;
-            this.node.group = this.group;
-          } else {
-            this.snackBar.open(res.status + " - A problem was encountered: " + res.statusText, 
-              'Dismiss', defaultSnackbarOptions);
-          }
-        },
-        err => {
-          this.handleErrorObservable(err);
+      (res: any) => {
+        if (res.status == 200) {
+          this.snackBar.open(this.path + ' has been successfully changed to Owner: ' + this.owner + " Group: " + this.group + ".",
+            'Dismiss', defaultSnackbarOptions);
+          this.node.owner = this.owner;
+          this.node.group = this.group;
+        } else {
+          this.snackBar.open(res.status + " - A problem was encountered: " + res.statusText,
+            'Dismiss', defaultSnackbarOptions);
         }
-      );
+      },
+      err => {
+        this.handleErrorObservable(err);
+      }
+    );
   }
-  
-    
+
+
   closeDialog() {
     const needUpdate = this.isDirectory;
     this.dialogRef.close(needUpdate);
   }
 
-  private handleErrorObservable (error: Response | any) {
+  private handleErrorObservable(error: Response | any) {
     console.error(error.message || error);
-    this.snackBar.open(error.status + " - A problem was encountered: " + error._body, 
-            'Dismiss', defaultSnackbarOptions);
+    this.snackBar.open(error.status + " - A problem was encountered: " + error._body,
+      'Dismiss', defaultSnackbarOptions);
     return Observable.throw(error.message || error);
   }
 }

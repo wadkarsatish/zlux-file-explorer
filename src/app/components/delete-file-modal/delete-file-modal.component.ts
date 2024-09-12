@@ -11,23 +11,23 @@
 import { Component, Inject, EventEmitter } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
+import './delete-file-modal.component.scss'
+import '../../../../src/app/shared/modal.component.scss';
+
 @Component({
   selector: 'delete-file-modal',
-  templateUrl: './delete-file-modal.component.html',
-  styleUrls: ['./delete-file-modal.component.scss',
-  '../../../../src/app/shared/modal.component.scss'],
+  templateUrl: './delete-file-modal.component.html'
 })
 export class DeleteFileModal {
 
-  private fileName = '';
-  private fileIcon = '';
+  public fileName = '';
+  public fileIcon = '';
   onDelete = new EventEmitter();
   private node: any;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) data,
-  ) 
-  {
+  ) {
     const node = data.event;
     this.node = data.event;
     this.fileName = node.name;
@@ -37,7 +37,7 @@ export class DeleteFileModal {
   deleteFileOrFolder() {
     this.onDelete.emit();
   }
-  
+
   getFileName() {
     if (this.node.data.path) {
       return this.node.data.path;

@@ -17,13 +17,11 @@ import { fileTagList, findFileTagByCodeset, FileTag } from '../../shared/file-ta
 import { defaultSnackbarOptions } from '../../shared/snackbar-options';
 import { finalize } from 'rxjs/operators';
 
+import './file-tagging-modal.component.scss';
+import '../../../../src/app/shared/modal.component.scss';
 @Component({
   selector: 'file-tagging-modal',
-  templateUrl: './file-tagging-modal.component.html',
-  styleUrls: [
-    './file-tagging-modal.component.scss',
-    '../../../../src/app/shared/modal.component.scss'
-  ],
+  templateUrl: './file-tagging-modal.component.html'
 })
 export class FileTaggingModal {
   node: any;
@@ -69,10 +67,10 @@ export class FileTaggingModal {
     action.pipe(
       finalize(() => this.closeDialog())
     ).
-    subscribe(
-      _res => this.onTaggingSuccess(path, type, option),
-      err => this.onTaggingFailure(err),
-    );
+      subscribe(
+        _res => this.onTaggingSuccess(path, type, option),
+        err => this.onTaggingFailure(err),
+      );
   }
 
   closeDialog() {
