@@ -1,0 +1,113 @@
+
+
+/*
+  This program and the accompanying materials are
+  made available under the terms of the Eclipse Public License v2.0 which accompanies
+  this distribution, and is available at https://www.eclipse.org/legal/epl-v20.html
+  
+  SPDX-License-Identifier: EPL-2.0
+  
+  Copyright Contributors to the Zowe Project.
+*/
+
+.filebrowseruss-search {
+  width: fit-content;
+  min-width: 250px;
+  margin-left: 5px;
+  display: inline-block;
+  height: 40px;
+}
+
+.filebrowseruss-search-input{
+  width: 100%;
+  min-height: 30px;
+  font-family: sans-serif;
+  font-size: 15px;
+  height: 35px;
+  background-color: #464646;
+  color: white;
+  padding-left: 5px;
+  border: 0px;
+}
+
+.filebrowseruss-search-bottom-group {
+  margin-top: -17px;
+  position: relative;
+}
+
+.filebrowseruss-search-bottom-icon {
+  font-size: large;
+  position: absolute;
+  color: #d4d4d4;
+  padding-left: 5px;
+}
+
+.filebrowseruss-search-bottom-input {
+  padding-left: 28px;
+  width: calc(100% - 5px);
+  min-height: 30px;
+  font-family: sans-serif;
+  font-size: 15px;
+  height: 35px;
+  background-color: #313030;
+  color: white;
+  border: 0px;
+  margin-top: -10px;
+}
+
+.filebrowseruss-search-bottom-input:focus {
+  outline: none; 
+  border: 1px solid rgb(161, 160, 160);
+  border-radius: 3px;
+}
+
+.filebrowseruss-dialog-menu{
+  background: white;
+  padding: 0px;
+  height: auto;
+  width: auto;
+}
+
+.filebrowseruss-pointer-logo {
+  width: 20px; 
+  height: 20px; 
+  filter: brightness(3); 
+  cursor: pointer;
+}
+
+.filebrowseruss-node-deleting {
+  opacity: .5;
+}
+
+.filebrowseruss-loading-icon {
+  margin-left: 8px !important;
+  font-size: large !important;
+}
+
+.file-tree-utilities {
+  overflow: hidden;
+  border: 1px solid #464646;
+}
+
+.filebrowser-icon
+{ 
+  margin-right: 9px; 
+  float:right; 
+  cursor: pointer;
+}
+
+.special-utility
+{ 
+  margin-left: 9px; 
+}
+
+/*
+  This program and the accompanying materials are
+  made available under the terms of the Eclipse Public License v2.0 which accompanies
+  this distribution, and is available at https://www.eclipse.org/legal/epl-v20.html
+  
+  SPDX-License-Identifier: EPL-2.0
+  
+  Copyright Contributors to the Zowe Project.
+*/
+

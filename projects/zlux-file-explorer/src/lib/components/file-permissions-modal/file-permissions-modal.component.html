@@ -1,0 +1,118 @@
+<!--
+This program and the accompanying materials are
+made available under the terms of the Eclipse Public License v2.0 which accompanies
+this distribution, and is available at https://www.eclipse.org/legal/epl-v20.html
+
+SPDX-License-Identifier: EPL-2.0
+
+Copyright Contributors to the Zowe Project.
+-->
+<zlux-tab-trap></zlux-tab-trap>
+<!-- FA Icon is determined by class name, so we hardcode the style here -->
+<i class="{{icon}}" style="font-size:24px; position: absolute; margin-top: 4px; margin-left: 3px;"></i>
+<button mat-dialog-close class="close-dialog-btn"><i class="fa fa-close"></i></button>
+<h2 mat-dialog-title class="file-permissions-header">{{name}} - Change Permissions</h2>
+
+
+<!-- Possible future filter code -->
+<!-- <mat-form-field>
+<input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+</mat-form-field> -->
+
+<div class="file-permissions-row">
+  <mat-list-item>
+    <div class="modal-column">
+      <span class="file-permissions-subtitle">Owner: {{ owner }}</span>
+    </div>
+    <div class="modal-column">
+      <span class="file-permissions-subtitle">Group: {{ group }}</span>
+    </div>
+  </mat-list-item>
+</div>
+<div class="file-permissions-row">
+  <div class="modal-column-full-width">
+    <mat-list-item>
+      <span class="file-permissions-subtitle">Mode:</span>
+      <mat-form-field class="mode-form-field">
+        <input class="mode-input" matInput required type="text" maxlength="3" minlength="3" [pattern]="octalModePattern"
+          [ngModel]="octalMode" (ngModelChange)="onOctalModeChange($event, octalModeInput.valid)"
+          #octalModeInput="ngModel" (keydown)="onOctalModeKeyDown($event)" [errorStateMatcher]="matcher">
+        @if (octalModeInput.hasError('pattern') && !octalModeInput.hasError("required")) {
+        <mat-error>
+          Invalid mode
+        </mat-error>
+        }
+        @if (octalModeInput.hasError("required")) {
+        <mat-error>
+          Mode is required
+        </mat-error>
+        }
+      </mat-form-field>
+      <span class="mode-sym">{{modeSym}}</span>
+    </mat-list-item>
+  </div>
+</div>
+
+<div class="container">
+
+  <span class="file-permissions-subtitle user">Owner</span>
+  <section class="example-section user">
+    <mat-checkbox color="primary" class="example-margin" [(ngModel)]="userRead"
+      (change)="updateUI()">Read</mat-checkbox>
+    <mat-checkbox color="primary" class="example-margin" [(ngModel)]="userWrite"
+      (change)="updateUI()">Write</mat-checkbox>
+    <mat-checkbox color="primary" class="example-margin" [(ngModel)]="userExecute"
+      (change)="updateUI()">Execute</mat-checkbox>
+  </section>
+
+  <span class="file-permissions-subtitle group">Group</span>
+  <section class="example-section group">
+    <mat-checkbox color="primary" class="example-margin" [(ngModel)]="groupRead"
+      (change)="updateUI()">Read</mat-checkbox>
+    <mat-checkbox color="primary" class="example-margin" [(ngModel)]="groupWrite"
+      (change)="updateUI()">Write</mat-checkbox>
+    <mat-checkbox color="primary" class="example-margin" [(ngModel)]="groupExecute"
+      (change)="updateUI()">Execute</mat-checkbox>
+  </section>
+
+  <span class="file-permissions-subtitle public">Other</span>
+  <section class="example-section public">
+    <mat-checkbox color="primary" class="example-margin" [(ngModel)]="publicRead"
+      (change)="updateUI()">Read</mat-checkbox>
+    <mat-checkbox color="primary" class="example-margin" [(ngModel)]="publicWrite"
+      (change)="updateUI()">Write</mat-checkbox>
+    <mat-checkbox color="primary" class="example-margin" [(ngModel)]="publicExecute"
+      (change)="updateUI()">Execute</mat-checkbox>
+  </section>
+</div>
+
+@if (isDirectory) {
+<div class="file-permissions-row">
+  <div class="modal-column" style="width: 30%;">
+    <mat-list-item>
+      <mat-slide-toggle color="primary" class="selectable-text" [(ngModel)]="recursive"></mat-slide-toggle>
+    </mat-list-item>
+  </div>
+  <div class="modal-column">
+    <mat-list-item>
+      <div class="selectable-text">Recursive?</div>
+    </mat-list-item>
+  </div>
+</div>
+}
+
+<mat-dialog-actions>
+  <button mat-button class="modal-mat-button" (click)="savePermissions()"
+    [disabled]="octalModeInput.invalid">Save</button>
+  <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
+</mat-dialog-actions>
+
+<!--
+  This program and the accompanying materials are
+  made available under the terms of the Eclipse Public License v2.0 which accompanies
+  this distribution, and is available at https://www.eclipse.org/legal/epl-v20.html
+
+  SPDX-License-Identifier: EPL-2.0
+
+  Copyright Contributors to the Zowe Project.
+  -->

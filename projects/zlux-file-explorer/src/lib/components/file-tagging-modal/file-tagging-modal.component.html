@@ -1,0 +1,74 @@
+<!--
+This program and the accompanying materials are
+made available under the terms of the Eclipse Public License v2.0 which accompanies
+this distribution, and is available at https://www.eclipse.org/legal/epl-v20.html
+
+SPDX-License-Identifier: EPL-2.0
+
+Copyright Contributors to the Zowe Project.
+-->
+<zlux-tab-trap></zlux-tab-trap>
+<i class="{{icon}} modal-icon"></i>
+<button mat-dialog-close class="close-dialog-btn"><i class="fa fa-close"></i></button>
+<h2 mat-dialog-title class="modal-mat-header">{{name}} - File Tagging</h2>
+<div class="modal-row">
+  <div class="modal-column-full-width">
+    <mat-list-item>
+      @if (isDirectory) {
+        Tag all files as
+      } @else {
+        Tag file as
+      }
+      <ng-template #file>Tag file as</ng-template>
+      <mat-form-field appearance="fill" style="margin-left: 36px;">
+        <input matInput required type="text"
+          [(ngModel)]="selectedOption" (ngModelChange)="onValueChange($event)"
+          [matAutocomplete]="auto"
+          [errorStateMatcher]="matcher"
+          #encodingInput="ngModel"
+          >
+          <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayFn">
+            @for (option of filteredOptions; track option) {
+              <mat-option [value]="option">
+                {{ option.name }}
+              </mat-option>
+            }
+          </mat-autocomplete>
+          @if (encodingInput.hasError('required')) {
+            <mat-error>
+              Encoding is required
+            </mat-error>
+          }
+        </mat-form-field>
+      </mat-list-item>
+    </div>
+  </div>
+
+  @if (isDirectory) {
+    <div class="modal-row">
+      <div class="modal-column" style="width: 40%;">
+        <mat-list-item>
+          <mat-slide-toggle color="primary" [(ngModel)]="recursive"></mat-slide-toggle>
+        </mat-list-item>
+      </div>
+      <div class="modal-column">
+        <mat-list-item>
+          <div class="selectable-text">Process subdirectories</div>
+        </mat-list-item>
+      </div>
+    </div>
+  }
+
+  <mat-dialog-actions>
+    <button mat-button class="modal-mat-button" (click)="changeTag()" [disabled]="!isOptionSelected">Save</button>
+  </mat-dialog-actions>
+
+  <!--
+  This program and the accompanying materials are
+  made available under the terms of the Eclipse Public License v2.0 which accompanies
+  this distribution, and is available at https://www.eclipse.org/legal/epl-v20.html
+
+  SPDX-License-Identifier: EPL-2.0
+
+  Copyright Contributors to the Zowe Project.
+  -->

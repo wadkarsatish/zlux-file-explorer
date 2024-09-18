@@ -1,0 +1,17 @@
+{
+  "name": "zlux-angular-file-tree",
+  "version": "0.0.1",
+  "peerDependencies": {
+    "@angular/animations": "~18.0.0",
+    "@angular/cdk": "~18.0.0",
+    "@angular/common": "^18.0.0",
+    "@angular/core": "^18.0.0",
+    "@angular/forms": "~18.0.0"
+  },
+  "dependencies": {
+    "primeng": "^17.18.10",
+    "streamsaver": "^2.0.6",
+    "web-streams-polyfill": "^4.0.0"
+  },
+  "sideEffects": false
+}

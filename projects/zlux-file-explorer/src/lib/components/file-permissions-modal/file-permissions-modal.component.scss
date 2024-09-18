@@ -1,0 +1,97 @@
+
+/*
+  This program and the accompanying materials are
+  made available under the terms of the Eclipse Public License v2.0 which accompanies
+  this distribution, and is available at https://www.eclipse.org/legal/epl-v20.html
+  
+  SPDX-License-Identifier: EPL-2.0
+  
+  Copyright Contributors to the Zowe Project.
+*/
+
+/* Clear floats after the columns */
+.file-permissions-row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.file-permissions-row {
+  font-size: medium;
+  padding-left: 15px;
+  padding-bottom: 15px;
+  padding-top: 15px;
+}
+
+.file-permissions-title {
+  vertical-align: middle;
+  float: left;
+}
+
+.file-permissions-header {
+  margin-left: 33px; 
+  margin-bottom: 15px;
+}
+
+
+.example-section {
+  display: flex;
+}
+
+.example-margin {
+  margin: 0px 10px;
+}
+
+.file-permissions-subtitle{
+  font-size: large;
+  font-weight: 500;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 75px 200px;
+  grid-template-rows: 75px 75px 75px;
+  align-content: center;
+  align-items: center;
+}
+
+.file-permissions-subtitle.user{
+  grid-column-start: 1;
+  grid-column-end: 2;
+  grid-row-start: 1;
+  grid-row-end: 2;
+}
+
+.example-section.user{
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 1;
+  grid-row-end: 2;
+}
+
+.mode-form-field {
+  width: 6rem;
+  margin-left: 2rem;
+}
+
+.mode-input {
+  text-align: center;
+  padding: 0 1rem;
+}
+
+.mode-sym {
+  font-family: monospace;
+  font-size: 16px;
+  margin-left: 1rem;
+  letter-spacing: 1px;
+  font-weight: 600;
+}
+/*
+  This program and the accompanying materials are
+  made available under the terms of the Eclipse Public License v2.0 which accompanies
+  this distribution, and is available at https://www.eclipse.org/legal/epl-v20.html
+  
+  SPDX-License-Identifier: EPL-2.0
+  
+  Copyright Contributors to the Zowe Project.
+*/
