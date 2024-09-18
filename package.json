@@ -1,5 +1,5 @@
 {
-  "name": "@zowe",
+  "name": "zlux-angular-file-tree",
   "version": "0.0.0",
   "type": "module",
   "module": "./dist/zlux-file-explorer/fesm2022/zlux-angular-file-tree.mjs",
