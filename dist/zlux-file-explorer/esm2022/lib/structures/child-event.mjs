@@ -1,0 +1,34 @@
+/*
+  This program and the accompanying materials are
+  made available under the terms of the Eclipse Public License v2.0 which accompanies
+  this distribution, and is available at https://www.eclipse.org/legal/epl-v20.html
+  
+  SPDX-License-Identifier: EPL-2.0
+  
+  Copyright Contributors to the Zowe Project.
+*/
+export class FileTreeNode {
+    toJSON() {
+        return {
+            label: this.label,
+            children: this.children,
+            parent: this.parent,
+            path: this.path,
+            size: this.size,
+            type: this.size,
+            expanded: this.expanded,
+            expandedIcon: this.expandedIcon,
+            collapsedIcon: this.collapsedIcon
+        };
+    }
+}
+/*
+  This program and the accompanying materials are
+  made available under the terms of the Eclipse Public License v2.0 which accompanies
+  this distribution, and is available at https://www.eclipse.org/legal/epl-v20.html
+  
+  SPDX-License-Identifier: EPL-2.0
+  
+  Copyright Contributors to the Zowe Project.
+*/
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiY2hpbGQtZXZlbnQuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi8uLi8uLi8uLi9wcm9qZWN0cy96bHV4LWZpbGUtZXhwbG9yZXIvc3JjL2xpYi9zdHJ1Y3R1cmVzL2NoaWxkLWV2ZW50LnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUVBOzs7Ozs7OztFQVFFO0FBSUYsTUFBTSxPQUFPLFlBQVk7SUFhdkIsTUFBTTtRQUNKLE9BQU87WUFDTCxLQUFLLEVBQUUsSUFBSSxDQUFDLEtBQUs7WUFDakIsUUFBUSxFQUFFLElBQUksQ0FBQyxRQUFRO1lBQ3ZCLE1BQU0sRUFBRSxJQUFJLENBQUMsTUFBTTtZQUNuQixJQUFJLEVBQUUsSUFBSSxDQUFDLElBQUk7WUFDZixJQUFJLEVBQUUsSUFBSSxDQUFDLElBQUk7WUFDZixJQUFJLEVBQUUsSUFBSSxDQUFDLElBQUk7WUFDZixRQUFRLEVBQUUsSUFBSSxDQUFDLFFBQVE7WUFDdkIsWUFBWSxFQUFFLElBQUksQ0FBQyxZQUFZO1lBQy9CLGFBQWEsRUFBRSxJQUFJLENBQUMsYUFBYTtTQUVsQyxDQUFBO0lBQ0gsQ0FBQztDQUVGO0FBR0Q7Ozs7Ozs7O0VBUUUiLCJzb3VyY2VzQ29udGVudCI6WyJcclxuXHJcbi8qXHJcbiAgVGhpcyBwcm9ncmFtIGFuZCB0aGUgYWNjb21wYW55aW5nIG1hdGVyaWFscyBhcmVcclxuICBtYWRlIGF2YWlsYWJsZSB1bmRlciB0aGUgdGVybXMgb2YgdGhlIEVjbGlwc2UgUHVibGljIExpY2Vuc2UgdjIuMCB3aGljaCBhY2NvbXBhbmllc1xyXG4gIHRoaXMgZGlzdHJpYnV0aW9uLCBhbmQgaXMgYXZhaWxhYmxlIGF0IGh0dHBzOi8vd3d3LmVjbGlwc2Uub3JnL2xlZ2FsL2VwbC12MjAuaHRtbFxyXG4gIFxyXG4gIFNQRFgtTGljZW5zZS1JZGVudGlmaWVyOiBFUEwtMi4wXHJcbiAgXHJcbiAgQ29weXJpZ2h0IENvbnRyaWJ1dG9ycyB0byB0aGUgWm93ZSBQcm9qZWN0LlxyXG4qL1xyXG5cclxuaW1wb3J0IHtUcmVlTm9kZX0gZnJvbSAncHJpbWVuZy9hcGknO1xyXG5cclxuZXhwb3J0IGNsYXNzIEZpbGVUcmVlTm9kZSBpbXBsZW1lbnRzIFRyZWVOb2RlIHsgXHJcbiAgcHVibGljIGxhYmVsOiBzdHJpbmc7XHJcbiAgcHVibGljIGNoaWxkcmVuOiBGaWxlVHJlZU5vZGVbXTtcclxuICBwdWJsaWMgcGFyZW50OiBGaWxlVHJlZU5vZGU7XHJcbiAgcHVibGljIHBhdGg6IHN0cmluZztcclxuICBwdWJsaWMgc2l6ZTogbnVtYmVyO1xyXG4gIHB1YmxpYyB0eXBlOiBzdHJpbmc7XHJcbiAgcHVibGljIGlkOiBudW1iZXI7XHJcbiAgcHVibGljIGV4cGFuZGVkOiBib29sZWFuO1xyXG4gIHB1YmxpYyBleHBhbmRlZEljb246IGFueTtcclxuICBwdWJsaWMgY29sbGFwc2VkSWNvbjogYW55O1xyXG4gIHB1YmxpYyBkYXRhOiAnRm9sZGVyJyB8ICdGaWxlJztcclxuXHJcbiAgdG9KU09OKCkge1xyXG4gICAgcmV0dXJuIHtcclxuICAgICAgbGFiZWw6IHRoaXMubGFiZWwsXHJcbiAgICAgIGNoaWxkcmVuOiB0aGlzLmNoaWxkcmVuLFxyXG4gICAgICBwYXJlbnQ6IHRoaXMucGFyZW50LFxyXG4gICAgICBwYXRoOiB0aGlzLnBhdGgsXHJcbiAgICAgIHNpemU6IHRoaXMuc2l6ZSxcclxuICAgICAgdHlwZTogdGhpcy5zaXplLFxyXG4gICAgICBleHBhbmRlZDogdGhpcy5leHBhbmRlZCxcclxuICAgICAgZXhwYW5kZWRJY29uOiB0aGlzLmV4cGFuZGVkSWNvbixcclxuICAgICAgY29sbGFwc2VkSWNvbjogdGhpcy5jb2xsYXBzZWRJY29uXHJcblxyXG4gICAgfVxyXG4gIH1cclxuXHJcbn1cclxuXHJcblxyXG4vKlxyXG4gIFRoaXMgcHJvZ3JhbSBhbmQgdGhlIGFjY29tcGFueWluZyBtYXRlcmlhbHMgYXJlXHJcbiAgbWFkZSBhdmFpbGFibGUgdW5kZXIgdGhlIHRlcm1zIG9mIHRoZSBFY2xpcHNlIFB1YmxpYyBMaWNlbnNlIHYyLjAgd2hpY2ggYWNjb21wYW5pZXNcclxuICB0aGlzIGRpc3RyaWJ1dGlvbiwgYW5kIGlzIGF2YWlsYWJsZSBhdCBodHRwczovL3d3dy5lY2xpcHNlLm9yZy9sZWdhbC9lcGwtdjIwLmh0bWxcclxuICBcclxuICBTUERYLUxpY2Vuc2UtSWRlbnRpZmllcjogRVBMLTIuMFxyXG4gIFxyXG4gIENvcHlyaWdodCBDb250cmlidXRvcnMgdG8gdGhlIFpvd2UgUHJvamVjdC5cclxuKi9cclxuXHJcbiJdfQ==
