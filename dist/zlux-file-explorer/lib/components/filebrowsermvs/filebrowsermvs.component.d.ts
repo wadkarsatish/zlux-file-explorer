@@ -30,6 +30,7 @@ export declare class FileBrowserMVSComponent implements OnInit, OnDestroy {
     searchMVS: ElementRef;
     searchCtrl: any;
     private searchValueSubscription;
+    private saveHistorySubscription;
     showSearch: boolean;
     path: string;
     selectedNode: any;

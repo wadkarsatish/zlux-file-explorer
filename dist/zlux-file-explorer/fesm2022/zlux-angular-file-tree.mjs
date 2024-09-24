@@ -2152,6 +2152,9 @@ class FileBrowserMVSComponent {
         if (this.deleteVsamSubscription) {
             this.deleteVsamSubscription.unsubscribe();
         }
+        if (this.saveHistorySubscription) {
+            this.saveHistorySubscription.unsubscribe();
+        }
         // TODO: Fetching updates for automatic refresh (disabled for now)
         // if (this.intervalId) {
         //   clearInterval(this.intervalId);
@@ -2718,7 +2721,7 @@ class FileBrowserMVSComponent {
         }
     }
     refreshHistory(path) {
-        this.mvsSearchHistory
+        this.saveHistorySubscription = this.mvsSearchHistory
             .saveSearchHistory(path)
             .subscribe();
     }

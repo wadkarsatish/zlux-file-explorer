@@ -70,6 +70,7 @@ export class FileBrowserMVSComponent implements OnInit, OnDestroy {
   @ViewChild('searchMVS') public searchMVS: ElementRef;
   searchCtrl: any;
   private searchValueSubscription: Subscription;
+  private saveHistorySubscription: Subscription;
   public showSearch: boolean;
 
   /* Data and navigation */
@@ -167,6 +168,9 @@ export class FileBrowserMVSComponent implements OnInit, OnDestroy {
     }
     if (this.deleteVsamSubscription) {
       this.deleteVsamSubscription.unsubscribe();
+    }
+    if (this.saveHistorySubscription) {
+      this.saveHistorySubscription.unsubscribe();
     }
     // TODO: Fetching updates for automatic refresh (disabled for now)
     // if (this.intervalId) {
@@ -778,7 +782,7 @@ export class FileBrowserMVSComponent implements OnInit, OnDestroy {
   }
 
   refreshHistory(path: string) {
-    this.mvsSearchHistory
+    this.saveHistorySubscription = this.mvsSearchHistory
       .saveSearchHistory(path)
       .subscribe();
   }
