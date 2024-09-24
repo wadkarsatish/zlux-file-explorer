@@ -12,7 +12,7 @@ Copyright Contributors to the Zowe Project.
 
   <!-- Tabs, searchbar, and loading indicator -->
   @if (showUpArrow) {
-  <img src="../../../assets/explorer-uparrow.png" data-toggle="tooltip" class="filebrowsermvs-pointer-logo"
+  <img [src]="'./assets/explorer-uparrow.png'" data-toggle="tooltip" class="filebrowsermvs-pointer-logo"
     title="Go up to the parent level" (click)="levelUp()" [ngStyle]="treeStyle" tabindex="0"
     (keydown.enter)="levelUp()" />
   }

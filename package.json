@@ -8,6 +8,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build-lib": "ng build zlux-file-explorer",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },

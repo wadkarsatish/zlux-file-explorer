@@ -13,7 +13,7 @@ Copyright Contributors to the Zowe Project.
 
   <!-- Tabs, searchbar, and loading indicator -->
   @if (showUpArrow) {
-    <img src="../../../assets/explorer-uparrow.png"
+    <img [src]="'./assets/explorer-uparrow.png'"
       data-toggle="tooltip"
       class="filebrowseruss-pointer-logo"
       title="Go up to the parent level" (click)="levelUp()"
