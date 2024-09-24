@@ -778,11 +778,9 @@ export class FileBrowserMVSComponent implements OnInit, OnDestroy {
   }
 
   refreshHistory(path: string) {
-    const sub = this.mvsSearchHistory
+    this.mvsSearchHistory
       .saveSearchHistory(path)
-      .subscribe(() => {
-        if (sub) sub.unsubscribe();
-      });
+      .subscribe();
   }
 
   clearSearchHistory(): void {

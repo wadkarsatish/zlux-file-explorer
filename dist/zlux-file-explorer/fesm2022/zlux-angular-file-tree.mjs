@@ -2718,12 +2718,9 @@ class FileBrowserMVSComponent {
         }
     }
     refreshHistory(path) {
-        const sub = this.mvsSearchHistory
+        this.mvsSearchHistory
             .saveSearchHistory(path)
-            .subscribe(() => {
-            if (sub)
-                sub.unsubscribe();
-        });
+            .subscribe();
     }
     clearSearchHistory() {
         this.mvsSearchHistory.deleteSearchHistory().subscribe();
