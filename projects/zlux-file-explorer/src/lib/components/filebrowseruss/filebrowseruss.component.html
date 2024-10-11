@@ -1,4 +1,3 @@
-
 <!--
 This program and the accompanying materials are
 made available under the terms of the Eclipse Public License v2.0 which accompanies
@@ -13,66 +12,53 @@ Copyright Contributors to the Zowe Project.
 
   <!-- Tabs, searchbar, and loading indicator -->
   @if (showUpArrow) {
-    <img [src]="'./assets/explorer-uparrow.png'"
-      data-toggle="tooltip"
-      class="filebrowseruss-pointer-logo"
-      title="Go up to the parent level" (click)="levelUp()"
-      [ngStyle]="treeStyle" tabindex="0" (keydown.enter)="levelUp()"
-      >
+  <img data-toggle="tooltip" class="filebrowseruss-pointer-logo" title="Go up to the parent level" (click)="levelUp()"
+    [ngStyle]="treeStyle" tabindex="0" (keydown.enter)="levelUp()">
   }
 
-  <div class="filebrowseruss-search" [ngStyle] = "searchStyle">
-    <input #pathInputUSS
-      [(ngModel)]="path"
-      list="searchUSSHistory"
-      placeholder="Enter an absolute path..."
-      [ngStyle] = "inputStyle"
-      class="filebrowseruss-search-input"
-      (keydown.enter)="displayTree(path, false);"
-      [disabled]="isLoading"
-      (ngModelChange)="checkPathSlash($event)">
-      <!-- TODO: make search history a directive to use in both uss and mvs-->
-      <datalist id="searchUSSHistory">
-        @for (item of ussSearchHistory.searchHistoryVal; track item) {
-          <option [value]="item"></option>
-        }
-      </datalist>
-    </div>
-    <div class="fa fa-spinner fa-spin filebrowseruss-loading-icon" [hidden]="!isLoading" style="margin-left: 9px;"></div>
-    <div class="fa fa-refresh filebrowseruss-loading-icon" title="Refresh whole directory" (click)="displayTree(path, false);" [hidden]="isLoading" style="margin-left: 9px; cursor: pointer;"></div>
-    <div class="file-tree-utilities">
-      <div class="fa fa-minus-square-o filebrowser-icon" title="Collapse Folders in Explorer" (click)="collapseTree();"></div>
-      <div class="fa fa-trash-o filebrowser-icon" title="Delete" (click)="showDeleteDialog(selectedNode);"></div>
-      <div class="fa fa-folder-o filebrowser-icon" title="Create New Folder" (click)="showCreateFolderDialog(!selectedNode || (!selectedNode.parent && !selectedNode.directory) ? { 'path' : path } : selectedNode.directory ? selectedNode : selectedNode.parent);"></div>
-      <div class="fa fa-eraser filebrowser-icon special-utility" title="Clear Search History" (click)="clearSearchHistory();"></div>
-    </div>
-
-    <!-- Main tree -->
-    <div [hidden]="hideExplorer" style="height: 100%;">
-      <tree-root [treeData]="data"
-        (clickEvent)="onNodeClick($event)"
-        (dblClickEvent)="onNodeDblClick($event)"
-        [ngStyle]="treeStyle"
-        (rightClickEvent)="onNodeRightClick($event)"
-        (panelRightClickEvent)="onPanelRightClick($event)"
-        (dataChanged)="onDataChanged($event)"
-      ></tree-root>
-    </div>
-
-    @if (showSearch) {
-      <div class="ui-inputgroup filebrowseruss-search-bottom-group">
-        <span class="ui-inputgroup-addon"><i class="fa fa-search filebrowseruss-search-bottom-icon"></i></span>
-        <input type="text" pInputText
-          placeholder="Search opened files/folders by name..."
-          class="filebrowseruss-search-bottom-input"
-          [formControl]="searchCtrl"
-          #searchUSS>
-        </div>
+  <div class="filebrowseruss-search" [ngStyle]="searchStyle">
+    <input #pathInputUSS [(ngModel)]="path" list="searchUSSHistory" placeholder="Enter an absolute path..."
+      [ngStyle]="inputStyle" class="filebrowseruss-search-input" (keydown.enter)="displayTree(path, false);"
+      [disabled]="isLoading" (ngModelChange)="checkPathSlash($event)">
+    <!-- TODO: make search history a directive to use in both uss and mvs-->
+    <datalist id="searchUSSHistory">
+      @for (item of ussSearchHistory.searchHistoryVal; track item) {
+      <option [value]="item"></option>
       }
-
+    </datalist>
+  </div>
+  <div class="fa fa-spinner fa-spin filebrowseruss-loading-icon" [hidden]="!isLoading" style="margin-left: 9px;"></div>
+  <div class="fa fa-refresh filebrowseruss-loading-icon" title="Refresh whole directory"
+    (click)="displayTree(path, false);" [hidden]="isLoading" style="margin-left: 9px; cursor: pointer;"></div>
+  <div class="file-tree-utilities">
+    <div class="fa fa-minus-square-o filebrowser-icon" title="Collapse Folders in Explorer" (click)="collapseTree();">
     </div>
+    <div class="fa fa-trash-o filebrowser-icon" title="Delete" (click)="showDeleteDialog(selectedNode);"></div>
+    <div class="fa fa-folder-o filebrowser-icon" title="Create New Folder"
+      (click)="showCreateFolderDialog(!selectedNode || (!selectedNode.parent && !selectedNode.directory) ? { 'path' : path } : selectedNode.directory ? selectedNode : selectedNode.parent);">
+    </div>
+    <div class="fa fa-eraser filebrowser-icon special-utility" title="Clear Search History"
+      (click)="clearSearchHistory();"></div>
+  </div>
 
-    <!--
+  <!-- Main tree -->
+  <div [hidden]="hideExplorer" style="height: 100%;">
+    <tree-root [treeData]="data" (clickEvent)="onNodeClick($event)" (dblClickEvent)="onNodeDblClick($event)"
+      [ngStyle]="treeStyle" (rightClickEvent)="onNodeRightClick($event)"
+      (panelRightClickEvent)="onPanelRightClick($event)" (dataChanged)="onDataChanged($event)"></tree-root>
+  </div>
+
+  @if (showSearch) {
+  <div class="ui-inputgroup filebrowseruss-search-bottom-group">
+    <span class="ui-inputgroup-addon"><i class="fa fa-search filebrowseruss-search-bottom-icon"></i></span>
+    <input type="text" pInputText placeholder="Search opened files/folders by name..."
+      class="filebrowseruss-search-bottom-input" [formControl]="searchCtrl" #searchUSS>
+  </div>
+  }
+
+</div>
+
+<!--
     This program and the accompanying materials are
     made available under the terms of the Eclipse Public License v2.0 which accompanies
     this distribution, and is available at https://www.eclipse.org/legal/epl-v20.html

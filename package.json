@@ -12,7 +12,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
-  "private": true,
+  "private": true, 
   "dependencies": {
     "@angular/animations": "~18.0.0",
     "@angular/cdk": "^18.0.6",
@@ -24,7 +24,6 @@
     "@angular/platform-browser": "~18.0.0",
     "@angular/platform-browser-dynamic": "~18.0.0",
     "@angular/router": "~18.0.0",
-    "carbon-components": "8.23.1",
     "lodash": "4.17.21",
     "primeng": "^17.18.10",
     "rxjs": "~7.8.0",

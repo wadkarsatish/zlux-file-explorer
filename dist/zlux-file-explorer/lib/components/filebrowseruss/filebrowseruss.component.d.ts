@@ -35,6 +35,7 @@ export declare class FileBrowserUSSComponent implements OnInit, OnDestroy {
     showSearch: boolean;
     searchCtrl: any;
     searchValueSubscription: Subscription;
+    private ussSearchHistorySubscription;
     private treeComponent;
     pathInputUSS: ElementRef;
     searchUSS: ElementRef;

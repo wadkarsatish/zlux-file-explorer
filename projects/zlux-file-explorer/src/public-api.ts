@@ -18,6 +18,7 @@ export * from './lib/components/upload-files-modal/upload-files-modal.component'
 export * from './lib/components/zlux-file-tree/zlux-file-tree.component';
 export * from './lib/components/zlux-file-tree/zlux-file-tree.module';
 
+// services
 export * from './lib/services/dataset.crud.service';
 export * from './lib/services/downloader.service';
 export * from './lib/services/keybinding.service';

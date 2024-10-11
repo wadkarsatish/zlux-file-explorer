@@ -294,8 +294,8 @@ export class FileBrowserMVSComponent implements OnInit, OnDestroy {
     this.deletionQueue.set(rightClickedFile.data.path, rightClickedFile);
     rightClickedFile.styleClass = CSS_NODE_DELETING;
     this.deleteNonVsamSubscription = this.datasetService.deleteNonVsamDatasetOrMember(rightClickedFile)
-      .subscribe(
-        resp => {
+      .subscribe({
+        next: resp => {
           this.isLoading = false;
           this.snackBar.open(resp.msg,
             'Dismiss', defaultSnackbarOptions);
@@ -304,7 +304,7 @@ export class FileBrowserMVSComponent implements OnInit, OnDestroy {
           rightClickedFile.styleClass = "";
           this.deleteClick.emit(this.rightClickedEvent.node);
         },
-        error => {
+        error: error => {
           if (error.status == '500') { //Internal Server Error
             this.snackBar.open("Failed to delete: '" + rightClickedFile.data.path + "' This is probably due to a server agent problem.",
               'Dismiss', defaultSnackbarOptions);
@@ -325,7 +325,7 @@ export class FileBrowserMVSComponent implements OnInit, OnDestroy {
           rightClickedFile.styleClass = "";
           this.log.severe(error);
         }
-      );
+      });
 
     setTimeout(() => {
       if (this.deleteNonVsamSubscription.closed == false) {
@@ -340,8 +340,8 @@ export class FileBrowserMVSComponent implements OnInit, OnDestroy {
     this.deletionQueue.set(rightClickedFile.data.path, rightClickedFile);
     rightClickedFile.styleClass = CSS_NODE_DELETING;
     this.deleteVsamSubscription = this.datasetService.deleteVsamDataset(rightClickedFile)
-      .subscribe(
-        resp => {
+      .subscribe({
+        next: resp => {
           this.isLoading = false;
           this.snackBar.open(resp.msg,
             'Dismiss', defaultSnackbarOptions);
@@ -351,7 +351,7 @@ export class FileBrowserMVSComponent implements OnInit, OnDestroy {
           rightClickedFile.styleClass = "";
           this.deleteClick.emit(this.rightClickedEvent.node);
         },
-        error => {
+        error: error => {
           if (error.status == '500') { //Internal Server Error
             this.snackBar.open("Failed to delete: '" + rightClickedFile.data.path + "' This is probably due to a server agent problem.",
               'Dismiss', defaultSnackbarOptions);
@@ -375,7 +375,7 @@ export class FileBrowserMVSComponent implements OnInit, OnDestroy {
           rightClickedFile.styleClass = "";
           this.log.severe(error);
         }
-      );
+      });
 
     setTimeout(() => {
       if (this.deleteVsamSubscription.closed == false) {
@@ -558,8 +558,8 @@ export class FileBrowserMVSComponent implements OnInit, OnDestroy {
         undefined, { panelClass: 'center' });
       this.datasetService.recallDataset($event.node.data.path)
         .pipe(finalize(() => snackBarRef.dismiss()))
-        .subscribe(
-          attrs => {
+        .subscribe({
+          next: attrs => {
             this.updateRecalledDatasetNode($event.node, attrs);
             if (this.showSearch) { // Update search bar cached data
               let nodeCached = this.findNodeByPath(this.dataCached, $event.node.data.path)[0];
@@ -569,9 +569,9 @@ export class FileBrowserMVSComponent implements OnInit, OnDestroy {
             }
             this.nodeClick.emit($event.node);
           },
-          _err => this.snackBar.open(`Failed to recall dataset '${path}'`,
+          error: _err => this.snackBar.open(`Failed to recall dataset '${path}'`,
             'Dismiss', defaultSnackbarOptions)
-        );
+        });
       return;
     }
     this.nodeClick.emit($event.node);
@@ -681,65 +681,68 @@ export class FileBrowserMVSComponent implements OnInit, OnDestroy {
   getTreeForQueryAsync(path: string): Promise<any> {
     return new Promise((resolve, reject) => {
       this.isLoading = true;
-      this.datasetService.queryDatasets(path, true, this.additionalQualifiers).pipe(take(1)).subscribe((res) => {
-        this.onDataChanged(res);
-        let parents: TreeNode[] = [];
-        let parentMap = {};
-        if (res.datasets.length > 0) {
-          for (let i: number = 0; i < res.datasets.length; i++) {
-            let currentNode: TreeNode = {};
-            currentNode.children = [];
-            currentNode.label = res.datasets[i].name.replace(/^\s+|\s+$/, '');
-            //data.id attribute is not used by either parent or child, but required as part of the ProjectStructure interface
-            let resAttr = res.datasets[i];
-            let currentNodeData: ProjectStructure = {
-              id: String(i),
-              name: currentNode.label,
-              fileName: currentNode.label,
-              path: currentNode.label,
-              hasChildren: false,
-              isDataset: true,
-              datasetAttrs: ({
-                csiEntryType: resAttr.csiEntryType,
-                dsorg: resAttr.dsorg,
-                recfm: resAttr.recfm,
-                volser: resAttr.volser
-              } as DatasetAttributes)
-            };
-            currentNode.data = currentNodeData;
-            let migrated = this.utils.isDatasetMigrated(currentNode.data.datasetAttrs);
-            if (currentNode.data.datasetAttrs.dsorg
-              && currentNode.data.datasetAttrs.dsorg.organization === 'partitioned') {
-              currentNode.type = 'folder';
-              currentNode.expanded = false;
-              if (migrated) {
-                currentNode.icon = 'fa fa-clock-o';
+      this.datasetService.queryDatasets(path, true, this.additionalQualifiers).pipe(take(1)).subscribe({
+        next: (res) => {
+          this.onDataChanged(res);
+          let parents: TreeNode[] = [];
+          let parentMap = {};
+          if (res.datasets.length > 0) {
+            for (let i: number = 0; i < res.datasets.length; i++) {
+              let currentNode: TreeNode = {};
+              currentNode.children = [];
+              currentNode.label = res.datasets[i].name.replace(/^\s+|\s+$/, '');
+              //data.id attribute is not used by either parent or child, but required as part of the ProjectStructure interface
+              let resAttr = res.datasets[i];
+              let currentNodeData: ProjectStructure = {
+                id: String(i),
+                name: currentNode.label,
+                fileName: currentNode.label,
+                path: currentNode.label,
+                hasChildren: false,
+                isDataset: true,
+                datasetAttrs: ({
+                  csiEntryType: resAttr.csiEntryType,
+                  dsorg: resAttr.dsorg,
+                  recfm: resAttr.recfm,
+                  volser: resAttr.volser
+                } as DatasetAttributes)
+              };
+              currentNode.data = currentNodeData;
+              let migrated = this.utils.isDatasetMigrated(currentNode.data.datasetAttrs);
+              if (currentNode.data.datasetAttrs.dsorg
+                && currentNode.data.datasetAttrs.dsorg.organization === 'partitioned') {
+                currentNode.type = 'folder';
+                currentNode.expanded = false;
+                if (migrated) {
+                  currentNode.icon = 'fa fa-clock-o';
+                } else {
+                  currentNode.expandedIcon = 'fa fa-folder-open';
+                  currentNode.collapsedIcon = 'fa fa-folder';
+                }
+                if (res.datasets[i].members) {
+                  currentNode.data.hasChildren = true;
+                  this.addChildren(currentNode, res.datasets[i].members);
+                }
               } else {
-                currentNode.expandedIcon = 'fa fa-folder-open';
-                currentNode.collapsedIcon = 'fa fa-folder';
+                currentNode.icon = (migrated) ? 'fa fa-clock-o' : 'fa fa-file';
+                currentNode.type = 'file';
               }
-              if (res.datasets[i].members) {
-                currentNode.data.hasChildren = true;
-                this.addChildren(currentNode, res.datasets[i].members);
-              }
-            } else {
-              currentNode.icon = (migrated) ? 'fa fa-clock-o' : 'fa fa-file';
-              currentNode.type = 'file';
+              parents.push(currentNode);
+              parentMap[currentNode.label] = currentNode;
             }
-            parents.push(currentNode);
-            parentMap[currentNode.label] = currentNode;
+            this.isLoading = false;
+          } else {
+            this.snackBar.open("No datasets were found for '" + path + "'",
+              'Dismiss', quickSnackbarOptions);
+            //data set probably doesnt exist
+            this.isLoading = false;
           }
+          resolve(parents);
+        },
+        error: (err) => {
           this.isLoading = false;
-        } else {
-          this.snackBar.open("No datasets were found for '" + path + "'",
-            'Dismiss', quickSnackbarOptions);
-          //data set probably doesnt exist
-          this.isLoading = false;
+          reject(err);
         }
-        resolve(parents);
-      }, (err) => {
-        this.isLoading = false;
-        reject(err);
       })
     })
   }
@@ -854,14 +857,16 @@ export class FileBrowserMVSComponent implements OnInit, OnDestroy {
           datasetAttributes['blksz'] = parseInt(attributes.blockSize);
         }
 
-        this.datasetService.createDataset(datasetAttributes, attributes.name).subscribe(resp => {
-          this.snackBar.open(`Dataset: ${attributes.name} created successfully.`, 'Dismiss', quickSnackbarOptions);
-          this.createDataset.emit({ status: 'success', name: attributes.name, org: attributes.organization, initData: dsCreateConfig.data.data });
-        }, error => {
-          this.snackBar.open(`Failed to create the dataset: ${error.error}`, 'Dismiss', longSnackbarOptions);
-          this.createDataset.emit({ status: 'error', error: error.error, name: attributes.name });
-        }
-        );
+        this.datasetService.createDataset(datasetAttributes, attributes.name).subscribe({
+          next: resp => {
+            this.snackBar.open(`Dataset: ${attributes.name} created successfully.`, 'Dismiss', quickSnackbarOptions);
+            this.createDataset.emit({ status: 'success', name: attributes.name, org: attributes.organization, initData: dsCreateConfig.data.data });
+          },
+          error: error => {
+            this.snackBar.open(`Failed to create the dataset: ${error.error}`, 'Dismiss', longSnackbarOptions);
+            this.createDataset.emit({ status: 'error', error: error.error, name: attributes.name });
+          }
+        });
       }
     });
   }

@@ -401,11 +401,11 @@ class CreateDatasetModal {
         }
     }
     static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "18.0.7", ngImport: i0, type: CreateDatasetModal, deps: [{ token: i0.ElementRef }, { token: MAT_DIALOG_DATA }], target: i0.ɵɵFactoryTarget.Component }); }
-    static { this.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "17.0.0", version: "18.0.7", type: CreateDatasetModal, selector: "create-dataset-modal", viewQueries: [{ propertyName: "dirblocks", first: true, predicate: ["dirblocks"], descendants: true }, { propertyName: "primeSpace", first: true, predicate: ["primeSpace"], descendants: true }, { propertyName: "allocUnit", first: true, predicate: ["allocUnit"], descendants: true }, { propertyName: "secondSpace", first: true, predicate: ["secondSpace"], descendants: true }, { propertyName: "recordLength", first: true, predicate: ["recordLength"], descendants: true }, { propertyName: "recordFormat", first: true, predicate: ["recordFormat"], descendants: true }, { propertyName: "dsorg", first: true, predicate: ["dsorg"], descendants: true }], ngImport: i0, template: "<!--\nThis program and the accompanying materials are\nmade available under the terms of the Eclipse Public License v2.0 which accompanies\nthis distribution, and is available at https://www.eclipse.org/legal/epl-v20.html\n\nSPDX-License-Identifier: EPL-2.0\n\nCopyright Contributors to the Zowe Project.\n-->\n<zlux-tab-trap></zlux-tab-trap>\n<button mat-dialog-close class=\"close-dialog-btn\"><i class=\"fa fa-close\"></i></button>\n<h2 mat-dialog-title>ALLOCATE NEW DATA SET</h2>\n<p class=\"mandatory\">Mandatory fields are marked with an asterisk</p>\n<mat-dialog-content>\n  <label class=\"required\" style=\"margin-left: 6px\">Data Set Name:</label>\n  <mat-form-field floatLabel=\"auto\" [style.width.px]=300>\n    <input matInput type=\"text\" maxlength=\"44\" placeholder=\"High-level qualifier must start with a TSO ID\" [pattern]=\"datasetNamePattern\" [(ngModel)]=\"properties.name\" #nameInput=\"ngModel\" [errorStateMatcher]=\"matcher\" oninput=\"this.value = this.value.toUpperCase()\">\n    <mat-error>Invalid Name</mat-error>\n  </mat-form-field>\n  <div class=\"row\">\n    <div class=\"column1\">\n      <label class=\"required\">Data Set Name Type:</label>\n      <mat-form-field floatLabel=\"auto\">\n        <mat-select class=\"select-encoding\" tabindex=\"0\" placeholder=\"Blank for PS Dataset\" [(ngModel)]=\"properties.datasetNameType\" #datasetNameType (selectionChange)=\"setDatasetNameTypeProperties(datasetNameType.value)\">\n          <mat-option>Blank</mat-option>\n          @for (datasetNameType of datasetNameTypeOptions; track datasetNameType) {\n            <mat-option [value]=\"datasetNameType\">\n            {{datasetNameType}}</mat-option>\n          }\n        </mat-select>\n      </mat-form-field>\n    </div>\n    <div class=\"column2\">\n      <label>Data Set Organization:</label>\n      <mat-form-field>\n        <input matInput [(ngModel)]=\"properties.organization\" readonly #dsorg>\n      </mat-form-field>\n    </div>\n  </div>\n  <p></p>\n  <label style=\"margin-left: 310px; width: 148px; font-size: larger; font-weight: bold;\">TEMPLATE:</label>\n  <mat-form-field style=\"width: 150px; font-weight: bold; margin-top: 3px;\" floatLabel=\"auto\">\n    <mat-select class=\"select-encoding\" tabindex=\"0\" placeholder=\"Select\" [(ngModel)]=\"properties.template\" #templateInput (selectionChange)=\"onTemplateChange(templateInput.value)\">\n      <mat-option>None</mat-option>\n      @for (template of templateOptions; track template) {\n        <mat-option [value]=\"template\">\n        {{template}}</mat-option>\n      }\n    </mat-select>\n  </mat-form-field>\n  <div class=\"row\">\n    <div class=\"column1\">\n      <label class=\"required\">Allocation Unit:</label>\n      <mat-form-field floatLabel=\"auto\">\n        <mat-select class=\"select-encoding\" tabindex=\"0\" placeholder=\"Select\" [(ngModel)]=\"properties.allocationUnit\" #allocUnit (selectionChange)=\"onAllocUnitChange(allocUnit.value)\">\n          @for (allocationUnit of allocationUnitOptions; track allocationUnit) {\n            <mat-option [value]=\"allocationUnit\">\n            {{allocationUnit}}</mat-option>\n          }\n        </mat-select>\n      </mat-form-field>\n      <label class=\"required\">Primary Space:</label>\n      <mat-form-field>\n        <input matInput [pattern]=\"numericPatternExZero\" [(ngModel)]=\"properties.primarySpace\" #primarySpaceInput=\"ngModel\" [errorStateMatcher]=\"matcher\" (ngModelChange)=\"onPrimeSpaceChange(primarySpaceInput.value)\" #primeSpace>\n        <mat-error>Invalid Primary Space</mat-error>\n      </mat-form-field>\n      <label class=\"required\">Record Length:</label>\n      <mat-form-field>\n        <input matInput [pattern]=\"numericPattern\" [(ngModel)]=\"properties.recordLength\" #recLengthInput=\"ngModel\" [errorStateMatcher]=\"matcher\" (ngModelChange)=\"onRecLengthChange(recLengthInput.value)\" #recordLength>\n        <mat-error>Invalid Record Length</mat-error>\n      </mat-form-field>\n      <label class=\"required\">Directory Blocks:</label>\n      <mat-form-field floatLabel=\"auto\">\n        <input matInput [pattern]=\"numericPattern\" placeholder=\"0 for PS Data Set\" [(ngModel)]=\"properties.directoryBlocks\" #dirBlockInput=\"ngModel\" [errorStateMatcher]=\"matcher\" (ngModelChange)=\"onDirBlockChange(dirBlockInput.value)\"  #dirblocks>\n        <mat-error>Invalid Directory Blocks</mat-error>\n      </mat-form-field>\n    </div>\n    <div class=\"column2\">\n      <label>Average Record Unit:</label>\n      <mat-form-field floatLabel=\"auto\">\n        <mat-select class=\"select-encoding\" tabindex=\"0\" placeholder=\"Select\" [(ngModel)]=\"properties.averageRecordUnit\">\n          @for (averageRecordUnit of recordUnitOptions; track averageRecordUnit) {\n            <mat-option [value]=\"averageRecordUnit\">\n            {{averageRecordUnit}}</mat-option>\n          }\n        </mat-select>\n      </mat-form-field>\n      <label class=\"required\">Secondary Space:</label>\n      <mat-form-field>\n        <input matInput [pattern]=\"numericPatternExZero\" [(ngModel)]=\"properties.secondarySpace\" #secSpaceInput=\"ngModel\" [errorStateMatcher]=\"matcher\" (ngModelChange)=\"onSecondSpaceChange(secSpaceInput.value)\" #secondSpace>\n        <mat-error>Invalid Secondary Space</mat-error>\n      </mat-form-field>\n      <label class=\"required\">Record Format:</label>\n      <mat-form-field floatLabel=\"auto\">\n        <mat-select class=\"select-encoding\" tabindex=\"0\" placeholder=\"Select\" [(ngModel)]=\"properties.recordFormat\" #recordFormat (selectionChange)=\"onRecordFormatChange(recordFormat.value)\">\n          @for (recordFormat of recordFormatOptions; track recordFormat) {\n            <mat-option [value]=\"recordFormat\">\n            {{recordFormat}}</mat-option>\n          }\n        </mat-select>\n      </mat-form-field>\n      <label>Block Size :</label>\n      <mat-form-field>\n        <input matInput [pattern]=\"numericPatternExZero\" [(ngModel)]=\"properties.blockSize\" #blockSize=\"ngModel\" [errorStateMatcher]=\"matcher\" (ngModelChange)=\"onBlockSizeChange(blockSize.value)\">\n        <mat-error>Invalid Block Size</mat-error>\n      </mat-form-field>\n    </div>\n  </div>\n</mat-dialog-content>\n<div [hidden]=\"isDirBlockValid\" class=\"errorClass\">{{dirBlockError}}</div>\n<div [hidden]=\"isPrimeSpaceValid\" class=\"errorClass\">{{primarySpaceError}}</div>\n<div [hidden]=\"isSecondSpaceValid\" class=\"errorClass\">{{secondarySpaceError}}</div>\n<div [hidden]=\"isRecLengthValid\" class=\"errorClass\">{{recordLengthError}}</div>\n<div [hidden]=\"isBlockSizeValid\" class=\"errorClass\">{{blockSizeError}}</div>\n<div [hidden]=\"isRecordFormatValid\" class=\"errorClass\">{{recordFormatErrorMessage}}</div>\n<div [hidden]=\"isAllocUnitValid\" class=\"errorClass\">{{allocUnitErrorMessage}}</div>\n<mat-dialog-actions>\n  <button\n    mat-button\n    mat-stroked-button\n    class=\"right\"\n    color=\"primary\"\n    [mat-dialog-close]=\"properties\"\n    [disabled]=\"!properties.name || !properties.allocationUnit || !properties.primarySpace || !properties.secondarySpace || !properties.directoryBlocks || !properties.recordFormat || !properties.recordLength || nameInput.invalid || primarySpaceInput.invalid || secSpaceInput.invalid || dirBlockInput.invalid || recLengthInput.invalid || blockSize.invalid || !isDirBlockValid || !isPrimeSpaceValid || !isSecondSpaceValid || !isRecLengthValid || !isBlockSizeValid || !isRecordFormatValid || !isAllocUnitValid\">\n    Save\n  </button>\n</mat-dialog-actions>\n\n<!--\nThis program and the accompanying materials are\nmade available under the terms of the Eclipse Public License v2.0 which accompanies\nthis distribution, and is available at https://www.eclipse.org/legal/epl-v20.html\n\nSPDX-License-Identifier: EPL-2.0\n\nCopyright Contributors to the Zowe Project.\n-->", styles: [".mat-dialog-title{font:500 20px/32px Roboto,Helvetica Neue,sans-serif;text-align:center;border-bottom:2px solid;width:fit-content;margin-left:330px}.mat-dialog-container{width:1000px!important}.row:after{content:\"\";display:table;clear:both}.column1{float:left;margin-left:12px;width:45%;padding:10px}.column2{float:right;margin-left:30px;width:45%;padding:10px}.mat-dialog-content{box-sizing:border-box;padding:5px 0 5px 35px;width:940px;overflow:hidden}.mat-dialog-content label{float:left;width:200px;padding-top:20px;font-weight:500}.mat-form-field{font-size:inherit;font-weight:400;line-height:1.125;font-family:Roboto,Helvetica Neue,sans-serif;width:200px}.mat-select{font-family:Roboto,Helvetica Neue,sans-serif}.mat-option{background:#fff}.mat-option.mat-active{background:#dad9d9!important}.mat-option:hover{background:#efeeee}::ng-deep .mat-select-panel{box-shadow:0 0 5px 1px gray;margin-top:10px}.mat-dialog-actions{justify-content:flex-end}.required:before{content:\"* \";color:#000}.mandatory{font-style:Roboto,\"Helvetica Neue\",sans-serif;text-align:left;margin-left:20px}.errorClass{margin-left:20px;color:red;position:relative}\n", "mat-dialog-actions{justify-content:flex-end}.close-dialog-btn{float:right;border:none;background:transparent;outline:none}.modal-column{float:left;width:50%}.modal-column-full-width{width:100%}.modal-row:after{content:\"\";display:table;clear:both}.modal-row{padding-top:15px;font-size:medium}.modal-title{vertical-align:middle;float:left}.selectable-text{-moz-user-select:text!important;-khtml-user-select:text!important;-webkit-user-select:text!important;-ms-user-select:text!important;user-select:text!important;min-width:200px}.modal-mat-button{padding:6px;width:85px;border-radius:3px;border:solid;color:#3f51b5;border-width:1.75px;box-shadow:transparent;background-color:transparent;margin-top:25px;margin-right:-10px;font-family:Roboto,Helvetica Neue,sans-serif;font-size:14px;font-weight:500}.modal-mat-button.cancel{color:#242424;border-color:transparent;margin-right:5px}.modal-mat-button.cancel:hover{background-color:#e0e0e0;-webkit-transition-duration:.2s;transition-duration:.2s}.modal-mat-button:hover{background-color:#2c4cff1f;-webkit-transition-duration:.2s;transition-duration:.2s}.modal-mat-button-delete{padding:6px;width:85px;border-radius:3px;border:solid;color:#e64242;border-width:1.75px;box-shadow:transparent;background-color:transparent;margin-top:25px;margin-right:-10px;font-family:Roboto,Helvetica Neue,sans-serif;font-size:14px;font-weight:500}.modal-mat-button-delete.cancel{border-color:transparent;color:#242424;margin-top:25px;margin-right:5px}.modal-mat-button-delete.cancel:hover{background-color:#e0e0e0;-webkit-transition-duration:.2s;transition-duration:.2s}.modal-mat-button-delete:hover{background-color:#fff0f0;-webkit-transition-duration:.2s;transition-duration:.2s}.modal-mat-header{margin-left:33px;margin-bottom:15px;-webkit-user-select:text;user-select:text}.modal-icon{font-size:24px;position:absolute;margin-top:4px;margin-left:3px}.modal-content-body{margin-left:45px;margin-bottom:-5px;margin-top:1px;font-size:17px;min-width:400px}.modal-clear-button{border-radius:100%;background-color:transparent;border-color:transparent}.modal-clear-button:hover{background-color:#0000001f!important;transition:0!important;-webkit-transition-duration:0!important;transition-duration:0!important}\n"], dependencies: [{ kind: "directive", type: i4.DefaultValueAccessor, selector: "input:not([type=checkbox])[formControlName],textarea[formControlName],input:not([type=checkbox])[formControl],textarea[formControl],input:not([type=checkbox])[ngModel],textarea[ngModel],[ngDefaultControl]" }, { kind: "directive", type: i4.NgControlStatus, selector: "[formControlName],[ngModel],[formControl]" }, { kind: "directive", type: i4.MaxLengthValidator, selector: "[maxlength][formControlName],[maxlength][formControl],[maxlength][ngModel]", inputs: ["maxlength"] }, { kind: "directive", type: i4.PatternValidator, selector: "[pattern][formControlName],[pattern][formControl],[pattern][ngModel]", inputs: ["pattern"] }, { kind: "directive", type: i4.NgModel, selector: "[ngModel]:not([formControlName]):not([formControl])", inputs: ["name", "disabled", "ngModel", "ngModelOptions"], outputs: ["ngModelChange"], exportAs: ["ngModel"] }, { kind: "directive", type: i1.MatDialogClose, selector: "[mat-dialog-close], [matDialogClose]", inputs: ["aria-label", "type", "mat-dialog-close", "matDialogClose"], exportAs: ["matDialogClose"] }, { kind: "directive", type: i1.MatDialogTitle, selector: "[mat-dialog-title], [matDialogTitle]", inputs: ["id"], exportAs: ["matDialogTitle"] }, { kind: "directive", type: i1.MatDialogActions, selector: "[mat-dialog-actions], mat-dialog-actions, [matDialogActions]", inputs: ["align"] }, { kind: "directive", type: i1.MatDialogContent, selector: "[mat-dialog-content], mat-dialog-content, [matDialogContent]" }, { kind: "component", type: i5.MatFormField, selector: "mat-form-field", inputs: ["hideRequiredMarker", "color", "floatLabel", "appearance", "subscriptSizing", "hintLabel"], exportAs: ["matFormField"] }, { kind: "directive", type: i5.MatError, selector: "mat-error, [matError]", inputs: ["id"] }, { kind: "directive", type: i7.MatInput, selector: "input[matInput], textarea[matInput], select[matNativeControl],      input[matNativeControl], textarea[matNativeControl]", inputs: ["disabled", "id", "placeholder", "name", "required", "type", "errorStateMatcher", "aria-describedby", "value", "readonly"], exportAs: ["matInput"] }, { kind: "component", type: i8.MatButton, selector: "    button[mat-button], button[mat-raised-button], button[mat-flat-button],    button[mat-stroked-button]  ", exportAs: ["matButton"] }, { kind: "component", type: i6.MatSelect, selector: "mat-select", inputs: ["aria-describedby", "panelClass", "disabled", "disableRipple", "tabIndex", "hideSingleSelectionIndicator", "placeholder", "required", "multiple", "disableOptionCentering", "compareWith", "value", "aria-label", "aria-labelledby", "errorStateMatcher", "typeaheadDebounceInterval", "sortComparator", "id", "panelWidth"], outputs: ["openedChange", "opened", "closed", "selectionChange", "valueChange"], exportAs: ["matSelect"] }, { kind: "component", type: i9.MatOption, selector: "mat-option", inputs: ["value", "id", "disabled"], outputs: ["onSelectionChange"], exportAs: ["matOption"] }, { kind: "component", type: i3.ZluxTabbingComponent, selector: "zlux-tab-trap", inputs: ["hiddenIds", "hiddenPos"] }] }); }
+    static { this.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "17.0.0", version: "18.0.7", type: CreateDatasetModal, selector: "create-dataset-modal", viewQueries: [{ propertyName: "dirblocks", first: true, predicate: ["dirblocks"], descendants: true }, { propertyName: "primeSpace", first: true, predicate: ["primeSpace"], descendants: true }, { propertyName: "allocUnit", first: true, predicate: ["allocUnit"], descendants: true }, { propertyName: "secondSpace", first: true, predicate: ["secondSpace"], descendants: true }, { propertyName: "recordLength", first: true, predicate: ["recordLength"], descendants: true }, { propertyName: "recordFormat", first: true, predicate: ["recordFormat"], descendants: true }, { propertyName: "dsorg", first: true, predicate: ["dsorg"], descendants: true }], ngImport: i0, template: "<!--\nThis program and the accompanying materials are\nmade available under the terms of the Eclipse Public License v2.0 which accompanies\nthis distribution, and is available at https://www.eclipse.org/legal/epl-v20.html\n\nSPDX-License-Identifier: EPL-2.0\n\nCopyright Contributors to the Zowe Project.\n-->\n<zlux-tab-trap></zlux-tab-trap>\n<button mat-dialog-close class=\"close-dialog-btn\"><i class=\"fa fa-close\"></i></button>\n<h2 mat-dialog-title>ALLOCATE NEW DATA SET</h2>\n<p class=\"mandatory\">Mandatory fields are marked with an asterisk</p>\n<mat-dialog-content>\n  <label class=\"required\" style=\"margin-left: 6px\">Data Set Name:</label>\n  <mat-form-field floatLabel=\"auto\" [style.width.px]=300>\n    <input matInput type=\"text\" maxlength=\"44\" placeholder=\"High-level qualifier must start with a TSO ID\"\n      [pattern]=\"datasetNamePattern\" [(ngModel)]=\"properties.name\" #nameInput=\"ngModel\" [errorStateMatcher]=\"matcher\"\n      oninput=\"this.value = this.value.toUpperCase()\">\n    <mat-error>Invalid Name</mat-error>\n  </mat-form-field>\n  <div class=\"row\">\n    <div class=\"column1\">\n      <label class=\"required\">Data Set Name Type:</label>\n      <mat-form-field floatLabel=\"auto\">\n        <mat-select class=\"select-encoding\" tabindex=\"0\" placeholder=\"Blank for PS Dataset\"\n          [(ngModel)]=\"properties.datasetNameType\" #datasetNameType\n          (selectionChange)=\"setDatasetNameTypeProperties(datasetNameType.value)\">\n          <mat-option>Blank</mat-option>\n          @for (datasetNameType of datasetNameTypeOptions; track datasetNameType) {\n          <mat-option [value]=\"datasetNameType\">\n            {{datasetNameType}}</mat-option>\n          }\n        </mat-select>\n      </mat-form-field>\n    </div>\n    <div class=\"column2\">\n      <label>Data Set Organization:</label>\n      <mat-form-field>\n        <input matInput [(ngModel)]=\"properties.organization\" readonly #dsorg>\n      </mat-form-field>\n    </div>\n  </div>\n  <p></p>\n  <label style=\"margin-left: 310px; width: 148px; font-size: larger; font-weight: bold;\">TEMPLATE:</label>\n  <mat-form-field style=\"width: 150px; font-weight: bold; margin-top: 3px;\" floatLabel=\"auto\">\n    <mat-select class=\"select-encoding\" tabindex=\"0\" placeholder=\"Select\" [(ngModel)]=\"properties.template\"\n      #templateInput (selectionChange)=\"onTemplateChange(templateInput.value)\">\n      <mat-option>None</mat-option>\n      @for (template of templateOptions; track template) {\n      <mat-option [value]=\"template\">\n        {{template}}</mat-option>\n      }\n    </mat-select>\n  </mat-form-field>\n  <div class=\"row\">\n    <div class=\"column1\">\n      <label class=\"required\">Allocation Unit:</label>\n      <mat-form-field floatLabel=\"auto\">\n        <mat-select class=\"select-encoding\" tabindex=\"0\" placeholder=\"Select\" [(ngModel)]=\"properties.allocationUnit\"\n          #allocUnit (selectionChange)=\"onAllocUnitChange(allocUnit.value)\">\n          @for (allocationUnit of allocationUnitOptions; track allocationUnit) {\n          <mat-option [value]=\"allocationUnit\">\n            {{allocationUnit}}</mat-option>\n          }\n        </mat-select>\n      </mat-form-field>\n      <label class=\"required\">Primary Space:</label>\n      <mat-form-field>\n        <input matInput [pattern]=\"numericPatternExZero\" [(ngModel)]=\"properties.primarySpace\"\n          #primarySpaceInput=\"ngModel\" [errorStateMatcher]=\"matcher\"\n          (ngModelChange)=\"onPrimeSpaceChange(primarySpaceInput.value)\" #primeSpace>\n        <mat-error>Invalid Primary Space</mat-error>\n      </mat-form-field>\n      <label class=\"required\">Record Length:</label>\n      <mat-form-field>\n        <input matInput [pattern]=\"numericPattern\" [(ngModel)]=\"properties.recordLength\" #recLengthInput=\"ngModel\"\n          [errorStateMatcher]=\"matcher\" (ngModelChange)=\"onRecLengthChange(recLengthInput.value)\" #recordLength>\n        <mat-error>Invalid Record Length</mat-error>\n      </mat-form-field>\n      <label class=\"required\">Directory Blocks:</label>\n      <mat-form-field floatLabel=\"auto\">\n        <input matInput [pattern]=\"numericPattern\" placeholder=\"0 for PS Data Set\"\n          [(ngModel)]=\"properties.directoryBlocks\" #dirBlockInput=\"ngModel\" [errorStateMatcher]=\"matcher\"\n          (ngModelChange)=\"onDirBlockChange(dirBlockInput.value)\" #dirblocks>\n        <mat-error>Invalid Directory Blocks</mat-error>\n      </mat-form-field>\n    </div>\n    <div class=\"column2\">\n      <label>Average Record Unit:</label>\n      <mat-form-field floatLabel=\"auto\">\n        <mat-select class=\"select-encoding\" tabindex=\"0\" placeholder=\"Select\"\n          [(ngModel)]=\"properties.averageRecordUnit\">\n          @for (averageRecordUnit of recordUnitOptions; track averageRecordUnit) {\n          <mat-option [value]=\"averageRecordUnit\">\n            {{averageRecordUnit}}</mat-option>\n          }\n        </mat-select>\n      </mat-form-field>\n      <label class=\"required\">Secondary Space:</label>\n      <mat-form-field>\n        <input matInput [pattern]=\"numericPatternExZero\" [(ngModel)]=\"properties.secondarySpace\"\n          #secSpaceInput=\"ngModel\" [errorStateMatcher]=\"matcher\"\n          (ngModelChange)=\"onSecondSpaceChange(secSpaceInput.value)\" #secondSpace>\n        <mat-error>Invalid Secondary Space</mat-error>\n      </mat-form-field>\n      <label class=\"required\">Record Format:</label>\n      <mat-form-field floatLabel=\"auto\">\n        <mat-select class=\"select-encoding\" tabindex=\"0\" placeholder=\"Select\" [(ngModel)]=\"properties.recordFormat\"\n          #recordFormat (selectionChange)=\"onRecordFormatChange(recordFormat.value)\">\n          @for (recordFormat of recordFormatOptions; track recordFormat) {\n          <mat-option [value]=\"recordFormat\">\n            {{recordFormat}}</mat-option>\n          }\n        </mat-select>\n      </mat-form-field>\n      <label>Block Size :</label>\n      <mat-form-field>\n        <input matInput [pattern]=\"numericPatternExZero\" [(ngModel)]=\"properties.blockSize\" #blockSize=\"ngModel\"\n          [errorStateMatcher]=\"matcher\" (ngModelChange)=\"onBlockSizeChange(blockSize.value)\">\n        <mat-error>Invalid Block Size</mat-error>\n      </mat-form-field>\n    </div>\n  </div>\n</mat-dialog-content>\n<div [hidden]=\"isDirBlockValid\" class=\"errorClass\">{{dirBlockError}}</div>\n<div [hidden]=\"isPrimeSpaceValid\" class=\"errorClass\">{{primarySpaceError}}</div>\n<div [hidden]=\"isSecondSpaceValid\" class=\"errorClass\">{{secondarySpaceError}}</div>\n<div [hidden]=\"isRecLengthValid\" class=\"errorClass\">{{recordLengthError}}</div>\n<div [hidden]=\"isBlockSizeValid\" class=\"errorClass\">{{blockSizeError}}</div>\n<div [hidden]=\"isRecordFormatValid\" class=\"errorClass\">{{recordFormatErrorMessage}}</div>\n<div [hidden]=\"isAllocUnitValid\" class=\"errorClass\">{{allocUnitErrorMessage}}</div>\n<mat-dialog-actions>\n  <button mat-button mat-stroked-button class=\"right\" color=\"primary\" [mat-dialog-close]=\"properties\"\n    [disabled]=\"!properties.name || !properties.allocationUnit || !properties.primarySpace || !properties.secondarySpace || !properties.directoryBlocks || !properties.recordFormat || !properties.recordLength || nameInput.invalid || primarySpaceInput.invalid || secSpaceInput.invalid || dirBlockInput.invalid || recLengthInput.invalid || blockSize.invalid || !isDirBlockValid || !isPrimeSpaceValid || !isSecondSpaceValid || !isRecLengthValid || !isBlockSizeValid || !isRecordFormatValid || !isAllocUnitValid\">\n    Save\n  </button>\n</mat-dialog-actions>\n\n<!--\nThis program and the accompanying materials are\nmade available under the terms of the Eclipse Public License v2.0 which accompanies\nthis distribution, and is available at https://www.eclipse.org/legal/epl-v20.html\n\nSPDX-License-Identifier: EPL-2.0\n\nCopyright Contributors to the Zowe Project.\n-->", styles: [".mat-dialog-title{font:500 20px/32px Roboto,Helvetica Neue,sans-serif;text-align:center;border-bottom:2px solid;width:fit-content;margin-left:330px}.mat-dialog-container{width:1000px!important}.row:after{content:\"\";display:table;clear:both}.column1{float:left;margin-left:12px;width:45%;padding:10px}.column2{float:right;margin-left:30px;width:45%;padding:10px}.mat-dialog-content{box-sizing:border-box;padding:5px 0 5px 35px;width:940px;overflow:hidden}.mat-dialog-content label{float:left;width:200px;padding-top:20px;font-weight:500}.mat-form-field{font-size:inherit;font-weight:400;line-height:1.125;font-family:Roboto,Helvetica Neue,sans-serif;width:200px}.mat-select{font-family:Roboto,Helvetica Neue,sans-serif}.mat-option{background:#fff}.mat-option.mat-active{background:#dad9d9!important}.mat-option:hover{background:#efeeee}::ng-deep .mat-select-panel{box-shadow:0 0 5px 1px gray;margin-top:10px}.mat-dialog-actions{justify-content:flex-end}.required:before{content:\"* \";color:#000}.mandatory{font-style:Roboto,\"Helvetica Neue\",sans-serif;text-align:left;margin-left:20px}.errorClass{margin-left:20px;color:red;position:relative}\n", "mat-dialog-actions{justify-content:flex-end}.close-dialog-btn{float:right;border:none;background:transparent;outline:none}.modal-column{float:left;width:50%}.modal-column-full-width{width:100%}.modal-row:after{content:\"\";display:table;clear:both}.modal-row{padding-top:15px;font-size:medium}.modal-title{vertical-align:middle;float:left}.selectable-text{-moz-user-select:text!important;-khtml-user-select:text!important;-webkit-user-select:text!important;-ms-user-select:text!important;user-select:text!important;min-width:200px}.modal-mat-button{padding:6px;width:85px;border-radius:3px;border:solid;color:#3f51b5;border-width:1.75px;box-shadow:transparent;background-color:transparent;margin-top:25px;margin-right:-10px;font-family:Roboto,Helvetica Neue,sans-serif;font-size:14px;font-weight:500}.modal-mat-button.cancel{color:#242424;border-color:transparent;margin-right:5px}.modal-mat-button.cancel:hover{background-color:#e0e0e0;-webkit-transition-duration:.2s;transition-duration:.2s}.modal-mat-button:hover{background-color:#2c4cff1f;-webkit-transition-duration:.2s;transition-duration:.2s}.modal-mat-button-delete{padding:6px;width:85px;border-radius:3px;border:solid;color:#e64242;border-width:1.75px;box-shadow:transparent;background-color:transparent;margin-top:25px;margin-right:-10px;font-family:Roboto,Helvetica Neue,sans-serif;font-size:14px;font-weight:500}.modal-mat-button-delete.cancel{border-color:transparent;color:#242424;margin-top:25px;margin-right:5px}.modal-mat-button-delete.cancel:hover{background-color:#e0e0e0;-webkit-transition-duration:.2s;transition-duration:.2s}.modal-mat-button-delete:hover{background-color:#fff0f0;-webkit-transition-duration:.2s;transition-duration:.2s}.modal-mat-header{margin-left:33px;margin-bottom:15px;-webkit-user-select:text;user-select:text}.modal-icon{font-size:24px;position:absolute;margin-top:4px;margin-left:3px}.modal-content-body{margin-left:45px;margin-bottom:-5px;margin-top:1px;font-size:17px;min-width:400px}.modal-clear-button{border-radius:100%;background-color:transparent;border-color:transparent}.modal-clear-button:hover{background-color:#0000001f!important;transition:0!important;-webkit-transition-duration:0!important;transition-duration:0!important}\n"], dependencies: [{ kind: "directive", type: i4.DefaultValueAccessor, selector: "input:not([type=checkbox])[formControlName],textarea[formControlName],input:not([type=checkbox])[formControl],textarea[formControl],input:not([type=checkbox])[ngModel],textarea[ngModel],[ngDefaultControl]" }, { kind: "directive", type: i4.NgControlStatus, selector: "[formControlName],[ngModel],[formControl]" }, { kind: "directive", type: i4.MaxLengthValidator, selector: "[maxlength][formControlName],[maxlength][formControl],[maxlength][ngModel]", inputs: ["maxlength"] }, { kind: "directive", type: i4.PatternValidator, selector: "[pattern][formControlName],[pattern][formControl],[pattern][ngModel]", inputs: ["pattern"] }, { kind: "directive", type: i4.NgModel, selector: "[ngModel]:not([formControlName]):not([formControl])", inputs: ["name", "disabled", "ngModel", "ngModelOptions"], outputs: ["ngModelChange"], exportAs: ["ngModel"] }, { kind: "directive", type: i1.MatDialogClose, selector: "[mat-dialog-close], [matDialogClose]", inputs: ["aria-label", "type", "mat-dialog-close", "matDialogClose"], exportAs: ["matDialogClose"] }, { kind: "directive", type: i1.MatDialogTitle, selector: "[mat-dialog-title], [matDialogTitle]", inputs: ["id"], exportAs: ["matDialogTitle"] }, { kind: "directive", type: i1.MatDialogActions, selector: "[mat-dialog-actions], mat-dialog-actions, [matDialogActions]", inputs: ["align"] }, { kind: "directive", type: i1.MatDialogContent, selector: "[mat-dialog-content], mat-dialog-content, [matDialogContent]" }, { kind: "component", type: i5.MatFormField, selector: "mat-form-field", inputs: ["hideRequiredMarker", "color", "floatLabel", "appearance", "subscriptSizing", "hintLabel"], exportAs: ["matFormField"] }, { kind: "directive", type: i5.MatError, selector: "mat-error, [matError]", inputs: ["id"] }, { kind: "directive", type: i7.MatInput, selector: "input[matInput], textarea[matInput], select[matNativeControl],      input[matNativeControl], textarea[matNativeControl]", inputs: ["disabled", "id", "placeholder", "name", "required", "type", "errorStateMatcher", "aria-describedby", "value", "readonly"], exportAs: ["matInput"] }, { kind: "component", type: i8.MatButton, selector: "    button[mat-button], button[mat-raised-button], button[mat-flat-button],    button[mat-stroked-button]  ", exportAs: ["matButton"] }, { kind: "component", type: i6.MatSelect, selector: "mat-select", inputs: ["aria-describedby", "panelClass", "disabled", "disableRipple", "tabIndex", "hideSingleSelectionIndicator", "placeholder", "required", "multiple", "disableOptionCentering", "compareWith", "value", "aria-label", "aria-labelledby", "errorStateMatcher", "typeaheadDebounceInterval", "sortComparator", "id", "panelWidth"], outputs: ["openedChange", "opened", "closed", "selectionChange", "valueChange"], exportAs: ["matSelect"] }, { kind: "component", type: i9.MatOption, selector: "mat-option", inputs: ["value", "id", "disabled"], outputs: ["onSelectionChange"], exportAs: ["matOption"] }, { kind: "component", type: i3.ZluxTabbingComponent, selector: "zlux-tab-trap", inputs: ["hiddenIds", "hiddenPos"] }] }); }
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "18.0.7", ngImport: i0, type: CreateDatasetModal, decorators: [{
             type: Component,
-            args: [{ selector: 'create-dataset-modal', template: "<!--\nThis program and the accompanying materials are\nmade available under the terms of the Eclipse Public License v2.0 which accompanies\nthis distribution, and is available at https://www.eclipse.org/legal/epl-v20.html\n\nSPDX-License-Identifier: EPL-2.0\n\nCopyright Contributors to the Zowe Project.\n-->\n<zlux-tab-trap></zlux-tab-trap>\n<button mat-dialog-close class=\"close-dialog-btn\"><i class=\"fa fa-close\"></i></button>\n<h2 mat-dialog-title>ALLOCATE NEW DATA SET</h2>\n<p class=\"mandatory\">Mandatory fields are marked with an asterisk</p>\n<mat-dialog-content>\n  <label class=\"required\" style=\"margin-left: 6px\">Data Set Name:</label>\n  <mat-form-field floatLabel=\"auto\" [style.width.px]=300>\n    <input matInput type=\"text\" maxlength=\"44\" placeholder=\"High-level qualifier must start with a TSO ID\" [pattern]=\"datasetNamePattern\" [(ngModel)]=\"properties.name\" #nameInput=\"ngModel\" [errorStateMatcher]=\"matcher\" oninput=\"this.value = this.value.toUpperCase()\">\n    <mat-error>Invalid Name</mat-error>\n  </mat-form-field>\n  <div class=\"row\">\n    <div class=\"column1\">\n      <label class=\"required\">Data Set Name Type:</label>\n      <mat-form-field floatLabel=\"auto\">\n        <mat-select class=\"select-encoding\" tabindex=\"0\" placeholder=\"Blank for PS Dataset\" [(ngModel)]=\"properties.datasetNameType\" #datasetNameType (selectionChange)=\"setDatasetNameTypeProperties(datasetNameType.value)\">\n          <mat-option>Blank</mat-option>\n          @for (datasetNameType of datasetNameTypeOptions; track datasetNameType) {\n            <mat-option [value]=\"datasetNameType\">\n            {{datasetNameType}}</mat-option>\n          }\n        </mat-select>\n      </mat-form-field>\n    </div>\n    <div class=\"column2\">\n      <label>Data Set Organization:</label>\n      <mat-form-field>\n        <input matInput [(ngModel)]=\"properties.organization\" readonly #dsorg>\n      </mat-form-field>\n    </div>\n  </div>\n  <p></p>\n  <label style=\"margin-left: 310px; width: 148px; font-size: larger; font-weight: bold;\">TEMPLATE:</label>\n  <mat-form-field style=\"width: 150px; font-weight: bold; margin-top: 3px;\" floatLabel=\"auto\">\n    <mat-select class=\"select-encoding\" tabindex=\"0\" placeholder=\"Select\" [(ngModel)]=\"properties.template\" #templateInput (selectionChange)=\"onTemplateChange(templateInput.value)\">\n      <mat-option>None</mat-option>\n      @for (template of templateOptions; track template) {\n        <mat-option [value]=\"template\">\n        {{template}}</mat-option>\n      }\n    </mat-select>\n  </mat-form-field>\n  <div class=\"row\">\n    <div class=\"column1\">\n      <label class=\"required\">Allocation Unit:</label>\n      <mat-form-field floatLabel=\"auto\">\n        <mat-select class=\"select-encoding\" tabindex=\"0\" placeholder=\"Select\" [(ngModel)]=\"properties.allocationUnit\" #allocUnit (selectionChange)=\"onAllocUnitChange(allocUnit.value)\">\n          @for (allocationUnit of allocationUnitOptions; track allocationUnit) {\n            <mat-option [value]=\"allocationUnit\">\n            {{allocationUnit}}</mat-option>\n          }\n        </mat-select>\n      </mat-form-field>\n      <label class=\"required\">Primary Space:</label>\n      <mat-form-field>\n        <input matInput [pattern]=\"numericPatternExZero\" [(ngModel)]=\"properties.primarySpace\" #primarySpaceInput=\"ngModel\" [errorStateMatcher]=\"matcher\" (ngModelChange)=\"onPrimeSpaceChange(primarySpaceInput.value)\" #primeSpace>\n        <mat-error>Invalid Primary Space</mat-error>\n      </mat-form-field>\n      <label class=\"required\">Record Length:</label>\n      <mat-form-field>\n        <input matInput [pattern]=\"numericPattern\" [(ngModel)]=\"properties.recordLength\" #recLengthInput=\"ngModel\" [errorStateMatcher]=\"matcher\" (ngModelChange)=\"onRecLengthChange(recLengthInput.value)\" #recordLength>\n        <mat-error>Invalid Record Length</mat-error>\n      </mat-form-field>\n      <label class=\"required\">Directory Blocks:</label>\n      <mat-form-field floatLabel=\"auto\">\n        <input matInput [pattern]=\"numericPattern\" placeholder=\"0 for PS Data Set\" [(ngModel)]=\"properties.directoryBlocks\" #dirBlockInput=\"ngModel\" [errorStateMatcher]=\"matcher\" (ngModelChange)=\"onDirBlockChange(dirBlockInput.value)\"  #dirblocks>\n        <mat-error>Invalid Directory Blocks</mat-error>\n      </mat-form-field>\n    </div>\n    <div class=\"column2\">\n      <label>Average Record Unit:</label>\n      <mat-form-field floatLabel=\"auto\">\n        <mat-select class=\"select-encoding\" tabindex=\"0\" placeholder=\"Select\" [(ngModel)]=\"properties.averageRecordUnit\">\n          @for (averageRecordUnit of recordUnitOptions; track averageRecordUnit) {\n            <mat-option [value]=\"averageRecordUnit\">\n            {{averageRecordUnit}}</mat-option>\n          }\n        </mat-select>\n      </mat-form-field>\n      <label class=\"required\">Secondary Space:</label>\n      <mat-form-field>\n        <input matInput [pattern]=\"numericPatternExZero\" [(ngModel)]=\"properties.secondarySpace\" #secSpaceInput=\"ngModel\" [errorStateMatcher]=\"matcher\" (ngModelChange)=\"onSecondSpaceChange(secSpaceInput.value)\" #secondSpace>\n        <mat-error>Invalid Secondary Space</mat-error>\n      </mat-form-field>\n      <label class=\"required\">Record Format:</label>\n      <mat-form-field floatLabel=\"auto\">\n        <mat-select class=\"select-encoding\" tabindex=\"0\" placeholder=\"Select\" [(ngModel)]=\"properties.recordFormat\" #recordFormat (selectionChange)=\"onRecordFormatChange(recordFormat.value)\">\n          @for (recordFormat of recordFormatOptions; track recordFormat) {\n            <mat-option [value]=\"recordFormat\">\n            {{recordFormat}}</mat-option>\n          }\n        </mat-select>\n      </mat-form-field>\n      <label>Block Size :</label>\n      <mat-form-field>\n        <input matInput [pattern]=\"numericPatternExZero\" [(ngModel)]=\"properties.blockSize\" #blockSize=\"ngModel\" [errorStateMatcher]=\"matcher\" (ngModelChange)=\"onBlockSizeChange(blockSize.value)\">\n        <mat-error>Invalid Block Size</mat-error>\n      </mat-form-field>\n    </div>\n  </div>\n</mat-dialog-content>\n<div [hidden]=\"isDirBlockValid\" class=\"errorClass\">{{dirBlockError}}</div>\n<div [hidden]=\"isPrimeSpaceValid\" class=\"errorClass\">{{primarySpaceError}}</div>\n<div [hidden]=\"isSecondSpaceValid\" class=\"errorClass\">{{secondarySpaceError}}</div>\n<div [hidden]=\"isRecLengthValid\" class=\"errorClass\">{{recordLengthError}}</div>\n<div [hidden]=\"isBlockSizeValid\" class=\"errorClass\">{{blockSizeError}}</div>\n<div [hidden]=\"isRecordFormatValid\" class=\"errorClass\">{{recordFormatErrorMessage}}</div>\n<div [hidden]=\"isAllocUnitValid\" class=\"errorClass\">{{allocUnitErrorMessage}}</div>\n<mat-dialog-actions>\n  <button\n    mat-button\n    mat-stroked-button\n    class=\"right\"\n    color=\"primary\"\n    [mat-dialog-close]=\"properties\"\n    [disabled]=\"!properties.name || !properties.allocationUnit || !properties.primarySpace || !properties.secondarySpace || !properties.directoryBlocks || !properties.recordFormat || !properties.recordLength || nameInput.invalid || primarySpaceInput.invalid || secSpaceInput.invalid || dirBlockInput.invalid || recLengthInput.invalid || blockSize.invalid || !isDirBlockValid || !isPrimeSpaceValid || !isSecondSpaceValid || !isRecLengthValid || !isBlockSizeValid || !isRecordFormatValid || !isAllocUnitValid\">\n    Save\n  </button>\n</mat-dialog-actions>\n\n<!--\nThis program and the accompanying materials are\nmade available under the terms of the Eclipse Public License v2.0 which accompanies\nthis distribution, and is available at https://www.eclipse.org/legal/epl-v20.html\n\nSPDX-License-Identifier: EPL-2.0\n\nCopyright Contributors to the Zowe Project.\n-->", styles: [".mat-dialog-title{font:500 20px/32px Roboto,Helvetica Neue,sans-serif;text-align:center;border-bottom:2px solid;width:fit-content;margin-left:330px}.mat-dialog-container{width:1000px!important}.row:after{content:\"\";display:table;clear:both}.column1{float:left;margin-left:12px;width:45%;padding:10px}.column2{float:right;margin-left:30px;width:45%;padding:10px}.mat-dialog-content{box-sizing:border-box;padding:5px 0 5px 35px;width:940px;overflow:hidden}.mat-dialog-content label{float:left;width:200px;padding-top:20px;font-weight:500}.mat-form-field{font-size:inherit;font-weight:400;line-height:1.125;font-family:Roboto,Helvetica Neue,sans-serif;width:200px}.mat-select{font-family:Roboto,Helvetica Neue,sans-serif}.mat-option{background:#fff}.mat-option.mat-active{background:#dad9d9!important}.mat-option:hover{background:#efeeee}::ng-deep .mat-select-panel{box-shadow:0 0 5px 1px gray;margin-top:10px}.mat-dialog-actions{justify-content:flex-end}.required:before{content:\"* \";color:#000}.mandatory{font-style:Roboto,\"Helvetica Neue\",sans-serif;text-align:left;margin-left:20px}.errorClass{margin-left:20px;color:red;position:relative}\n", "mat-dialog-actions{justify-content:flex-end}.close-dialog-btn{float:right;border:none;background:transparent;outline:none}.modal-column{float:left;width:50%}.modal-column-full-width{width:100%}.modal-row:after{content:\"\";display:table;clear:both}.modal-row{padding-top:15px;font-size:medium}.modal-title{vertical-align:middle;float:left}.selectable-text{-moz-user-select:text!important;-khtml-user-select:text!important;-webkit-user-select:text!important;-ms-user-select:text!important;user-select:text!important;min-width:200px}.modal-mat-button{padding:6px;width:85px;border-radius:3px;border:solid;color:#3f51b5;border-width:1.75px;box-shadow:transparent;background-color:transparent;margin-top:25px;margin-right:-10px;font-family:Roboto,Helvetica Neue,sans-serif;font-size:14px;font-weight:500}.modal-mat-button.cancel{color:#242424;border-color:transparent;margin-right:5px}.modal-mat-button.cancel:hover{background-color:#e0e0e0;-webkit-transition-duration:.2s;transition-duration:.2s}.modal-mat-button:hover{background-color:#2c4cff1f;-webkit-transition-duration:.2s;transition-duration:.2s}.modal-mat-button-delete{padding:6px;width:85px;border-radius:3px;border:solid;color:#e64242;border-width:1.75px;box-shadow:transparent;background-color:transparent;margin-top:25px;margin-right:-10px;font-family:Roboto,Helvetica Neue,sans-serif;font-size:14px;font-weight:500}.modal-mat-button-delete.cancel{border-color:transparent;color:#242424;margin-top:25px;margin-right:5px}.modal-mat-button-delete.cancel:hover{background-color:#e0e0e0;-webkit-transition-duration:.2s;transition-duration:.2s}.modal-mat-button-delete:hover{background-color:#fff0f0;-webkit-transition-duration:.2s;transition-duration:.2s}.modal-mat-header{margin-left:33px;margin-bottom:15px;-webkit-user-select:text;user-select:text}.modal-icon{font-size:24px;position:absolute;margin-top:4px;margin-left:3px}.modal-content-body{margin-left:45px;margin-bottom:-5px;margin-top:1px;font-size:17px;min-width:400px}.modal-clear-button{border-radius:100%;background-color:transparent;border-color:transparent}.modal-clear-button:hover{background-color:#0000001f!important;transition:0!important;-webkit-transition-duration:0!important;transition-duration:0!important}\n"] }]
+            args: [{ selector: 'create-dataset-modal', template: "<!--\nThis program and the accompanying materials are\nmade available under the terms of the Eclipse Public License v2.0 which accompanies\nthis distribution, and is available at https://www.eclipse.org/legal/epl-v20.html\n\nSPDX-License-Identifier: EPL-2.0\n\nCopyright Contributors to the Zowe Project.\n-->\n<zlux-tab-trap></zlux-tab-trap>\n<button mat-dialog-close class=\"close-dialog-btn\"><i class=\"fa fa-close\"></i></button>\n<h2 mat-dialog-title>ALLOCATE NEW DATA SET</h2>\n<p class=\"mandatory\">Mandatory fields are marked with an asterisk</p>\n<mat-dialog-content>\n  <label class=\"required\" style=\"margin-left: 6px\">Data Set Name:</label>\n  <mat-form-field floatLabel=\"auto\" [style.width.px]=300>\n    <input matInput type=\"text\" maxlength=\"44\" placeholder=\"High-level qualifier must start with a TSO ID\"\n      [pattern]=\"datasetNamePattern\" [(ngModel)]=\"properties.name\" #nameInput=\"ngModel\" [errorStateMatcher]=\"matcher\"\n      oninput=\"this.value = this.value.toUpperCase()\">\n    <mat-error>Invalid Name</mat-error>\n  </mat-form-field>\n  <div class=\"row\">\n    <div class=\"column1\">\n      <label class=\"required\">Data Set Name Type:</label>\n      <mat-form-field floatLabel=\"auto\">\n        <mat-select class=\"select-encoding\" tabindex=\"0\" placeholder=\"Blank for PS Dataset\"\n          [(ngModel)]=\"properties.datasetNameType\" #datasetNameType\n          (selectionChange)=\"setDatasetNameTypeProperties(datasetNameType.value)\">\n          <mat-option>Blank</mat-option>\n          @for (datasetNameType of datasetNameTypeOptions; track datasetNameType) {\n          <mat-option [value]=\"datasetNameType\">\n            {{datasetNameType}}</mat-option>\n          }\n        </mat-select>\n      </mat-form-field>\n    </div>\n    <div class=\"column2\">\n      <label>Data Set Organization:</label>\n      <mat-form-field>\n        <input matInput [(ngModel)]=\"properties.organization\" readonly #dsorg>\n      </mat-form-field>\n    </div>\n  </div>\n  <p></p>\n  <label style=\"margin-left: 310px; width: 148px; font-size: larger; font-weight: bold;\">TEMPLATE:</label>\n  <mat-form-field style=\"width: 150px; font-weight: bold; margin-top: 3px;\" floatLabel=\"auto\">\n    <mat-select class=\"select-encoding\" tabindex=\"0\" placeholder=\"Select\" [(ngModel)]=\"properties.template\"\n      #templateInput (selectionChange)=\"onTemplateChange(templateInput.value)\">\n      <mat-option>None</mat-option>\n      @for (template of templateOptions; track template) {\n      <mat-option [value]=\"template\">\n        {{template}}</mat-option>\n      }\n    </mat-select>\n  </mat-form-field>\n  <div class=\"row\">\n    <div class=\"column1\">\n      <label class=\"required\">Allocation Unit:</label>\n      <mat-form-field floatLabel=\"auto\">\n        <mat-select class=\"select-encoding\" tabindex=\"0\" placeholder=\"Select\" [(ngModel)]=\"properties.allocationUnit\"\n          #allocUnit (selectionChange)=\"onAllocUnitChange(allocUnit.value)\">\n          @for (allocationUnit of allocationUnitOptions; track allocationUnit) {\n          <mat-option [value]=\"allocationUnit\">\n            {{allocationUnit}}</mat-option>\n          }\n        </mat-select>\n      </mat-form-field>\n      <label class=\"required\">Primary Space:</label>\n      <mat-form-field>\n        <input matInput [pattern]=\"numericPatternExZero\" [(ngModel)]=\"properties.primarySpace\"\n          #primarySpaceInput=\"ngModel\" [errorStateMatcher]=\"matcher\"\n          (ngModelChange)=\"onPrimeSpaceChange(primarySpaceInput.value)\" #primeSpace>\n        <mat-error>Invalid Primary Space</mat-error>\n      </mat-form-field>\n      <label class=\"required\">Record Length:</label>\n      <mat-form-field>\n        <input matInput [pattern]=\"numericPattern\" [(ngModel)]=\"properties.recordLength\" #recLengthInput=\"ngModel\"\n          [errorStateMatcher]=\"matcher\" (ngModelChange)=\"onRecLengthChange(recLengthInput.value)\" #recordLength>\n        <mat-error>Invalid Record Length</mat-error>\n      </mat-form-field>\n      <label class=\"required\">Directory Blocks:</label>\n      <mat-form-field floatLabel=\"auto\">\n        <input matInput [pattern]=\"numericPattern\" placeholder=\"0 for PS Data Set\"\n          [(ngModel)]=\"properties.directoryBlocks\" #dirBlockInput=\"ngModel\" [errorStateMatcher]=\"matcher\"\n          (ngModelChange)=\"onDirBlockChange(dirBlockInput.value)\" #dirblocks>\n        <mat-error>Invalid Directory Blocks</mat-error>\n      </mat-form-field>\n    </div>\n    <div class=\"column2\">\n      <label>Average Record Unit:</label>\n      <mat-form-field floatLabel=\"auto\">\n        <mat-select class=\"select-encoding\" tabindex=\"0\" placeholder=\"Select\"\n          [(ngModel)]=\"properties.averageRecordUnit\">\n          @for (averageRecordUnit of recordUnitOptions; track averageRecordUnit) {\n          <mat-option [value]=\"averageRecordUnit\">\n            {{averageRecordUnit}}</mat-option>\n          }\n        </mat-select>\n      </mat-form-field>\n      <label class=\"required\">Secondary Space:</label>\n      <mat-form-field>\n        <input matInput [pattern]=\"numericPatternExZero\" [(ngModel)]=\"properties.secondarySpace\"\n          #secSpaceInput=\"ngModel\" [errorStateMatcher]=\"matcher\"\n          (ngModelChange)=\"onSecondSpaceChange(secSpaceInput.value)\" #secondSpace>\n        <mat-error>Invalid Secondary Space</mat-error>\n      </mat-form-field>\n      <label class=\"required\">Record Format:</label>\n      <mat-form-field floatLabel=\"auto\">\n        <mat-select class=\"select-encoding\" tabindex=\"0\" placeholder=\"Select\" [(ngModel)]=\"properties.recordFormat\"\n          #recordFormat (selectionChange)=\"onRecordFormatChange(recordFormat.value)\">\n          @for (recordFormat of recordFormatOptions; track recordFormat) {\n          <mat-option [value]=\"recordFormat\">\n            {{recordFormat}}</mat-option>\n          }\n        </mat-select>\n      </mat-form-field>\n      <label>Block Size :</label>\n      <mat-form-field>\n        <input matInput [pattern]=\"numericPatternExZero\" [(ngModel)]=\"properties.blockSize\" #blockSize=\"ngModel\"\n          [errorStateMatcher]=\"matcher\" (ngModelChange)=\"onBlockSizeChange(blockSize.value)\">\n        <mat-error>Invalid Block Size</mat-error>\n      </mat-form-field>\n    </div>\n  </div>\n</mat-dialog-content>\n<div [hidden]=\"isDirBlockValid\" class=\"errorClass\">{{dirBlockError}}</div>\n<div [hidden]=\"isPrimeSpaceValid\" class=\"errorClass\">{{primarySpaceError}}</div>\n<div [hidden]=\"isSecondSpaceValid\" class=\"errorClass\">{{secondarySpaceError}}</div>\n<div [hidden]=\"isRecLengthValid\" class=\"errorClass\">{{recordLengthError}}</div>\n<div [hidden]=\"isBlockSizeValid\" class=\"errorClass\">{{blockSizeError}}</div>\n<div [hidden]=\"isRecordFormatValid\" class=\"errorClass\">{{recordFormatErrorMessage}}</div>\n<div [hidden]=\"isAllocUnitValid\" class=\"errorClass\">{{allocUnitErrorMessage}}</div>\n<mat-dialog-actions>\n  <button mat-button mat-stroked-button class=\"right\" color=\"primary\" [mat-dialog-close]=\"properties\"\n    [disabled]=\"!properties.name || !properties.allocationUnit || !properties.primarySpace || !properties.secondarySpace || !properties.directoryBlocks || !properties.recordFormat || !properties.recordLength || nameInput.invalid || primarySpaceInput.invalid || secSpaceInput.invalid || dirBlockInput.invalid || recLengthInput.invalid || blockSize.invalid || !isDirBlockValid || !isPrimeSpaceValid || !isSecondSpaceValid || !isRecLengthValid || !isBlockSizeValid || !isRecordFormatValid || !isAllocUnitValid\">\n    Save\n  </button>\n</mat-dialog-actions>\n\n<!--\nThis program and the accompanying materials are\nmade available under the terms of the Eclipse Public License v2.0 which accompanies\nthis distribution, and is available at https://www.eclipse.org/legal/epl-v20.html\n\nSPDX-License-Identifier: EPL-2.0\n\nCopyright Contributors to the Zowe Project.\n-->", styles: [".mat-dialog-title{font:500 20px/32px Roboto,Helvetica Neue,sans-serif;text-align:center;border-bottom:2px solid;width:fit-content;margin-left:330px}.mat-dialog-container{width:1000px!important}.row:after{content:\"\";display:table;clear:both}.column1{float:left;margin-left:12px;width:45%;padding:10px}.column2{float:right;margin-left:30px;width:45%;padding:10px}.mat-dialog-content{box-sizing:border-box;padding:5px 0 5px 35px;width:940px;overflow:hidden}.mat-dialog-content label{float:left;width:200px;padding-top:20px;font-weight:500}.mat-form-field{font-size:inherit;font-weight:400;line-height:1.125;font-family:Roboto,Helvetica Neue,sans-serif;width:200px}.mat-select{font-family:Roboto,Helvetica Neue,sans-serif}.mat-option{background:#fff}.mat-option.mat-active{background:#dad9d9!important}.mat-option:hover{background:#efeeee}::ng-deep .mat-select-panel{box-shadow:0 0 5px 1px gray;margin-top:10px}.mat-dialog-actions{justify-content:flex-end}.required:before{content:\"* \";color:#000}.mandatory{font-style:Roboto,\"Helvetica Neue\",sans-serif;text-align:left;margin-left:20px}.errorClass{margin-left:20px;color:red;position:relative}\n", "mat-dialog-actions{justify-content:flex-end}.close-dialog-btn{float:right;border:none;background:transparent;outline:none}.modal-column{float:left;width:50%}.modal-column-full-width{width:100%}.modal-row:after{content:\"\";display:table;clear:both}.modal-row{padding-top:15px;font-size:medium}.modal-title{vertical-align:middle;float:left}.selectable-text{-moz-user-select:text!important;-khtml-user-select:text!important;-webkit-user-select:text!important;-ms-user-select:text!important;user-select:text!important;min-width:200px}.modal-mat-button{padding:6px;width:85px;border-radius:3px;border:solid;color:#3f51b5;border-width:1.75px;box-shadow:transparent;background-color:transparent;margin-top:25px;margin-right:-10px;font-family:Roboto,Helvetica Neue,sans-serif;font-size:14px;font-weight:500}.modal-mat-button.cancel{color:#242424;border-color:transparent;margin-right:5px}.modal-mat-button.cancel:hover{background-color:#e0e0e0;-webkit-transition-duration:.2s;transition-duration:.2s}.modal-mat-button:hover{background-color:#2c4cff1f;-webkit-transition-duration:.2s;transition-duration:.2s}.modal-mat-button-delete{padding:6px;width:85px;border-radius:3px;border:solid;color:#e64242;border-width:1.75px;box-shadow:transparent;background-color:transparent;margin-top:25px;margin-right:-10px;font-family:Roboto,Helvetica Neue,sans-serif;font-size:14px;font-weight:500}.modal-mat-button-delete.cancel{border-color:transparent;color:#242424;margin-top:25px;margin-right:5px}.modal-mat-button-delete.cancel:hover{background-color:#e0e0e0;-webkit-transition-duration:.2s;transition-duration:.2s}.modal-mat-button-delete:hover{background-color:#fff0f0;-webkit-transition-duration:.2s;transition-duration:.2s}.modal-mat-header{margin-left:33px;margin-bottom:15px;-webkit-user-select:text;user-select:text}.modal-icon{font-size:24px;position:absolute;margin-top:4px;margin-left:3px}.modal-content-body{margin-left:45px;margin-bottom:-5px;margin-top:1px;font-size:17px;min-width:400px}.modal-clear-button{border-radius:100%;background-color:transparent;border-color:transparent}.modal-clear-button:hover{background-color:#0000001f!important;transition:0!important;-webkit-transition-duration:0!important;transition-duration:0!important}\n"] }]
         }], ctorParameters: () => [{ type: i0.ElementRef }, { type: undefined, decorators: [{
                     type: Inject,
                     args: [MAT_DIALOG_DATA]
@@ -900,17 +900,20 @@ class FileOwnershipModal {
     }
     saveOwnerInfo() {
         let url = ZoweZLUX.uriBroker.unixFileUri('chown', this.path, undefined, undefined, undefined, false, undefined, undefined, undefined, undefined, this.recursive, this.owner, this.group);
-        this.http.post(url, null, { observe: 'response' }).pipe(finalize(() => this.closeDialog())).subscribe((res) => {
-            if (res.status == 200) {
-                this.snackBar.open(this.path + ' has been successfully changed to Owner: ' + this.owner + " Group: " + this.group + ".", 'Dismiss', defaultSnackbarOptions);
-                this.node.owner = this.owner;
-                this.node.group = this.group;
+        this.http.post(url, null, { observe: 'response' }).pipe(finalize(() => this.closeDialog())).subscribe({
+            next: (res) => {
+                if (res.status == 200) {
+                    this.snackBar.open(this.path + ' has been successfully changed to Owner: ' + this.owner + " Group: " + this.group + ".", 'Dismiss', defaultSnackbarOptions);
+                    this.node.owner = this.owner;
+                    this.node.group = this.group;
+                }
+                else {
+                    this.snackBar.open(res.status + " - A problem was encountered: " + res.statusText, 'Dismiss', defaultSnackbarOptions);
+                }
+            },
+            error: (err) => {
+                this.handleErrorObservable(err);
             }
-            else {
-                this.snackBar.open(res.status + " - A problem was encountered: " + res.statusText, 'Dismiss', defaultSnackbarOptions);
-            }
-        }, err => {
-            this.handleErrorObservable(err);
         });
     }
     closeDialog() {
@@ -1187,16 +1190,19 @@ class FilePermissionsModal {
     }
     savePermissions() {
         let url = ZoweZLUX.uriBroker.unixFileUri('chmod', this.path, undefined, undefined, undefined, false, undefined, undefined, undefined, this.octalMode, this.recursive);
-        this.http.post(url, null, { observe: 'response' }).pipe(finalize(() => this.closeDialog())).subscribe((res) => {
-            if (res.status == 200) {
-                this.snackBar.open(this.path + ' has been successfully changed to ' + this.octalMode + ".", 'Dismiss', defaultSnackbarOptions);
-                this.node.mode = parseInt(this.octalMode, 10);
+        this.http.post(url, null, { observe: 'response' }).pipe(finalize(() => this.closeDialog())).subscribe({
+            next: (res) => {
+                if (res.status == 200) {
+                    this.snackBar.open(this.path + ' has been successfully changed to ' + this.octalMode + ".", 'Dismiss', defaultSnackbarOptions);
+                    this.node.mode = parseInt(this.octalMode, 10);
+                }
+                else {
+                    this.snackBar.open(res.status + " - A problem was encountered: " + res.statusText, 'Dismiss', defaultSnackbarOptions);
+                }
+            },
+            error: err => {
+                this.handleErrorObservable(err);
             }
-            else {
-                this.snackBar.open(res.status + " - A problem was encountered: " + res.statusText, 'Dismiss', defaultSnackbarOptions);
-            }
-        }, err => {
-            this.handleErrorObservable(err);
         });
     }
     closeDialog() {
@@ -2272,32 +2278,35 @@ class FileBrowserMVSComponent {
         this.deletionQueue.set(rightClickedFile.data.path, rightClickedFile);
         rightClickedFile.styleClass = CSS_NODE_DELETING;
         this.deleteNonVsamSubscription = this.datasetService.deleteNonVsamDatasetOrMember(rightClickedFile)
-            .subscribe(resp => {
-            this.isLoading = false;
-            this.snackBar.open(resp.msg, 'Dismiss', defaultSnackbarOptions);
-            this.removeChild(rightClickedFile);
-            this.deletionQueue.delete(rightClickedFile.data.path);
-            rightClickedFile.styleClass = "";
-            this.deleteClick.emit(this.rightClickedEvent.node);
-        }, error => {
-            if (error.status == '500') { //Internal Server Error
-                this.snackBar.open("Failed to delete: '" + rightClickedFile.data.path + "' This is probably due to a server agent problem.", 'Dismiss', defaultSnackbarOptions);
-            }
-            else if (error.status == '404') { //Not Found
-                this.snackBar.open(rightClickedFile.data.path + ' has already been deleted or does not exist.', 'Dismiss', defaultSnackbarOptions);
+            .subscribe({
+            next: resp => {
+                this.isLoading = false;
+                this.snackBar.open(resp.msg, 'Dismiss', defaultSnackbarOptions);
                 this.removeChild(rightClickedFile);
+                this.deletionQueue.delete(rightClickedFile.data.path);
+                rightClickedFile.styleClass = "";
+                this.deleteClick.emit(this.rightClickedEvent.node);
+            },
+            error: error => {
+                if (error.status == '500') { //Internal Server Error
+                    this.snackBar.open("Failed to delete: '" + rightClickedFile.data.path + "' This is probably due to a server agent problem.", 'Dismiss', defaultSnackbarOptions);
+                }
+                else if (error.status == '404') { //Not Found
+                    this.snackBar.open(rightClickedFile.data.path + ' has already been deleted or does not exist.', 'Dismiss', defaultSnackbarOptions);
+                    this.removeChild(rightClickedFile);
+                }
+                else if (error.status == '400') { //Bad Request
+                    this.snackBar.open("Failed to delete '" + rightClickedFile.data.path + "' This is probably due to a permission problem.", 'Dismiss', defaultSnackbarOptions);
+                }
+                else { //Unknown
+                    this.snackBar.open("Unknown error '" + error.status + "' occurred for: " + rightClickedFile.data.path, 'Dismiss', longSnackbarOptions);
+                    // Error info gets printed in uss.crud.service.ts
+                }
+                this.deletionQueue.delete(rightClickedFile.data.path);
+                this.isLoading = false;
+                rightClickedFile.styleClass = "";
+                this.log.severe(error);
             }
-            else if (error.status == '400') { //Bad Request
-                this.snackBar.open("Failed to delete '" + rightClickedFile.data.path + "' This is probably due to a permission problem.", 'Dismiss', defaultSnackbarOptions);
-            }
-            else { //Unknown
-                this.snackBar.open("Unknown error '" + error.status + "' occurred for: " + rightClickedFile.data.path, 'Dismiss', longSnackbarOptions);
-                // Error info gets printed in uss.crud.service.ts
-            }
-            this.deletionQueue.delete(rightClickedFile.data.path);
-            this.isLoading = false;
-            rightClickedFile.styleClass = "";
-            this.log.severe(error);
         });
         setTimeout(() => {
             if (this.deleteNonVsamSubscription.closed == false) {
@@ -2310,36 +2319,39 @@ class FileBrowserMVSComponent {
         this.deletionQueue.set(rightClickedFile.data.path, rightClickedFile);
         rightClickedFile.styleClass = CSS_NODE_DELETING;
         this.deleteVsamSubscription = this.datasetService.deleteVsamDataset(rightClickedFile)
-            .subscribe(resp => {
-            this.isLoading = false;
-            this.snackBar.open(resp.msg, 'Dismiss', defaultSnackbarOptions);
-            //Update vs removing node since symbolicly linked data/index of vsam can be named anything
-            this.updateTreeView(this.path);
-            this.deletionQueue.delete(rightClickedFile.data.path);
-            rightClickedFile.styleClass = "";
-            this.deleteClick.emit(this.rightClickedEvent.node);
-        }, error => {
-            if (error.status == '500') { //Internal Server Error
-                this.snackBar.open("Failed to delete: '" + rightClickedFile.data.path + "' This is probably due to a server agent problem.", 'Dismiss', defaultSnackbarOptions);
-            }
-            else if (error.status == '404') { //Not Found
-                this.snackBar.open(rightClickedFile.data.path + ' has already been deleted or does not exist.', 'Dismiss', defaultSnackbarOptions);
+            .subscribe({
+            next: resp => {
+                this.isLoading = false;
+                this.snackBar.open(resp.msg, 'Dismiss', defaultSnackbarOptions);
+                //Update vs removing node since symbolicly linked data/index of vsam can be named anything
                 this.updateTreeView(this.path);
+                this.deletionQueue.delete(rightClickedFile.data.path);
+                rightClickedFile.styleClass = "";
+                this.deleteClick.emit(this.rightClickedEvent.node);
+            },
+            error: error => {
+                if (error.status == '500') { //Internal Server Error
+                    this.snackBar.open("Failed to delete: '" + rightClickedFile.data.path + "' This is probably due to a server agent problem.", 'Dismiss', defaultSnackbarOptions);
+                }
+                else if (error.status == '404') { //Not Found
+                    this.snackBar.open(rightClickedFile.data.path + ' has already been deleted or does not exist.', 'Dismiss', defaultSnackbarOptions);
+                    this.updateTreeView(this.path);
+                }
+                else if (error.status == '400') { //Bad Request
+                    this.snackBar.open("Failed to delete '" + rightClickedFile.data.path + "' This is probably due to a permission problem.", 'Dismiss', defaultSnackbarOptions);
+                }
+                else if (error.status == '403') { //Bad Request
+                    this.snackBar.open("Failed to delete '" + rightClickedFile.data.path + "'" + ". " + JSON.parse(error._body)['msg'], 'Dismiss', defaultSnackbarOptions);
+                }
+                else { //Unknown
+                    this.snackBar.open("Unknown error '" + error.status + "' occurred for: " + rightClickedFile.data.path, 'Dismiss', longSnackbarOptions);
+                    //Error info gets printed in uss.crud.service.ts
+                }
+                this.deletionQueue.delete(rightClickedFile.data.path);
+                this.isLoading = false;
+                rightClickedFile.styleClass = "";
+                this.log.severe(error);
             }
-            else if (error.status == '400') { //Bad Request
-                this.snackBar.open("Failed to delete '" + rightClickedFile.data.path + "' This is probably due to a permission problem.", 'Dismiss', defaultSnackbarOptions);
-            }
-            else if (error.status == '403') { //Bad Request
-                this.snackBar.open("Failed to delete '" + rightClickedFile.data.path + "'" + ". " + JSON.parse(error._body)['msg'], 'Dismiss', defaultSnackbarOptions);
-            }
-            else { //Unknown
-                this.snackBar.open("Unknown error '" + error.status + "' occurred for: " + rightClickedFile.data.path, 'Dismiss', longSnackbarOptions);
-                //Error info gets printed in uss.crud.service.ts
-            }
-            this.deletionQueue.delete(rightClickedFile.data.path);
-            this.isLoading = false;
-            rightClickedFile.styleClass = "";
-            this.log.severe(error);
         });
         setTimeout(() => {
             if (this.deleteVsamSubscription.closed == false) {
@@ -2511,16 +2523,19 @@ class FileBrowserMVSComponent {
             const snackBarRef = this.snackBar.open(`Recalling dataset '${path}'`, undefined, { panelClass: 'center' });
             this.datasetService.recallDataset($event.node.data.path)
                 .pipe(finalize(() => snackBarRef.dismiss()))
-                .subscribe(attrs => {
-                this.updateRecalledDatasetNode($event.node, attrs);
-                if (this.showSearch) { // Update search bar cached data
-                    let nodeCached = this.findNodeByPath(this.dataCached, $event.node.data.path)[0];
-                    if (nodeCached) {
-                        this.updateRecalledDatasetNode(nodeCached, attrs);
+                .subscribe({
+                next: attrs => {
+                    this.updateRecalledDatasetNode($event.node, attrs);
+                    if (this.showSearch) { // Update search bar cached data
+                        let nodeCached = this.findNodeByPath(this.dataCached, $event.node.data.path)[0];
+                        if (nodeCached) {
+                            this.updateRecalledDatasetNode(nodeCached, attrs);
+                        }
                     }
-                }
-                this.nodeClick.emit($event.node);
-            }, _err => this.snackBar.open(`Failed to recall dataset '${path}'`, 'Dismiss', defaultSnackbarOptions));
+                    this.nodeClick.emit($event.node);
+                },
+                error: _err => this.snackBar.open(`Failed to recall dataset '${path}'`, 'Dismiss', defaultSnackbarOptions)
+            });
             return;
         }
         this.nodeClick.emit($event.node);
@@ -2620,67 +2635,70 @@ class FileBrowserMVSComponent {
     getTreeForQueryAsync(path) {
         return new Promise((resolve, reject) => {
             this.isLoading = true;
-            this.datasetService.queryDatasets(path, true, this.additionalQualifiers).pipe(take(1)).subscribe((res) => {
-                this.onDataChanged(res);
-                let parents = [];
-                let parentMap = {};
-                if (res.datasets.length > 0) {
-                    for (let i = 0; i < res.datasets.length; i++) {
-                        let currentNode = {};
-                        currentNode.children = [];
-                        currentNode.label = res.datasets[i].name.replace(/^\s+|\s+$/, '');
-                        //data.id attribute is not used by either parent or child, but required as part of the ProjectStructure interface
-                        let resAttr = res.datasets[i];
-                        let currentNodeData = {
-                            id: String(i),
-                            name: currentNode.label,
-                            fileName: currentNode.label,
-                            path: currentNode.label,
-                            hasChildren: false,
-                            isDataset: true,
-                            datasetAttrs: {
-                                csiEntryType: resAttr.csiEntryType,
-                                dsorg: resAttr.dsorg,
-                                recfm: resAttr.recfm,
-                                volser: resAttr.volser
-                            }
-                        };
-                        currentNode.data = currentNodeData;
-                        let migrated = this.utils.isDatasetMigrated(currentNode.data.datasetAttrs);
-                        if (currentNode.data.datasetAttrs.dsorg
-                            && currentNode.data.datasetAttrs.dsorg.organization === 'partitioned') {
-                            currentNode.type = 'folder';
-                            currentNode.expanded = false;
-                            if (migrated) {
-                                currentNode.icon = 'fa fa-clock-o';
+            this.datasetService.queryDatasets(path, true, this.additionalQualifiers).pipe(take(1)).subscribe({
+                next: (res) => {
+                    this.onDataChanged(res);
+                    let parents = [];
+                    let parentMap = {};
+                    if (res.datasets.length > 0) {
+                        for (let i = 0; i < res.datasets.length; i++) {
+                            let currentNode = {};
+                            currentNode.children = [];
+                            currentNode.label = res.datasets[i].name.replace(/^\s+|\s+$/, '');
+                            //data.id attribute is not used by either parent or child, but required as part of the ProjectStructure interface
+                            let resAttr = res.datasets[i];
+                            let currentNodeData = {
+                                id: String(i),
+                                name: currentNode.label,
+                                fileName: currentNode.label,
+                                path: currentNode.label,
+                                hasChildren: false,
+                                isDataset: true,
+                                datasetAttrs: {
+                                    csiEntryType: resAttr.csiEntryType,
+                                    dsorg: resAttr.dsorg,
+                                    recfm: resAttr.recfm,
+                                    volser: resAttr.volser
+                                }
+                            };
+                            currentNode.data = currentNodeData;
+                            let migrated = this.utils.isDatasetMigrated(currentNode.data.datasetAttrs);
+                            if (currentNode.data.datasetAttrs.dsorg
+                                && currentNode.data.datasetAttrs.dsorg.organization === 'partitioned') {
+                                currentNode.type = 'folder';
+                                currentNode.expanded = false;
+                                if (migrated) {
+                                    currentNode.icon = 'fa fa-clock-o';
+                                }
+                                else {
+                                    currentNode.expandedIcon = 'fa fa-folder-open';
+                                    currentNode.collapsedIcon = 'fa fa-folder';
+                                }
+                                if (res.datasets[i].members) {
+                                    currentNode.data.hasChildren = true;
+                                    this.addChildren(currentNode, res.datasets[i].members);
+                                }
                             }
                             else {
-                                currentNode.expandedIcon = 'fa fa-folder-open';
-                                currentNode.collapsedIcon = 'fa fa-folder';
+                                currentNode.icon = (migrated) ? 'fa fa-clock-o' : 'fa fa-file';
+                                currentNode.type = 'file';
                             }
-                            if (res.datasets[i].members) {
-                                currentNode.data.hasChildren = true;
-                                this.addChildren(currentNode, res.datasets[i].members);
-                            }
+                            parents.push(currentNode);
+                            parentMap[currentNode.label] = currentNode;
                         }
-                        else {
-                            currentNode.icon = (migrated) ? 'fa fa-clock-o' : 'fa fa-file';
-                            currentNode.type = 'file';
-                        }
-                        parents.push(currentNode);
-                        parentMap[currentNode.label] = currentNode;
+                        this.isLoading = false;
                     }
+                    else {
+                        this.snackBar.open("No datasets were found for '" + path + "'", 'Dismiss', quickSnackbarOptions);
+                        //data set probably doesnt exist
+                        this.isLoading = false;
+                    }
+                    resolve(parents);
+                },
+                error: (err) => {
                     this.isLoading = false;
+                    reject(err);
                 }
-                else {
-                    this.snackBar.open("No datasets were found for '" + path + "'", 'Dismiss', quickSnackbarOptions);
-                    //data set probably doesnt exist
-                    this.isLoading = false;
-                }
-                resolve(parents);
-            }, (err) => {
-                this.isLoading = false;
-                reject(err);
             });
         });
     }
@@ -2785,22 +2803,25 @@ class FileBrowserMVSComponent {
                 if (attributes.blockSize) {
                     datasetAttributes['blksz'] = parseInt(attributes.blockSize);
                 }
-                this.datasetService.createDataset(datasetAttributes, attributes.name).subscribe(resp => {
-                    this.snackBar.open(`Dataset: ${attributes.name} created successfully.`, 'Dismiss', quickSnackbarOptions);
-                    this.createDataset.emit({ status: 'success', name: attributes.name, org: attributes.organization, initData: dsCreateConfig.data.data });
-                }, error => {
-                    this.snackBar.open(`Failed to create the dataset: ${error.error}`, 'Dismiss', longSnackbarOptions);
-                    this.createDataset.emit({ status: 'error', error: error.error, name: attributes.name });
+                this.datasetService.createDataset(datasetAttributes, attributes.name).subscribe({
+                    next: resp => {
+                        this.snackBar.open(`Dataset: ${attributes.name} created successfully.`, 'Dismiss', quickSnackbarOptions);
+                        this.createDataset.emit({ status: 'success', name: attributes.name, org: attributes.organization, initData: dsCreateConfig.data.data });
+                    },
+                    error: error => {
+                        this.snackBar.open(`Failed to create the dataset: ${error.error}`, 'Dismiss', longSnackbarOptions);
+                        this.createDataset.emit({ status: 'error', error: error.error, name: attributes.name });
+                    }
                 });
             }
         });
     }
     static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "18.0.7", ngImport: i0, type: FileBrowserMVSComponent, deps: [{ token: i0.ElementRef }, { token: UtilsService }, { token: SearchHistoryService }, { token: i3$1.MatSnackBar }, { token: DatasetCrudService }, { token: DownloaderService }, { token: i1.MatDialog }, { token: Angular2InjectionTokens.LOGGER }, { token: Angular2InjectionTokens.PLUGIN_DEFINITION }, { token: Angular2InjectionTokens.WINDOW_ACTIONS, optional: true }], target: i0.ɵɵFactoryTarget.Component }); }
-    static { this.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "17.0.0", version: "18.0.7", type: FileBrowserMVSComponent, selector: "file-browser-mvs", inputs: { inputStyle: "inputStyle", searchStyle: "searchStyle", treeStyle: "treeStyle", style: "style", showUpArrow: "showUpArrow" }, outputs: { pathChanged: "pathChanged", dataChanged: "dataChanged", nodeClick: "nodeClick", nodeDblClick: "nodeDblClick", rightClick: "rightClick", deleteClick: "deleteClick", openInNewTab: "openInNewTab", createDataset: "createDataset" }, providers: [DatasetCrudService, /*PersistentDataService,*/ SearchHistoryService], viewQueries: [{ propertyName: "treeComponent", first: true, predicate: TreeComponent, descendants: true }, { propertyName: "searchMVS", first: true, predicate: ["searchMVS"], descendants: true }], ngImport: i0, template: "<!--\nThis program and the accompanying materials are\nmade available under the terms of the Eclipse Public License v2.0 which accompanies\nthis distribution, and is available at https://www.eclipse.org/legal/epl-v20.html\n\nSPDX-License-Identifier: EPL-2.0\n\nCopyright Contributors to the Zowe Project.\n-->\n\n<div style=\"height: 100%\">\n\n  <!-- Tabs, searchbar, and loading indicator -->\n  @if (showUpArrow) {\n  <img [src]=\"'./assets/explorer-uparrow.png'\" data-toggle=\"tooltip\" class=\"filebrowsermvs-pointer-logo\"\n    title=\"Go up to the parent level\" (click)=\"levelUp()\" [ngStyle]=\"treeStyle\" tabindex=\"0\"\n    (keydown.enter)=\"levelUp()\" />\n  }\n\n  <div class=\"filebrowsermvs-search\" [ngStyle]=\"searchStyle\">\n    <div class=\"searchRowFlex\">\n      <input [(ngModel)]=\"path\" list=\"searchMVSHistory\" placeholder=\"Enter a dataset query...\"\n        class=\"filebrowsermvs-search-input\" (keydown.enter)=\"updateTreeView(path);\" [ngStyle]=\"inputStyle\">\n      <!-- TODO: make search history a directive to use in both uss and mvs-->\n      <mat-button-toggle-group id=\"qualGroup\" #group=\"matButtonToggleGroup\">\n        <mat-button-toggle [checked]=\"additionalQualifiers\" class=\"qualButton\"\n          (click)=\"additionalQualifiers = !additionalQualifiers\" aria-label=\"Include additional qualifiers\"\n          title=\"Include Additional Qualifiers\">\n          <strong>.**</strong>\n        </mat-button-toggle>\n      </mat-button-toggle-group>\n      <datalist id=\"searchMVSHistory\">\n        @for (item of mvsSearchHistory.searchHistoryVal; track item) {\n        <option [value]=\"item\"></option>\n        }\n      </datalist>\n    </div>\n  </div>\n\n  <div class=\"fa fa-spinner fa-spin filebrowsermvs-loading-icon\" [hidden]=\"!isLoading\"></div>\n  <div class=\"fa fa-refresh filebrowsermvs-loading-icon\" title=\"Refresh dataset list\" (click)=\"updateTreeView(path);\"\n    [hidden]=\"isLoading\" style=\"margin-left: 9px; cursor: pointer;\"></div>\n  <div class=\"file-tree-utilities\">\n    <div class=\"fa fa-minus-square-o filebrowseruss-collapse-icon\" title=\"Collapse Folders in Explorer\"\n      (click)=\"collapseTree();\" style=\"margin-right: 9px; float:right; cursor: pointer;\"></div>\n    <div class=\"fa fa-trash-o filebrowseruss-delete-icon\" title=\"Delete\" (click)=\"showDeleteDialog(selectedNode);\"\n      style=\"margin-right: 9px; float:right; cursor: pointer;\"></div>\n    <div class=\"fa fa-plus\" title=\"Create new dataset\" (click)=\"createDatasetDialog()\"\n      style=\"margin-right: 9px; float:right; cursor: pointer;\"></div>\n    <div class=\"fa fa-eraser filebrowser-icon special-utility\" title=\"Clear Search History\"\n      (click)=\"clearSearchHistory();\"></div>\n  </div>\n  <!-- Main tree -->\n  <div [hidden]=\"hideExplorer\" style=\"height: 100%;\">\n    <tree-root [treeData]=\"data\" (clickEvent)=\"onNodeClick($event)\" (dblClickEvent)=\"onNodeDblClick($event)\"\n      [style]=\"style\" (rightClickEvent)=\"onNodeRightClick($event)\" (panelRightClickEvent)=\"onPanelRightClick($event)\"\n      (dataChanged)=\"onDataChanged($event)\">\n    </tree-root>\n  </div>\n\n  @if (showSearch) {\n  <div class=\"ui-inputgroup filebrowseruss-search-bottom-group\">\n    <span class=\"ui-inputgroup-addon\"><i class=\"fa fa-search filebrowseruss-search-bottom-icon\"></i></span>\n    <input type=\"text\" pInputText placeholder=\"Search datasets/members by name...\"\n      class=\"filebrowseruss-search-bottom-input\" [formControl]=\"searchCtrl\" #searchMVS>\n  </div>\n  }\n</div>\n<!--\n    This program and the accompanying materials are\n    made available under the terms of the Eclipse Public License v2.0 which accompanies\n    this distribution, and is available at https://www.eclipse.org/legal/epl-v20.html\n\n    SPDX-License-Identifier: EPL-2.0\n\n    Copyright Contributors to the Zowe Project.\n    -->", styles: [".searchRowFlex{display:flex;flex-direction:row}.filebrowsermvs-search{width:fit-content;min-width:250px;margin-left:5px;display:inline-block;height:40px}.filebrowsermvs-search-input{width:100%;min-height:30px;font-family:sans-serif;font-size:15px;height:35px;background-color:#464646;color:#fff;padding-left:5px;border:0px;flex-grow:2}.filebrowsermvs-pointer-logo{width:20px;height:20px;filter:brightness(3);cursor:pointer}.ui-tree-empty-message{color:transparent;height:0px}.filebrowsermvs-node-deleting{opacity:.5}#qualGroup{max-height:35px;min-height:30px}.qualButton:not(.mat-button-toggle-checked){background-color:#464646;color:#757575}.file-tree-utilities{overflow:hidden;border:1px solid #464646}.filebrowsermvs-loading-icon{margin-left:8px!important;font-size:large!important}.filebrowser-icon{margin-right:9px;float:right;cursor:pointer}.special-utility{margin-left:9px}\n"], dependencies: [{ kind: "directive", type: i7$1.NgStyle, selector: "[ngStyle]", inputs: ["ngStyle"] }, { kind: "directive", type: i4.NgSelectOption, selector: "option", inputs: ["ngValue", "value"] }, { kind: "directive", type: i4.ɵNgSelectMultipleOption, selector: "option", inputs: ["ngValue", "value"] }, { kind: "directive", type: i4.DefaultValueAccessor, selector: "input:not([type=checkbox])[formControlName],textarea[formControlName],input:not([type=checkbox])[formControl],textarea[formControl],input:not([type=checkbox])[ngModel],textarea[ngModel],[ngDefaultControl]" }, { kind: "directive", type: i4.NgControlStatus, selector: "[formControlName],[ngModel],[formControl]" }, { kind: "directive", type: i4.NgModel, selector: "[ngModel]:not([formControlName]):not([formControl])", inputs: ["name", "disabled", "ngModel", "ngModelOptions"], outputs: ["ngModelChange"], exportAs: ["ngModel"] }, { kind: "directive", type: i9$1.MatButtonToggleGroup, selector: "mat-button-toggle-group", inputs: ["appearance", "name", "vertical", "value", "multiple", "disabled", "hideSingleSelectionIndicator", "hideMultipleSelectionIndicator"], outputs: ["valueChange", "change"], exportAs: ["matButtonToggleGroup"] }, { kind: "component", type: i9$1.MatButtonToggle, selector: "mat-button-toggle", inputs: ["aria-label", "aria-labelledby", "id", "name", "value", "tabIndex", "disableRipple", "appearance", "checked", "disabled"], outputs: ["change"], exportAs: ["matButtonToggle"] }, { kind: "directive", type: i10$1.InputText, selector: "[pInputText]", inputs: ["variant"] }, { kind: "directive", type: i4.FormControlDirective, selector: "[formControl]", inputs: ["formControl", "disabled", "ngModel"], outputs: ["ngModelChange"], exportAs: ["ngForm"] }, { kind: "component", type: TreeComponent, selector: "tree-root", inputs: ["treeData", "treeId", "style", "treeStyle"], outputs: ["clickEvent", "dblClickEvent", "rightClickEvent", "panelRightClickEvent"] }], encapsulation: i0.ViewEncapsulation.None }); }
+    static { this.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "17.0.0", version: "18.0.7", type: FileBrowserMVSComponent, selector: "file-browser-mvs", inputs: { inputStyle: "inputStyle", searchStyle: "searchStyle", treeStyle: "treeStyle", style: "style", showUpArrow: "showUpArrow" }, outputs: { pathChanged: "pathChanged", dataChanged: "dataChanged", nodeClick: "nodeClick", nodeDblClick: "nodeDblClick", rightClick: "rightClick", deleteClick: "deleteClick", openInNewTab: "openInNewTab", createDataset: "createDataset" }, providers: [DatasetCrudService, /*PersistentDataService,*/ SearchHistoryService], viewQueries: [{ propertyName: "treeComponent", first: true, predicate: TreeComponent, descendants: true }, { propertyName: "searchMVS", first: true, predicate: ["searchMVS"], descendants: true }], ngImport: i0, template: "<!--\nThis program and the accompanying materials are\nmade available under the terms of the Eclipse Public License v2.0 which accompanies\nthis distribution, and is available at https://www.eclipse.org/legal/epl-v20.html\n\nSPDX-License-Identifier: EPL-2.0\n\nCopyright Contributors to the Zowe Project.\n-->\n\n<div style=\"height: 100%\">\n\n  <!-- Tabs, searchbar, and loading indicator -->\n  @if (showUpArrow) {\n  <img data-toggle=\"tooltip\" class=\"filebrowsermvs-pointer-logo\" title=\"Go up to the parent level\" (click)=\"levelUp()\"\n    [ngStyle]=\"treeStyle\" tabindex=\"0\" (keydown.enter)=\"levelUp()\" />\n  }\n\n  <div class=\"filebrowsermvs-search\" [ngStyle]=\"searchStyle\">\n    <div class=\"searchRowFlex\">\n      <input [(ngModel)]=\"path\" list=\"searchMVSHistory\" placeholder=\"Enter a dataset query...\"\n        class=\"filebrowsermvs-search-input\" (keydown.enter)=\"updateTreeView(path);\" [ngStyle]=\"inputStyle\">\n      <!-- TODO: make search history a directive to use in both uss and mvs-->\n      <mat-button-toggle-group id=\"qualGroup\" #group=\"matButtonToggleGroup\">\n        <mat-button-toggle [checked]=\"additionalQualifiers\" class=\"qualButton\"\n          (click)=\"additionalQualifiers = !additionalQualifiers\" aria-label=\"Include additional qualifiers\"\n          title=\"Include Additional Qualifiers\">\n          <strong>.**</strong>\n        </mat-button-toggle>\n      </mat-button-toggle-group>\n      <datalist id=\"searchMVSHistory\">\n        @for (item of mvsSearchHistory.searchHistoryVal; track item) {\n        <option [value]=\"item\"></option>\n        }\n      </datalist>\n    </div>\n  </div>\n\n  <div class=\"fa fa-spinner fa-spin filebrowsermvs-loading-icon\" [hidden]=\"!isLoading\"></div>\n  <div class=\"fa fa-refresh filebrowsermvs-loading-icon\" title=\"Refresh dataset list\" (click)=\"updateTreeView(path);\"\n    [hidden]=\"isLoading\" style=\"margin-left: 9px; cursor: pointer;\"></div>\n  <div class=\"file-tree-utilities\">\n    <div class=\"fa fa-minus-square-o filebrowseruss-collapse-icon\" title=\"Collapse Folders in Explorer\"\n      (click)=\"collapseTree();\" style=\"margin-right: 9px; float:right; cursor: pointer;\"></div>\n    <div class=\"fa fa-trash-o filebrowseruss-delete-icon\" title=\"Delete\" (click)=\"showDeleteDialog(selectedNode);\"\n      style=\"margin-right: 9px; float:right; cursor: pointer;\"></div>\n    <div class=\"fa fa-plus\" title=\"Create new dataset\" (click)=\"createDatasetDialog()\"\n      style=\"margin-right: 9px; float:right; cursor: pointer;\"></div>\n    <div class=\"fa fa-eraser filebrowser-icon special-utility\" title=\"Clear Search History\"\n      (click)=\"clearSearchHistory();\"></div>\n  </div>\n  <!-- Main tree -->\n  <div [hidden]=\"hideExplorer\" style=\"height: 100%;\">\n    <tree-root [treeData]=\"data\" (clickEvent)=\"onNodeClick($event)\" (dblClickEvent)=\"onNodeDblClick($event)\"\n      [style]=\"style\" (rightClickEvent)=\"onNodeRightClick($event)\" (panelRightClickEvent)=\"onPanelRightClick($event)\"\n      (dataChanged)=\"onDataChanged($event)\">\n    </tree-root>\n  </div>\n\n  @if (showSearch) {\n  <div class=\"ui-inputgroup filebrowseruss-search-bottom-group\">\n    <span class=\"ui-inputgroup-addon\"><i class=\"fa fa-search filebrowseruss-search-bottom-icon\"></i></span>\n    <input type=\"text\" pInputText placeholder=\"Search datasets/members by name...\"\n      class=\"filebrowseruss-search-bottom-input\" [formControl]=\"searchCtrl\" #searchMVS>\n  </div>\n  }\n</div>\n<!--\n    This program and the accompanying materials are\n    made available under the terms of the Eclipse Public License v2.0 which accompanies\n    this distribution, and is available at https://www.eclipse.org/legal/epl-v20.html\n\n    SPDX-License-Identifier: EPL-2.0\n\n    Copyright Contributors to the Zowe Project.\n    -->", styles: [".searchRowFlex{display:flex;flex-direction:row}.filebrowsermvs-search{width:fit-content;min-width:250px;margin-left:5px;display:inline-block;height:40px}.filebrowsermvs-search-input{width:100%;min-height:30px;font-family:sans-serif;font-size:15px;height:35px;background-color:#464646;color:#fff;padding-left:5px;border:0px;flex-grow:2}.filebrowsermvs-pointer-logo{content:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAABmJLR0QAAAAAAAD5Q7t/AAAACXBIWXMAAAsSAAALEgHS3X78AAAA2UlEQVQ4y7XRwUkEQRSE4c9xDcAEFCYFYzCFCaGDavQgeDOEWTQBA1AQ9KCgpxUEQVh3vLyBgdnuw4APGprqqp96NP85KaU2pdTWPE0tjB73NUhTCd+ixTHuSpCmEO5xil2cE/T7IE0h3OIBWwx4Cm0GaQrhNS5xEIDr0GaQaYNx3zU6fAegiXs3gZzNADnnMdjlnDch76LBEFqH85zzzZhbTfcJyL4VD+N9Ey3q3xjzO/FsS6ZVBTDECpYCPvATDd6XAF7xEp63JYBnXOAIj0sAn7iK+1fJ9AcOn0qIhbHEXwAAAABJRU5ErkJggg==);width:20px;height:20px;filter:brightness(3);cursor:pointer}.ui-tree-empty-message{color:transparent;height:0px}.filebrowsermvs-node-deleting{opacity:.5}#qualGroup{max-height:35px;min-height:30px}.qualButton:not(.mat-button-toggle-checked){background-color:#464646;color:#757575}.file-tree-utilities{overflow:hidden;border:1px solid #464646}.filebrowsermvs-loading-icon{margin-left:8px!important;font-size:large!important}.filebrowser-icon{margin-right:9px;float:right;cursor:pointer}.special-utility{margin-left:9px}\n"], dependencies: [{ kind: "directive", type: i7$1.NgStyle, selector: "[ngStyle]", inputs: ["ngStyle"] }, { kind: "directive", type: i4.NgSelectOption, selector: "option", inputs: ["ngValue", "value"] }, { kind: "directive", type: i4.ɵNgSelectMultipleOption, selector: "option", inputs: ["ngValue", "value"] }, { kind: "directive", type: i4.DefaultValueAccessor, selector: "input:not([type=checkbox])[formControlName],textarea[formControlName],input:not([type=checkbox])[formControl],textarea[formControl],input:not([type=checkbox])[ngModel],textarea[ngModel],[ngDefaultControl]" }, { kind: "directive", type: i4.NgControlStatus, selector: "[formControlName],[ngModel],[formControl]" }, { kind: "directive", type: i4.NgModel, selector: "[ngModel]:not([formControlName]):not([formControl])", inputs: ["name", "disabled", "ngModel", "ngModelOptions"], outputs: ["ngModelChange"], exportAs: ["ngModel"] }, { kind: "directive", type: i9$1.MatButtonToggleGroup, selector: "mat-button-toggle-group", inputs: ["appearance", "name", "vertical", "value", "multiple", "disabled", "hideSingleSelectionIndicator", "hideMultipleSelectionIndicator"], outputs: ["valueChange", "change"], exportAs: ["matButtonToggleGroup"] }, { kind: "component", type: i9$1.MatButtonToggle, selector: "mat-button-toggle", inputs: ["aria-label", "aria-labelledby", "id", "name", "value", "tabIndex", "disableRipple", "appearance", "checked", "disabled"], outputs: ["change"], exportAs: ["matButtonToggle"] }, { kind: "directive", type: i10$1.InputText, selector: "[pInputText]", inputs: ["variant"] }, { kind: "directive", type: i4.FormControlDirective, selector: "[formControl]", inputs: ["formControl", "disabled", "ngModel"], outputs: ["ngModelChange"], exportAs: ["ngForm"] }, { kind: "component", type: TreeComponent, selector: "tree-root", inputs: ["treeData", "treeId", "style", "treeStyle"], outputs: ["clickEvent", "dblClickEvent", "rightClickEvent", "panelRightClickEvent"] }], encapsulation: i0.ViewEncapsulation.None }); }
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "18.0.7", ngImport: i0, type: FileBrowserMVSComponent, decorators: [{
             type: Component,
-            args: [{ selector: 'file-browser-mvs', encapsulation: ViewEncapsulation.None, providers: [DatasetCrudService, /*PersistentDataService,*/ SearchHistoryService], template: "<!--\nThis program and the accompanying materials are\nmade available under the terms of the Eclipse Public License v2.0 which accompanies\nthis distribution, and is available at https://www.eclipse.org/legal/epl-v20.html\n\nSPDX-License-Identifier: EPL-2.0\n\nCopyright Contributors to the Zowe Project.\n-->\n\n<div style=\"height: 100%\">\n\n  <!-- Tabs, searchbar, and loading indicator -->\n  @if (showUpArrow) {\n  <img [src]=\"'./assets/explorer-uparrow.png'\" data-toggle=\"tooltip\" class=\"filebrowsermvs-pointer-logo\"\n    title=\"Go up to the parent level\" (click)=\"levelUp()\" [ngStyle]=\"treeStyle\" tabindex=\"0\"\n    (keydown.enter)=\"levelUp()\" />\n  }\n\n  <div class=\"filebrowsermvs-search\" [ngStyle]=\"searchStyle\">\n    <div class=\"searchRowFlex\">\n      <input [(ngModel)]=\"path\" list=\"searchMVSHistory\" placeholder=\"Enter a dataset query...\"\n        class=\"filebrowsermvs-search-input\" (keydown.enter)=\"updateTreeView(path);\" [ngStyle]=\"inputStyle\">\n      <!-- TODO: make search history a directive to use in both uss and mvs-->\n      <mat-button-toggle-group id=\"qualGroup\" #group=\"matButtonToggleGroup\">\n        <mat-button-toggle [checked]=\"additionalQualifiers\" class=\"qualButton\"\n          (click)=\"additionalQualifiers = !additionalQualifiers\" aria-label=\"Include additional qualifiers\"\n          title=\"Include Additional Qualifiers\">\n          <strong>.**</strong>\n        </mat-button-toggle>\n      </mat-button-toggle-group>\n      <datalist id=\"searchMVSHistory\">\n        @for (item of mvsSearchHistory.searchHistoryVal; track item) {\n        <option [value]=\"item\"></option>\n        }\n      </datalist>\n    </div>\n  </div>\n\n  <div class=\"fa fa-spinner fa-spin filebrowsermvs-loading-icon\" [hidden]=\"!isLoading\"></div>\n  <div class=\"fa fa-refresh filebrowsermvs-loading-icon\" title=\"Refresh dataset list\" (click)=\"updateTreeView(path);\"\n    [hidden]=\"isLoading\" style=\"margin-left: 9px; cursor: pointer;\"></div>\n  <div class=\"file-tree-utilities\">\n    <div class=\"fa fa-minus-square-o filebrowseruss-collapse-icon\" title=\"Collapse Folders in Explorer\"\n      (click)=\"collapseTree();\" style=\"margin-right: 9px; float:right; cursor: pointer;\"></div>\n    <div class=\"fa fa-trash-o filebrowseruss-delete-icon\" title=\"Delete\" (click)=\"showDeleteDialog(selectedNode);\"\n      style=\"margin-right: 9px; float:right; cursor: pointer;\"></div>\n    <div class=\"fa fa-plus\" title=\"Create new dataset\" (click)=\"createDatasetDialog()\"\n      style=\"margin-right: 9px; float:right; cursor: pointer;\"></div>\n    <div class=\"fa fa-eraser filebrowser-icon special-utility\" title=\"Clear Search History\"\n      (click)=\"clearSearchHistory();\"></div>\n  </div>\n  <!-- Main tree -->\n  <div [hidden]=\"hideExplorer\" style=\"height: 100%;\">\n    <tree-root [treeData]=\"data\" (clickEvent)=\"onNodeClick($event)\" (dblClickEvent)=\"onNodeDblClick($event)\"\n      [style]=\"style\" (rightClickEvent)=\"onNodeRightClick($event)\" (panelRightClickEvent)=\"onPanelRightClick($event)\"\n      (dataChanged)=\"onDataChanged($event)\">\n    </tree-root>\n  </div>\n\n  @if (showSearch) {\n  <div class=\"ui-inputgroup filebrowseruss-search-bottom-group\">\n    <span class=\"ui-inputgroup-addon\"><i class=\"fa fa-search filebrowseruss-search-bottom-icon\"></i></span>\n    <input type=\"text\" pInputText placeholder=\"Search datasets/members by name...\"\n      class=\"filebrowseruss-search-bottom-input\" [formControl]=\"searchCtrl\" #searchMVS>\n  </div>\n  }\n</div>\n<!--\n    This program and the accompanying materials are\n    made available under the terms of the Eclipse Public License v2.0 which accompanies\n    this distribution, and is available at https://www.eclipse.org/legal/epl-v20.html\n\n    SPDX-License-Identifier: EPL-2.0\n\n    Copyright Contributors to the Zowe Project.\n    -->", styles: [".searchRowFlex{display:flex;flex-direction:row}.filebrowsermvs-search{width:fit-content;min-width:250px;margin-left:5px;display:inline-block;height:40px}.filebrowsermvs-search-input{width:100%;min-height:30px;font-family:sans-serif;font-size:15px;height:35px;background-color:#464646;color:#fff;padding-left:5px;border:0px;flex-grow:2}.filebrowsermvs-pointer-logo{width:20px;height:20px;filter:brightness(3);cursor:pointer}.ui-tree-empty-message{color:transparent;height:0px}.filebrowsermvs-node-deleting{opacity:.5}#qualGroup{max-height:35px;min-height:30px}.qualButton:not(.mat-button-toggle-checked){background-color:#464646;color:#757575}.file-tree-utilities{overflow:hidden;border:1px solid #464646}.filebrowsermvs-loading-icon{margin-left:8px!important;font-size:large!important}.filebrowser-icon{margin-right:9px;float:right;cursor:pointer}.special-utility{margin-left:9px}\n"] }]
+            args: [{ selector: 'file-browser-mvs', encapsulation: ViewEncapsulation.None, providers: [DatasetCrudService, /*PersistentDataService,*/ SearchHistoryService], template: "<!--\nThis program and the accompanying materials are\nmade available under the terms of the Eclipse Public License v2.0 which accompanies\nthis distribution, and is available at https://www.eclipse.org/legal/epl-v20.html\n\nSPDX-License-Identifier: EPL-2.0\n\nCopyright Contributors to the Zowe Project.\n-->\n\n<div style=\"height: 100%\">\n\n  <!-- Tabs, searchbar, and loading indicator -->\n  @if (showUpArrow) {\n  <img data-toggle=\"tooltip\" class=\"filebrowsermvs-pointer-logo\" title=\"Go up to the parent level\" (click)=\"levelUp()\"\n    [ngStyle]=\"treeStyle\" tabindex=\"0\" (keydown.enter)=\"levelUp()\" />\n  }\n\n  <div class=\"filebrowsermvs-search\" [ngStyle]=\"searchStyle\">\n    <div class=\"searchRowFlex\">\n      <input [(ngModel)]=\"path\" list=\"searchMVSHistory\" placeholder=\"Enter a dataset query...\"\n        class=\"filebrowsermvs-search-input\" (keydown.enter)=\"updateTreeView(path);\" [ngStyle]=\"inputStyle\">\n      <!-- TODO: make search history a directive to use in both uss and mvs-->\n      <mat-button-toggle-group id=\"qualGroup\" #group=\"matButtonToggleGroup\">\n        <mat-button-toggle [checked]=\"additionalQualifiers\" class=\"qualButton\"\n          (click)=\"additionalQualifiers = !additionalQualifiers\" aria-label=\"Include additional qualifiers\"\n          title=\"Include Additional Qualifiers\">\n          <strong>.**</strong>\n        </mat-button-toggle>\n      </mat-button-toggle-group>\n      <datalist id=\"searchMVSHistory\">\n        @for (item of mvsSearchHistory.searchHistoryVal; track item) {\n        <option [value]=\"item\"></option>\n        }\n      </datalist>\n    </div>\n  </div>\n\n  <div class=\"fa fa-spinner fa-spin filebrowsermvs-loading-icon\" [hidden]=\"!isLoading\"></div>\n  <div class=\"fa fa-refresh filebrowsermvs-loading-icon\" title=\"Refresh dataset list\" (click)=\"updateTreeView(path);\"\n    [hidden]=\"isLoading\" style=\"margin-left: 9px; cursor: pointer;\"></div>\n  <div class=\"file-tree-utilities\">\n    <div class=\"fa fa-minus-square-o filebrowseruss-collapse-icon\" title=\"Collapse Folders in Explorer\"\n      (click)=\"collapseTree();\" style=\"margin-right: 9px; float:right; cursor: pointer;\"></div>\n    <div class=\"fa fa-trash-o filebrowseruss-delete-icon\" title=\"Delete\" (click)=\"showDeleteDialog(selectedNode);\"\n      style=\"margin-right: 9px; float:right; cursor: pointer;\"></div>\n    <div class=\"fa fa-plus\" title=\"Create new dataset\" (click)=\"createDatasetDialog()\"\n      style=\"margin-right: 9px; float:right; cursor: pointer;\"></div>\n    <div class=\"fa fa-eraser filebrowser-icon special-utility\" title=\"Clear Search History\"\n      (click)=\"clearSearchHistory();\"></div>\n  </div>\n  <!-- Main tree -->\n  <div [hidden]=\"hideExplorer\" style=\"height: 100%;\">\n    <tree-root [treeData]=\"data\" (clickEvent)=\"onNodeClick($event)\" (dblClickEvent)=\"onNodeDblClick($event)\"\n      [style]=\"style\" (rightClickEvent)=\"onNodeRightClick($event)\" (panelRightClickEvent)=\"onPanelRightClick($event)\"\n      (dataChanged)=\"onDataChanged($event)\">\n    </tree-root>\n  </div>\n\n  @if (showSearch) {\n  <div class=\"ui-inputgroup filebrowseruss-search-bottom-group\">\n    <span class=\"ui-inputgroup-addon\"><i class=\"fa fa-search filebrowseruss-search-bottom-icon\"></i></span>\n    <input type=\"text\" pInputText placeholder=\"Search datasets/members by name...\"\n      class=\"filebrowseruss-search-bottom-input\" [formControl]=\"searchCtrl\" #searchMVS>\n  </div>\n  }\n</div>\n<!--\n    This program and the accompanying materials are\n    made available under the terms of the Eclipse Public License v2.0 which accompanies\n    this distribution, and is available at https://www.eclipse.org/legal/epl-v20.html\n\n    SPDX-License-Identifier: EPL-2.0\n\n    Copyright Contributors to the Zowe Project.\n    -->", styles: [".searchRowFlex{display:flex;flex-direction:row}.filebrowsermvs-search{width:fit-content;min-width:250px;margin-left:5px;display:inline-block;height:40px}.filebrowsermvs-search-input{width:100%;min-height:30px;font-family:sans-serif;font-size:15px;height:35px;background-color:#464646;color:#fff;padding-left:5px;border:0px;flex-grow:2}.filebrowsermvs-pointer-logo{content:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAABmJLR0QAAAAAAAD5Q7t/AAAACXBIWXMAAAsSAAALEgHS3X78AAAA2UlEQVQ4y7XRwUkEQRSE4c9xDcAEFCYFYzCFCaGDavQgeDOEWTQBA1AQ9KCgpxUEQVh3vLyBgdnuw4APGprqqp96NP85KaU2pdTWPE0tjB73NUhTCd+ixTHuSpCmEO5xil2cE/T7IE0h3OIBWwx4Cm0GaQrhNS5xEIDr0GaQaYNx3zU6fAegiXs3gZzNADnnMdjlnDch76LBEFqH85zzzZhbTfcJyL4VD+N9Ey3q3xjzO/FsS6ZVBTDECpYCPvATDd6XAF7xEp63JYBnXOAIj0sAn7iK+1fJ9AcOn0qIhbHEXwAAAABJRU5ErkJggg==);width:20px;height:20px;filter:brightness(3);cursor:pointer}.ui-tree-empty-message{color:transparent;height:0px}.filebrowsermvs-node-deleting{opacity:.5}#qualGroup{max-height:35px;min-height:30px}.qualButton:not(.mat-button-toggle-checked){background-color:#464646;color:#757575}.file-tree-utilities{overflow:hidden;border:1px solid #464646}.filebrowsermvs-loading-icon{margin-left:8px!important;font-size:large!important}.filebrowser-icon{margin-right:9px;float:right;cursor:pointer}.special-utility{margin-left:9px}\n"] }]
         }], ctorParameters: () => [{ type: i0.ElementRef }, { type: UtilsService }, { type: SearchHistoryService }, { type: i3$1.MatSnackBar }, { type: DatasetCrudService }, { type: DownloaderService }, { type: i1.MatDialog }, { type: undefined, decorators: [{
                     type: Inject,
                     args: [Angular2InjectionTokens.LOGGER]
@@ -3281,6 +3302,2183 @@ Copyright Contributors to the Zowe Project.
   
   Copyright Contributors to the Zowe Project.
 */
+const mockResponse = {
+    '/unixfile/contents/?responseType=raw': {
+        "entries": [
+            {
+                "name": ".sh_history",
+                "path": "/proj/nwtqa/.sh_history",
+                "directory": false,
+                "size": 105467,
+                "ccsid": 0,
+                "createdAt": "2024-10-11T01:50:06",
+                "mode": 600,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "d206",
+                "path": "/proj/nwtqa/d206",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2024-10-07T17:11:35",
+                "mode": 777,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "d200",
+                "path": "/proj/nwtqa/d200",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2024-10-07T04:36:48",
+                "mode": 777,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": ".bash_history",
+                "path": "/proj/nwtqa/.bash_history",
+                "directory": false,
+                "size": 5595,
+                "ccsid": 819,
+                "createdAt": "2024-10-10T15:31:54",
+                "mode": 600,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "d304",
+                "path": "/proj/nwtqa/d304",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2024-09-30T06:16:22",
+                "mode": 777,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "d285",
+                "path": "/proj/nwtqa/d285",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2024-08-06T21:10:22",
+                "mode": 777,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "csmvdqe",
+                "path": "/proj/nwtqa/csmvdqe",
+                "directory": false,
+                "size": 1766,
+                "ccsid": 0,
+                "createdAt": "2020-09-30T14:23:53",
+                "mode": 711,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "priyaranjan",
+                "path": "/proj/nwtqa/priyaranjan",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2022-07-18T07:50:44",
+                "mode": 777,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "d307",
+                "path": "/proj/nwtqa/d307",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2024-09-30T12:52:57",
+                "mode": 777,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "d207",
+                "path": "/proj/nwtqa/d207",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2024-10-09T06:37:18",
+                "mode": 777,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "d204",
+                "path": "/proj/nwtqa/d204",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2024-10-09T10:43:07",
+                "mode": 777,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": ":",
+                "path": "/proj/nwtqa/:",
+                "directory": false,
+                "size": 0,
+                "ccsid": 0,
+                "createdAt": "2023-12-21T05:42:25",
+                "mode": 644,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "qa_doeserver21",
+                "path": "/proj/nwtqa/qa_doeserver21",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2019-11-19T10:34:53",
+                "mode": 771,
+                "owner": "CSMVDQA",
+                "group": "PDUSER"
+            },
+            {
+                "name": "d314",
+                "path": "/proj/nwtqa/d314",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2024-02-01T10:05:30",
+                "mode": 777,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "d407",
+                "path": "/proj/nwtqa/d407",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2024-10-11T04:05:37",
+                "mode": 777,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "d310",
+                "path": "/proj/nwtqa/d310",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2024-09-26T08:17:38",
+                "mode": 777,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "doeserver",
+                "path": "/proj/nwtqa/doeserver",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2019-11-28T06:42:04",
+                "mode": 771,
+                "owner": "CSMVDQA",
+                "group": "PDUSER"
+            },
+            {
+                "name": "d313",
+                "path": "/proj/nwtqa/d313",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2024-10-09T05:56:31",
+                "mode": 777,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "d203",
+                "path": "/proj/nwtqa/d203",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2024-07-25T08:43:43",
+                "mode": 777,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "d178",
+                "path": "/proj/nwtqa/d178",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2024-10-10T06:20:27",
+                "mode": 777,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "d305",
+                "path": "/proj/nwtqa/d305",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2024-10-07T06:48:23",
+                "mode": 777,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "d100",
+                "path": "/proj/nwtqa/d100",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2024-10-08T01:00:55",
+                "mode": 777,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "d213",
+                "path": "/proj/nwtqa/d213",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2024-10-07T16:35:51",
+                "mode": 777,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": ".bash_profile",
+                "path": "/proj/nwtqa/.bash_profile",
+                "directory": false,
+                "size": 1192,
+                "ccsid": 819,
+                "createdAt": "2019-09-06T18:12:21",
+                "mode": 644,
+                "owner": "CSMVDQA",
+                "group": "PDUSER"
+            },
+            {
+                "name": "d411",
+                "path": "/proj/nwtqa/d411",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2024-09-18T04:56:45",
+                "mode": 777,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": ".Xauthority",
+                "path": "/proj/nwtqa/.Xauthority",
+                "directory": false,
+                "size": 1500,
+                "ccsid": 0,
+                "createdAt": "2024-10-09T10:16:15",
+                "mode": 600,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "d283",
+                "path": "/proj/nwtqa/d283",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2024-06-25T23:39:44",
+                "mode": 777,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "d201",
+                "path": "/proj/nwtqa/d201",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2024-10-10T05:34:54",
+                "mode": 777,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": ".zowe_profile",
+                "path": "/proj/nwtqa/.zowe_profile",
+                "directory": false,
+                "size": 334,
+                "ccsid": 1047,
+                "createdAt": "2019-10-01T12:19:39",
+                "mode": 644,
+                "owner": "CSMVDQA",
+                "group": "PDUSER"
+            },
+            {
+                "name": "zowe",
+                "path": "/proj/nwtqa/zowe",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2019-03-25T17:14:56",
+                "mode": 771,
+                "owner": "CSMVDQA",
+                "group": "PDUSER"
+            },
+            {
+                "name": ".ssh",
+                "path": "/proj/nwtqa/.ssh",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2019-03-18T09:05:35",
+                "mode": 700,
+                "owner": "CSMVDQA",
+                "group": "PDUSER"
+            },
+            {
+                "name": ".bashrc",
+                "path": "/proj/nwtqa/.bashrc",
+                "directory": false,
+                "size": 366,
+                "ccsid": 819,
+                "createdAt": "2019-09-12T11:55:01",
+                "mode": 644,
+                "owner": "CSMVDQA",
+                "group": "PDUSER"
+            },
+            {
+                "name": "d378",
+                "path": "/proj/nwtqa/d378",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2024-10-04T08:16:50",
+                "mode": 777,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "d284",
+                "path": "/proj/nwtqa/d284",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2024-04-09T19:20:14",
+                "mode": 777,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "d311",
+                "path": "/proj/nwtqa/d311",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2024-10-03T06:12:41",
+                "mode": 777,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "ZOWE_PAX_STORAGE",
+                "path": "/proj/nwtqa/ZOWE_PAX_STORAGE",
+                "directory": false,
+                "size": 21,
+                "ccsid": 0,
+                "createdAt": "2023-02-02T09:45:17",
+                "mode": 777,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": ".npm",
+                "path": "/proj/nwtqa/.npm",
+                "directory": true,
+                "size": 32768,
+                "ccsid": 0,
+                "createdAt": "2019-05-09T16:19:45",
+                "mode": 755,
+                "owner": "CSMVDQA",
+                "group": "PDUSER"
+            },
+            {
+                "name": "d209",
+                "path": "/proj/nwtqa/d209",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2024-10-09T05:26:42",
+                "mode": 777,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "d303",
+                "path": "/proj/nwtqa/d303",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2024-09-26T07:45:18",
+                "mode": 777,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "d208",
+                "path": "/proj/nwtqa/d208",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2024-09-24T05:30:00",
+                "mode": 777,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "naxqa",
+                "path": "/proj/nwtqa/naxqa",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2019-05-02T08:38:02",
+                "mode": 771,
+                "owner": "CSMVDQA",
+                "group": "PDUSER"
+            },
+            {
+                "name": "d878",
+                "path": "/proj/nwtqa/d878",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2024-02-01T10:56:24",
+                "mode": 777,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "qa_scripts",
+                "path": "/proj/nwtqa/qa_scripts",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2020-04-15T21:06:55",
+                "mode": 775,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "fresh_readonly",
+                "path": "/proj/nwtqa/fresh_readonly",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2019-08-21T11:51:43",
+                "mode": 771,
+                "owner": "CSMVDQA",
+                "group": "PDUSER"
+            },
+            {
+                "name": "d312",
+                "path": "/proj/nwtqa/d312",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2024-09-18T16:41:38",
+                "mode": 777,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "d220",
+                "path": "/proj/nwtqa/d220",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2024-09-24T11:42:33",
+                "mode": 777,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "d308",
+                "path": "/proj/nwtqa/d308",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2024-06-10T10:51:18",
+                "mode": 777,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "d309",
+                "path": "/proj/nwtqa/d309",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2024-10-09T07:31:24",
+                "mode": 777,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "nax-pax-creation",
+                "path": "/proj/nwtqa/nax-pax-creation",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2019-10-31T05:27:33",
+                "mode": 771,
+                "owner": "CSMVDQA",
+                "group": "PDUSER"
+            },
+            {
+                "name": "tmp",
+                "path": "/proj/nwtqa/tmp",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2022-11-07T03:11:41",
+                "mode": 755,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "d205",
+                "path": "/proj/nwtqa/d205",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2024-10-06T10:33:08",
+                "mode": 777,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "d306",
+                "path": "/proj/nwtqa/d306",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2024-10-08T10:34:26",
+                "mode": 777,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "d210",
+                "path": "/proj/nwtqa/d210",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2024-09-23T15:08:42",
+                "mode": 777,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "d202",
+                "path": "/proj/nwtqa/d202",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2024-10-01T10:23:57",
+                "mode": 777,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "d401",
+                "path": "/proj/nwtqa/d401",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2023-11-09T13:03:00",
+                "mode": 777,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "d478",
+                "path": "/proj/nwtqa/d478",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2024-10-04T07:57:56",
+                "mode": 777,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "DELETE_ME",
+                "path": "/proj/nwtqa/DELETE_ME",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2021-12-09T10:29:19",
+                "mode": 755,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "certs",
+                "path": "/proj/nwtqa/certs",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2020-10-01T16:05:43",
+                "mode": 775,
+                "owner": "CSIZPA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "qa_doeserver25",
+                "path": "/proj/nwtqa/qa_doeserver25",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2019-12-02T09:16:54",
+                "mode": 771,
+                "owner": "CSMVDQA",
+                "group": "PDUSER"
+            },
+            {
+                "name": "qa_doeui25",
+                "path": "/proj/nwtqa/qa_doeui25",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2019-12-02T09:16:55",
+                "mode": 771,
+                "owner": "CSMVDQA",
+                "group": "PDUSER"
+            },
+            {
+                "name": "d408",
+                "path": "/proj/nwtqa/d408",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2024-10-04T01:24:28",
+                "mode": 777,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "csmvdqe.pub",
+                "path": "/proj/nwtqa/csmvdqe.pub",
+                "directory": false,
+                "size": 394,
+                "ccsid": 0,
+                "createdAt": "2020-09-30T14:23:53",
+                "mode": 755,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "kkamada",
+                "path": "/proj/nwtqa/kkamada",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2022-03-25T08:14:56",
+                "mode": 755,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": ".viminfo",
+                "path": "/proj/nwtqa/.viminfo",
+                "directory": false,
+                "size": 29983,
+                "ccsid": 819,
+                "createdAt": "2023-12-07T07:50:32",
+                "mode": 600,
+                "owner": "CSMVDQA",
+                "group": "PDUSER"
+            },
+            {
+                "name": ".saves-67305800-RS23~",
+                "path": "/proj/nwtqa/.saves-67305800-RS23~",
+                "directory": false,
+                "size": 398,
+                "ccsid": 0,
+                "createdAt": "2024-04-16T18:26:25",
+                "mode": 644,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "d278",
+                "path": "/proj/nwtqa/d278",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2024-10-10T13:46:14",
+                "mode": 777,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "install_script",
+                "path": "/proj/nwtqa/install_script",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2019-06-18T06:54:00",
+                "mode": 771,
+                "owner": "CSMVDQA",
+                "group": "PDUSER"
+            },
+            {
+                "name": "amruta_imp",
+                "path": "/proj/nwtqa/amruta_imp",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2020-08-15T09:17:55",
+                "mode": 755,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "muthu",
+                "path": "/proj/nwtqa/muthu",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2022-05-11T09:06:32",
+                "mode": 755,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "test.txt",
+                "path": "/proj/nwtqa/test.txt",
+                "directory": false,
+                "size": 0,
+                "ccsid": 0,
+                "createdAt": "2022-11-16T11:11:03",
+                "mode": 644,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": ".lesshst",
+                "path": "/proj/nwtqa/.lesshst",
+                "directory": false,
+                "size": 41,
+                "ccsid": 819,
+                "createdAt": "2024-09-10T07:22:32",
+                "mode": 600,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "d299",
+                "path": "/proj/nwtqa/d299",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2024-07-09T12:53:08",
+                "mode": 777,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "yduj",
+                "path": "/proj/nwtqa/yduj",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2020-07-08T16:17:10",
+                "mode": 755,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "doe_perf_test_data",
+                "path": "/proj/nwtqa/doe_perf_test_data",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2020-04-27T00:44:13",
+                "mode": 771,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "symlink",
+                "path": "/proj/nwtqa/symlink",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2022-11-25T09:20:10",
+                "mode": 777,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "tmp1.crT",
+                "path": "/proj/nwtqa/tmp1.crT",
+                "directory": false,
+                "size": 2354,
+                "ccsid": 819,
+                "createdAt": "2022-07-21T14:04:39",
+                "mode": 644,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "tmp1.crt",
+                "path": "/proj/nwtqa/tmp1.crt",
+                "directory": false,
+                "size": 2354,
+                "ccsid": 819,
+                "createdAt": "2022-07-21T14:05:14",
+                "mode": 644,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "ts4898                    x",
+                "path": "/proj/nwtqa/ts4898                    x",
+                "directory": true,
+                "size": 0,
+                "ccsid": 0,
+                "createdAt": "2023-05-03T12:02:04",
+                "mode": 600,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": ".ffi",
+                "path": "/proj/nwtqa/.ffi",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2020-11-23T10:40:12",
+                "mode": 755,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "zowe_smpe",
+                "path": "/proj/nwtqa/zowe_smpe",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2020-06-04T16:06:03",
+                "mode": 777,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "psmvdqe                   x",
+                "path": "/proj/nwtqa/psmvdqe                   x",
+                "directory": true,
+                "size": 0,
+                "ccsid": 0,
+                "createdAt": "2023-05-03T12:02:10",
+                "mode": 600,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "preeti",
+                "path": "/proj/nwtqa/preeti",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2023-05-03T14:35:00",
+                "mode": 755,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": ".tmp",
+                "path": "/proj/nwtqa/.tmp",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2020-08-03T17:41:55",
+                "mode": 755,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "Query_tuning_Apr2024",
+                "path": "/proj/nwtqa/Query_tuning_Apr2024",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2024-04-16T05:17:30",
+                "mode": 777,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "nims",
+                "path": "/proj/nwtqa/nims",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2020-01-08T01:53:09",
+                "mode": 771,
+                "owner": "CSMVDQA",
+                "group": "PDUSER"
+            },
+            {
+                "name": "d212",
+                "path": "/proj/nwtqa/d212",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2024-07-16T12:38:39",
+                "mode": 777,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "dead.letter",
+                "path": "/proj/nwtqa/dead.letter",
+                "directory": false,
+                "size": 294,
+                "ccsid": 1047,
+                "createdAt": "2022-07-18T10:42:43",
+                "mode": 644,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "zTEAM-please-delete-me",
+                "path": "/proj/nwtqa/zTEAM-please-delete-me",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2019-04-09T17:03:14",
+                "mode": 777,
+                "owner": "NWTN01",
+                "group": "PDUSER"
+            },
+            {
+                "name": "preti",
+                "path": "/proj/nwtqa/preti",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2023-05-03T14:53:14",
+                "mode": 755,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": ".saves-67503996-RS27~",
+                "path": "/proj/nwtqa/.saves-67503996-RS27~",
+                "directory": false,
+                "size": 184,
+                "ccsid": 0,
+                "createdAt": "2023-05-05T14:29:25",
+                "mode": 644,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "prit",
+                "path": "/proj/nwtqa/prit",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2023-08-08T10:26:15",
+                "mode": 755,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "scripts",
+                "path": "/proj/nwtqa/scripts",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2019-10-29T16:27:45",
+                "mode": 771,
+                "owner": "CSMVDQA",
+                "group": "PDUSER"
+            },
+            {
+                "name": "jch",
+                "path": "/proj/nwtqa/jch",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2019-09-09T03:07:38",
+                "mode": 777,
+                "owner": "CSMVDQA",
+                "group": "PDUSER"
+            },
+            {
+                "name": ".emacs",
+                "path": "/proj/nwtqa/.emacs",
+                "directory": false,
+                "size": 1030,
+                "ccsid": 0,
+                "createdAt": "2020-07-05T23:50:21",
+                "mode": 644,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "srv_merge",
+                "path": "/proj/nwtqa/srv_merge",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2020-03-01T06:02:40",
+                "mode": 771,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "pdpenn",
+                "path": "/proj/nwtqa/pdpenn",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2024-06-04T14:44:13",
+                "mode": 755,
+                "owner": "CSIZPA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": ".bin",
+                "path": "/proj/nwtqa/.bin",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2020-08-03T17:42:09",
+                "mode": 755,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "nax_admin_qa",
+                "path": "/proj/nwtqa/nax_admin_qa",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2019-09-09T06:54:27",
+                "mode": 771,
+                "owner": "CSMVDQA",
+                "group": "PDUSER"
+            },
+            {
+                "name": ".zowe",
+                "path": "/proj/nwtqa/.zowe",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2020-08-03T17:43:45",
+                "mode": 755,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "zowe_certificates_keyring",
+                "path": "/proj/nwtqa/zowe_certificates_keyring",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2022-03-01T21:46:44",
+                "mode": 550,
+                "owner": "CSIZPA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "leanid",
+                "path": "/proj/nwtqa/leanid",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2020-08-03T18:12:23",
+                "mode": 755,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "nax_admin_qa1",
+                "path": "/proj/nwtqa/nax_admin_qa1",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2019-09-11T14:15:13",
+                "mode": 771,
+                "owner": "CSMVDQA",
+                "group": "PDUSER"
+            },
+            {
+                "name": "tmp.crt",
+                "path": "/proj/nwtqa/tmp.crt",
+                "directory": false,
+                "size": 2354,
+                "ccsid": 819,
+                "createdAt": "2022-05-08T20:25:25",
+                "mode": 644,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "nax-pax",
+                "path": "/proj/nwtqa/nax-pax",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2019-09-11T14:22:22",
+                "mode": 771,
+                "owner": "CSMVDQA",
+                "group": "PDUSER"
+            },
+            {
+                "name": "Atharva",
+                "path": "/proj/nwtqa/Atharva",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2023-05-12T09:49:02",
+                "mode": 755,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "ums-1.1",
+                "path": "/proj/nwtqa/ums-1.1",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2022-10-19T08:28:21",
+                "mode": 755,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": ".condarc",
+                "path": "/proj/nwtqa/.condarc",
+                "directory": false,
+                "size": 106,
+                "ccsid": 1047,
+                "createdAt": "2020-11-23T10:37:05",
+                "mode": 644,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "test.yaml",
+                "path": "/proj/nwtqa/test.yaml",
+                "directory": false,
+                "size": 5987,
+                "ccsid": 819,
+                "createdAt": "2023-08-08T10:28:23",
+                "mode": 644,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "testn",
+                "path": "/proj/nwtqa/testn",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2020-03-01T16:45:12",
+                "mode": 771,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "divya22",
+                "path": "/proj/nwtqa/divya22",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2023-08-25T10:19:36",
+                "mode": 755,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": ".conda",
+                "path": "/proj/nwtqa/.conda",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2020-11-23T10:38:37",
+                "mode": 755,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": ".python_history",
+                "path": "/proj/nwtqa/.python_history",
+                "directory": false,
+                "size": 267,
+                "ccsid": 0,
+                "createdAt": "2021-01-21T09:48:57",
+                "mode": 600,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "jitesh_zowe",
+                "path": "/proj/nwtqa/jitesh_zowe",
+                "directory": true,
+                "size": 0,
+                "ccsid": 0,
+                "createdAt": "2024-05-16T05:28:23",
+                "mode": 755,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "senthillog_1649750035667.txt",
+                "path": "/proj/nwtqa/senthillog_1649750035667.txt",
+                "directory": false,
+                "size": 310,
+                "ccsid": 0,
+                "createdAt": "2022-04-12T07:53:56",
+                "mode": 644,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "policy-backup-ga",
+                "path": "/proj/nwtqa/policy-backup-ga",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2020-11-24T18:21:39",
+                "mode": 755,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": ".saves-84084373-RS23~",
+                "path": "/proj/nwtqa/.saves-84084373-RS23~",
+                "directory": false,
+                "size": 1420,
+                "ccsid": 0,
+                "createdAt": "2023-08-09T18:42:05",
+                "mode": 644,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "tmp.ptktdata",
+                "path": "/proj/nwtqa/tmp.ptktdata",
+                "directory": false,
+                "size": 25,
+                "ccsid": 0,
+                "createdAt": "2022-05-23T15:38:09",
+                "mode": 666,
+                "owner": "NWTSTC",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "santosh",
+                "path": "/proj/nwtqa/santosh",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2019-11-20T12:03:18",
+                "mode": 777,
+                "owner": "CSMVDQA",
+                "group": "PDUSER"
+            },
+            {
+                "name": "ivp_test",
+                "path": "/proj/nwtqa/ivp_test",
+                "directory": true,
+                "size": 0,
+                "ccsid": 0,
+                "createdAt": "2020-12-01T06:58:31",
+                "mode": 755,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "qa_doeserver27",
+                "path": "/proj/nwtqa/qa_doeserver27",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2019-12-05T13:00:47",
+                "mode": 771,
+                "owner": "CSMVDQA",
+                "group": "PDUSER"
+            },
+            {
+                "name": "qa_doeui27",
+                "path": "/proj/nwtqa/qa_doeui27",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2019-12-05T13:00:48",
+                "mode": 771,
+                "owner": "CSMVDQA",
+                "group": "PDUSER"
+            },
+            {
+                "name": "configmgr-rexx",
+                "path": "/proj/nwtqa/configmgr-rexx",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2022-08-04T17:38:39",
+                "mode": 755,
+                "owner": "CSIZPA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": ".gitconfig",
+                "path": "/proj/nwtqa/.gitconfig",
+                "directory": false,
+                "size": 1170,
+                "ccsid": 819,
+                "createdAt": "2024-04-01T09:47:47",
+                "mode": 644,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "products_testing",
+                "path": "/proj/nwtqa/products_testing",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2022-08-09T13:52:20",
+                "mode": 777,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "archive.zip",
+                "path": "/proj/nwtqa/archive.zip",
+                "directory": false,
+                "size": 1663314740,
+                "ccsid": -1,
+                "createdAt": "2022-09-16T10:33:51",
+                "mode": 644,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": ".saves-84018230-RS22~",
+                "path": "/proj/nwtqa/.saves-84018230-RS22~",
+                "directory": false,
+                "size": 194,
+                "ccsid": 0,
+                "createdAt": "2024-06-24T18:54:20",
+                "mode": 644,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "prateek_cust",
+                "path": "/proj/nwtqa/prateek_cust",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2019-12-06T09:48:10",
+                "mode": 771,
+                "owner": "CSMVDQA",
+                "group": "PDUSER"
+            },
+            {
+                "name": "smpetest",
+                "path": "/proj/nwtqa/smpetest",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2019-12-07T05:37:51",
+                "mode": 771,
+                "owner": "CSMVDQA",
+                "group": "PDUSER"
+            },
+            {
+                "name": "users",
+                "path": "/proj/nwtqa/users",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2020-05-18T22:22:40",
+                "mode": 755,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "ndoe_pune",
+                "path": "/proj/nwtqa/ndoe_pune",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2020-03-21T18:08:23",
+                "mode": 771,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": ".saves-50725802-RS27~",
+                "path": "/proj/nwtqa/.saves-50725802-RS27~",
+                "directory": false,
+                "size": 430,
+                "ccsid": 0,
+                "createdAt": "2023-09-11T17:56:02",
+                "mode": 644,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": ".ansible",
+                "path": "/proj/nwtqa/.ansible",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2020-12-03T03:30:02",
+                "mode": 755,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "idaa_server_new",
+                "path": "/proj/nwtqa/idaa_server_new",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2022-05-24T13:51:53",
+                "mode": 777,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "ZOWE_YAML_STORAGE",
+                "path": "/proj/nwtqa/ZOWE_YAML_STORAGE",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2022-09-10T12:33:56",
+                "mode": 755,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "UsageCPU",
+                "path": "/proj/nwtqa/UsageCPU",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2020-12-05T11:19:14",
+                "mode": 751,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": ".profile",
+                "path": "/proj/nwtqa/.profile",
+                "directory": false,
+                "size": 15164,
+                "ccsid": 1047,
+                "createdAt": "2019-05-22T07:15:40",
+                "mode": 644,
+                "owner": "CSMVDQA",
+                "group": "PDUSER"
+            },
+            {
+                "name": "policy_bk_senthil",
+                "path": "/proj/nwtqa/policy_bk_senthil",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2023-07-20T12:44:18",
+                "mode": 755,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": ".saves-16975168-RS23~",
+                "path": "/proj/nwtqa/.saves-16975168-RS23~",
+                "directory": false,
+                "size": 400,
+                "ccsid": 0,
+                "createdAt": "2023-09-12T13:36:13",
+                "mode": 644,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": ".mc",
+                "path": "/proj/nwtqa/.mc",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2020-02-24T10:55:51",
+                "mode": 755,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "rinky",
+                "path": "/proj/nwtqa/rinky",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2023-12-04T11:44:41",
+                "mode": 755,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "unified-ui",
+                "path": "/proj/nwtqa/unified-ui",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2020-12-08T11:44:33",
+                "mode": 755,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": ".saves-83952737-RS22~",
+                "path": "/proj/nwtqa/.saves-83952737-RS22~",
+                "directory": false,
+                "size": 452,
+                "ccsid": 0,
+                "createdAt": "2023-09-13T15:11:37",
+                "mode": 644,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "pax_extract",
+                "path": "/proj/nwtqa/pax_extract",
+                "directory": true,
+                "size": 0,
+                "ccsid": 0,
+                "createdAt": "2021-05-06T14:39:41",
+                "mode": 755,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "pax_ext",
+                "path": "/proj/nwtqa/pax_ext",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2021-05-06T14:40:27",
+                "mode": 777,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": ".vim",
+                "path": "/proj/nwtqa/.vim",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2020-03-26T18:24:16",
+                "mode": 755,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "inpax",
+                "path": "/proj/nwtqa/inpax",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2021-05-12T17:29:33",
+                "mode": 755,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "db2devops",
+                "path": "/proj/nwtqa/db2devops",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2020-04-04T19:32:02",
+                "mode": 771,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "zowe-user-dir",
+                "path": "/proj/nwtqa/zowe-user-dir",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2020-04-06T11:06:48",
+                "mode": 771,
+                "owner": "IZUSVR",
+                "group": "IZPUSS"
+            },
+            {
+                "name": ".saves-33752091-RS23~",
+                "path": "/proj/nwtqa/.saves-33752091-RS23~",
+                "directory": false,
+                "size": 194,
+                "ccsid": 0,
+                "createdAt": "2023-09-13T17:43:01",
+                "mode": 644,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "{directory}",
+                "path": "/proj/nwtqa/{directory}",
+                "directory": true,
+                "size": 0,
+                "ccsid": 0,
+                "createdAt": "2023-09-21T11:10:55",
+                "mode": 755,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "zosmf-auth",
+                "path": "/proj/nwtqa/zosmf-auth",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2020-04-09T20:23:35",
+                "mode": 771,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "zss-auth",
+                "path": "/proj/nwtqa/zss-auth",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2020-04-09T20:23:35",
+                "mode": 771,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": ".cache",
+                "path": "/proj/nwtqa/.cache",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2023-10-10T07:07:04",
+                "mode": 755,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": ".node_repl_history",
+                "path": "/proj/nwtqa/.node_repl_history",
+                "directory": false,
+                "size": 17,
+                "ccsid": 0,
+                "createdAt": "2020-04-15T15:44:33",
+                "mode": 600,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "test_sh",
+                "path": "/proj/nwtqa/test_sh",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2021-05-13T10:26:24",
+                "mode": 755,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "idaa_server",
+                "path": "/proj/nwtqa/idaa_server",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2022-01-27T09:26:38",
+                "mode": 777,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "zowe.yaml",
+                "path": "/proj/nwtqa/zowe.yaml",
+                "directory": false,
+                "size": 2619,
+                "ccsid": 1047,
+                "createdAt": "2022-01-27T21:27:25",
+                "mode": 644,
+                "owner": "CSIZPA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": ".keystore",
+                "path": "/proj/nwtqa/.keystore",
+                "directory": false,
+                "size": 3488,
+                "ccsid": 0,
+                "createdAt": "2020-04-17T20:29:35",
+                "mode": 644,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "ManagedPromotions.ddl",
+                "path": "/proj/nwtqa/ManagedPromotions.ddl",
+                "directory": false,
+                "size": 57073,
+                "ccsid": 819,
+                "createdAt": "2022-12-20T06:37:38",
+                "mode": 644,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": ".saves-50529488-RS23~",
+                "path": "/proj/nwtqa/.saves-50529488-RS23~",
+                "directory": false,
+                "size": 140,
+                "ccsid": 0,
+                "createdAt": "2023-09-22T18:24:24",
+                "mode": 644,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": ".local",
+                "path": "/proj/nwtqa/.local",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2023-10-10T07:27:21",
+                "mode": 755,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "idaa_copy",
+                "path": "/proj/nwtqa/idaa_copy",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2022-02-07T10:09:32",
+                "mode": 777,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "CEEDUMP.20231011.200431.394841",
+                "path": "/proj/nwtqa/CEEDUMP.20231011.200431.394841",
+                "directory": false,
+                "size": 179152,
+                "ccsid": 0,
+                "createdAt": "2023-10-12T00:04:31",
+                "mode": 640,
+                "owner": "OMVSKERN",
+                "group": "IZPUSS"
+            },
+            {
+                "name": ".saves-84148858-RS25~",
+                "path": "/proj/nwtqa/.saves-84148858-RS25~",
+                "directory": false,
+                "size": 302,
+                "ccsid": 0,
+                "createdAt": "2023-11-22T17:06:24",
+                "mode": 644,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "AdityaR",
+                "path": "/proj/nwtqa/AdityaR",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2021-05-18T11:03:48",
+                "mode": 777,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "RS22DC1A.der",
+                "path": "/proj/nwtqa/RS22DC1A.der",
+                "directory": false,
+                "size": 0,
+                "ccsid": 819,
+                "createdAt": "2021-09-29T04:27:47",
+                "mode": 644,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "Satish",
+                "path": "/proj/nwtqa/Satish",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2021-06-28T14:11:30",
+                "mode": 755,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "JES Explorer",
+                "path": "/proj/nwtqa/JES Explorer",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2021-04-08T03:17:03",
+                "mode": 777,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "test_af",
+                "path": "/proj/nwtqa/test_af",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2021-05-28T10:55:26",
+                "mode": 755,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "AFDSMP",
+                "path": "/proj/nwtqa/AFDSMP",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2021-04-21T08:56:35",
+                "mode": 751,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "java.security",
+                "path": "/proj/nwtqa/java.security",
+                "directory": false,
+                "size": 57290,
+                "ccsid": 0,
+                "createdAt": "2021-04-15T10:18:09",
+                "mode": 755,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "tuningServer",
+                "path": "/proj/nwtqa/tuningServer",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2021-08-13T12:40:27",
+                "mode": 755,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "amruta",
+                "path": "/proj/nwtqa/amruta",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2021-08-18T12:48:31",
+                "mode": 755,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "Query_Tuning",
+                "path": "/proj/nwtqa/Query_Tuning",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2021-08-19T07:46:10",
+                "mode": 777,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "RS27QB1X.der",
+                "path": "/proj/nwtqa/RS27QB1X.der",
+                "directory": false,
+                "size": 870,
+                "ccsid": 819,
+                "createdAt": "2021-09-29T04:43:49",
+                "mode": 644,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "demo",
+                "path": "/proj/nwtqa/demo",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2021-09-10T17:08:29",
+                "mode": 755,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "ivp-asaraf_feature-latest.pax",
+                "path": "/proj/nwtqa/ivp-asaraf_feature-latest.pax",
+                "directory": false,
+                "size": 483840,
+                "ccsid": 819,
+                "createdAt": "2021-09-17T18:27:27",
+                "mode": 644,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "senthil",
+                "path": "/proj/nwtqa/senthil",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2021-09-20T11:50:37",
+                "mode": 755,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "Query_Tuning_Server",
+                "path": "/proj/nwtqa/Query_Tuning_Server",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2021-09-24T10:50:34",
+                "mode": 775,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "mvscmd",
+                "path": "/proj/nwtqa/mvscmd",
+                "directory": false,
+                "size": 271,
+                "ccsid": 1047,
+                "createdAt": "2021-10-04T02:52:20",
+                "mode": 755,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "Senthil",
+                "path": "/proj/nwtqa/Senthil",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2021-10-27T17:43:24",
+                "mode": 755,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "proj",
+                "path": "/proj/nwtqa/proj",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2021-11-01T08:23:37",
+                "mode": 750,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "amaan",
+                "path": "/proj/nwtqa/amaan",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2021-11-25T05:23:35",
+                "mode": 755,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "idaa",
+                "path": "/proj/nwtqa/idaa",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2021-11-25T10:52:51",
+                "mode": 777,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": ".rnd",
+                "path": "/proj/nwtqa/.rnd",
+                "directory": false,
+                "size": 1024,
+                "ccsid": 0,
+                "createdAt": "2021-11-25T11:04:47",
+                "mode": 600,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            }
+        ]
+    },
+    '/unixfile/metadata/proj/nwtqa/d305?responseType=raw': {
+        "path": "/proj/nwtqa/d305",
+        "directory": true,
+        "size": 8192,
+        "ccsid": 0,
+        "createdAt": "2024-10-07T06:48:23",
+        "mode": 777,
+        "owner": "CSMVDQA",
+        "group": "IZPUSS"
+    },
+    '/unixfile/contents/proj/nwtqa/d305?responseType=raw': {
+        "entries": [
+            {
+                "name": "zowe_runtime",
+                "path": "/proj/nwtqa/d305/zowe_runtime",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2024-10-07T06:48:23",
+                "mode": 755,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "zowe-2.17.0.yaml",
+                "path": "/proj/nwtqa/d305/zowe-2.17.0.yaml",
+                "directory": false,
+                "size": 3767,
+                "ccsid": 0,
+                "createdAt": "2024-10-07T06:48:54",
+                "mode": 664,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "zowe_certificates",
+                "path": "/proj/nwtqa/d305/zowe_certificates",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2024-10-07T06:49:19",
+                "mode": 775,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "zowe_logs",
+                "path": "/proj/nwtqa/d305/zowe_logs",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2024-10-07T06:49:41",
+                "mode": 775,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "zowe_workspace",
+                "path": "/proj/nwtqa/d305/zowe_workspace",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2024-10-07T06:49:49",
+                "mode": 770,
+                "owner": "NWTSTC",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "izp",
+                "path": "/proj/nwtqa/d305/izp",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2024-10-07T06:50:00",
+                "mode": 755,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "izp-admin-fdn-db2",
+                "path": "/proj/nwtqa/d305/izp-admin-fdn-db2",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2024-10-07T06:50:40",
+                "mode": 755,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "izp-devops-db2",
+                "path": "/proj/nwtqa/d305/izp-devops-db2",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2024-10-07T06:50:41",
+                "mode": 755,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "izp.yaml",
+                "path": "/proj/nwtqa/d305/izp.yaml",
+                "directory": false,
+                "size": 2239,
+                "ccsid": 1047,
+                "createdAt": "2024-10-07T06:52:14",
+                "mode": 640,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "zowe_extensions",
+                "path": "/proj/nwtqa/d305/zowe_extensions",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2024-10-07T06:53:19",
+                "mode": 755,
+                "owner": "CSMVDQA",
+                "group": "IZPUSS"
+            },
+            {
+                "name": "vdata2",
+                "path": "/proj/nwtqa/d305/vdata2",
+                "directory": true,
+                "size": 8192,
+                "ccsid": 0,
+                "createdAt": "2024-10-07T06:54:03",
+                "mode": 775,
+                "owner": "NWTSTC",
+                "group": "IZPUSS"
+            }
+        ]
+    },
+    '/unixfile/contents/proj/nwtqa/d305/izp.yaml?responseType=b64': 'Y29tcG9uZW50czoKICBpenA6CiAgICBlbmFibGVkOiB0cnVlCiAgICBkZWJ1Z1NoZWxsU2NyaXB0czogZmFsc2UKICAgIGV4cGVyaWVuY2VzOgogICAgLSAvcHJvai9ud3RxYS9kMzA1L2l6cC1hZG1pbi1mZG4tZGIyCiAgICAtIC9wcm9qL253dHFhL2QzMDUvaXpwLWRldm9wcy1kYjIKICAgIGpvYkNhcmQ6IFtdCiAgICBydW50aW1lRGlyZWN0b3J5OiAvcHJvai9ud3RxYS9kMzA1L2l6cAogICAgd29ya3NwYWNlRGlyZWN0b3J5OiAvcHJvai9ud3RxYS9kMzA1L3ZkYXRhMgogICAgbWlncmF0aW9uRGlyZWN0b3J5OiAnJwogICAgc2VjdXJpdHk6CiAgICAgIHVzZVNBRk9ubHk6IHRydWUKICAgICAgZGJhOgogICAgICAgIGRlZmF1bHRBdXRoZW50aWNhdGlvbk1lY2hhbmlzbTogUEFTU1dPUkQKICAgICAgICBkZWZhdWx0RGJhVXNlckNlcnRpZmljYXRlTGFiZWw6IFJTUExFWDAxX0NTSVpQS19DUwogICAgICAgIGRlZmF1bHREYmFVc2VyQ2VydGlmaWNhdGVMb2NhdGlvbjogc2Fma2V5cmluZzovL0NTSVpQSy9DU0laUEtSaW5nCiAgICAgICAgZGVmYXVsdERiYVVzZXJDZXJ0aWZpY2F0ZUtleXN0b3JlVHlwZTogSkNFUkFDRktTCiAgICAgIHByb2ZpbGVRdWFsaWZpZXI6ICcnCiAgICAgIHBrY3MxMToKICAgICAgICBkYmFVc2VyOiBDU01WRFFPCiAgICAgICAgdG9rZW46IE5XVE5PSwogICAgICAgIGxpYnJhcnk6IC91c3IvbHBwL3BrY3MxMS9saWIvY3NucGNhNjQuc28KICAgICAgY2VydGlmaWNhdGU6CiAgICAgICAgYWxsb3dTZWxmU2lnbmVkOiBmYWxzZQogICAgICAgIHRydXN0c3RvcmU6CiAgICAgICAgICBsb2NhdGlvbjogL3Byb2ovbnd0cWEvZDMwNS92ZGF0YTIvY29uZi9jYWNlcnRzCiAgICAgICAgICB0eXBlOiBKS1MKICAgICAgICBrZXlzdG9yZToKICAgICAgICAgIGxvY2F0aW9uOiAnJwogICAgICAgICAgdHlwZTogJycKICAgICAgICAgIGFsaWFzOiAnJwogICAgICBwcm9maWxlUHJlZml4OgogICAgICAgIHN1cGVyOiBJWlAuU1VQRVIKICAgICAgICBhZG1pbjogSVpQLkFETUlOCiAgICAgIHN1cnJvZ2F0ZVVzZXI6CiAgICAgICAgc3VwZXI6IElaUFNSR1NQCiAgICAgICAgYWRtaW46IElaUFNSR0FECiAgICAgIHN1cnJvZ2F0ZUdyb3VwOiBJWlBTUkdSUAogICAgc2VydmVyOgogICAgICB0bHNWZXJzaW9uTGlzdDogVExTdjEuMixUTFN2MS4zCiAgICAgIGF1dGhUeXBlOiBTVEFOREFSRF9KV1QKICAgICAgcG9ydDoKICAgICAgICBodHRwOiA1OTMwNQogICAgICAgIGFnZW50OiAzNDQ0CiAgICAgICAgZ3JlbWxpbjogODE4MgogICAgICBob3N0OiAnJwogICAgICBsb2c6CiAgICAgICAgZGVzdGluYXRpb246IEJPVEgKICAgICAgICBwcm9wZXJ0aWVzOiBbXQogICAgICBhcGlSYXRlQ2FwYWNpdHlCeVVzZXI6IDYwMDAKICAgICAgbWVtb3J5U2l6ZTogNDA5NgogICAgICBqb2JQcmVmaXg6IE5XVAogICAgICBmYWlsc2FmZVRpbWVvdXQ6IDEwMAogICAgICBncmFwaFFMVGltZW91dDogMzAwCiAgICAgIHN1YnN5c3RlbURpc2NvdmVyeToKICAgICAgICBpbnRlcnZhbDogMzAKICAgICAgb2JqZWN0RGlzY292ZXJ5SW50ZXJ2YWw6IDI0CiAgICAgIGFsbFN5c25hbWVzOiBSUzIyIFJTMjgKICAgICAgamF2YUFyZ3M6IFtdCiAgICBzeXNwbGV4OgogICAgICBsb2NhbDoKICAgICAgICBhY3R1YWxOYW1lOgogICAgICAgIHVuaXF1ZU5hbWU6CiAgICBkYXRhc2V0OgogICAgICBydW50aW1lSGxxOiBSU1FBLklaUC5EMzA1CiAgICAgIGhscTogUlNRQS5JWlAuRDMwNQogICAgICBwYXJtbGliOiBSU1FBLklaUC5EMzA1LlBBUk1MSUIKICAgICAgamNsbGliOiBSU1FBLklaUC5EMzA1LkpDTExJQgogICAgICBsb2FkTGlicmFyeToKICAgICAgICBkYjI6IERTTi5WQzEwLlNEU05MT0FECiAgICAgICAgaXpwOiAnJwogICAgICBkYmFFbmNyeXB0aW9uOiBSU1FBLklaUC5EMzA1LkNSWVBUCiAgICAgIHVzZXJMaXN0OiBSU1FBLklaUC5VU0VSTElTVC5EMzA1CiAgICAgIHRlYW1MaXN0OiBSU1FBLklaUC5URUFNTElTVC5EMzA1CiAgICB0b29sc0Rpc2NvdmVyeToKICAgICAgZW5hYmxlZDogdHJ1ZQogICAgICBkaXNjb3ZlcnlTZWFyY2hQYXRoczogW10KICAgIHpvd2U6CiAgICAgIGpvYjoKICAgICAgICBzdWZmaXg6IElaUAogICAgamF2YToKICAgICAgaG9tZTogJycKem93ZToKICBzZXR1cDoKICAgIHppczoKICAgICAgcGFybWxpYjoKICAgICAgICBrZXlzOgogICAgICAgICAgSVpQLlpTU1AuUkVHOiBsaXN0CiAgdXNlQ29uZmlnbWdyOiB0cnVlCg==',
+};
 class UssCrudService {
     handleErrorObservable(error) {
         console.error(error.message || error);
@@ -3301,14 +5499,24 @@ class UssCrudService {
     getFileContents(path) {
         let filePath = this.utils.filePathCheck(path);
         let url = ZoweZLUX.uriBroker.unixFileUri('contents', filePath);
-        return this.http.get(url).pipe(catchError(this.handleErrorObservable));
+        if (mockResponse[url]) {
+            return of(mockResponse[url]);
+        }
+        else {
+            return this.http.get(url).pipe(catchError(this.handleErrorObservable));
+        }
     }
     getFileMetadata(path) {
         let filePath = this.utils.filePathCheck(path);
         let url = ZoweZLUX.uriBroker.unixFileUri('metadata', filePath);
         //TODO: Fix ZSS bug where "%2F" is not properly processed as a "/" character
         url = url.split("%2F").join("/");
-        return this.http.get(url).pipe(catchError(this.handleErrorObservable));
+        if (mockResponse[url]) {
+            return of(mockResponse[url]);
+        }
+        else {
+            return this.http.get(url).pipe(catchError(this.handleErrorObservable));
+        }
     }
     copyFile(oldPath, newPath, forceOverwrite) {
         let url = ZoweZLUX.uriBroker.unixFileUri('copy', oldPath, undefined, undefined, newPath, forceOverwrite, undefined, true);
@@ -3432,6 +5640,9 @@ class FileBrowserUSSComponent {
         // }
         if (this.searchValueSubscription) {
             this.searchValueSubscription.unsubscribe();
+        }
+        if (this.ussSearchHistorySubscription) {
+            this.ussSearchHistorySubscription.unsubscribe();
         }
     }
     getDOMElement() {
@@ -3658,119 +5869,131 @@ class FileBrowserUSSComponent {
             return;
         }
         let metaData = this.ussSrv.getFileMetadata(pathAndName);
-        metaData.subscribe(result => {
-            if (result.ccsid == -1) {
-                this.snackBar.open("Paste failed: '" + pathAndName + "' Operation not yet supported for this encoding.", 'Dismiss', defaultSnackbarOptions);
-                return;
-            }
-            else {
-                this.isLoading = true;
-                let destinationMetadata = this.ussSrv.getFileContents(destinationPath);
-                destinationMetadata.subscribe(result => {
-                    /*rename the file when doing paste, in case same named file exists in the destination.*/
-                    for (let i = 0; i < result.entries.length; i++) {
-                        if (!result.entries[i].directory && result.entries[i].name == name) {
-                            if (isCut) {
-                                this.snackBar.open("Unable to move '" + pathAndName + "' because target '" + destinationPath + '\/' + name + "'already exists at destination.", 'Dismiss', longSnackbarOptions);
-                                return;
+        metaData.subscribe({
+            next: (result) => {
+                if (result.ccsid == -1) {
+                    this.snackBar.open("Paste failed: '" + pathAndName + "' Operation not yet supported for this encoding.", 'Dismiss', defaultSnackbarOptions);
+                    return;
+                }
+                else {
+                    this.isLoading = true;
+                    let destinationMetadata = this.ussSrv.getFileContents(destinationPath);
+                    destinationMetadata.subscribe({
+                        next: (result) => {
+                            /*rename the file when doing paste, in case same named file exists in the destination.*/
+                            for (let i = 0; i < result.entries.length; i++) {
+                                if (!result.entries[i].directory && result.entries[i].name == name) {
+                                    if (isCut) {
+                                        this.snackBar.open("Unable to move '" + pathAndName + "' because target '" + destinationPath + '\/' + name + "'already exists at destination.", 'Dismiss', longSnackbarOptions);
+                                        return;
+                                    }
+                                    i = -1;
+                                    name = incrementFileName(name);
+                                }
                             }
-                            i = -1;
-                            name = incrementFileName(name);
-                        }
-                    }
-                    let copySubscription = this.ussSrv.copyFile(pathAndName, destinationPath + "/" + name)
-                        .subscribe(resp => {
-                        if (this.rightClickedFile) {
-                            if (this.rightClickedFile.children && this.rightClickedFile.children.length > 0) {
-                                let expanded = this.rightClickedFile.expanded;
-                                /* We recycle the same method used for opening (clicking on) a node. But instead of expanding it,
-                                we keep the same expanded state, and just use it to add a node */
-                                this.addChild(this.rightClickedFile, true);
-                                this.rightClickedFile.expanded = expanded;
-                            }
-                            else if (this.path == destinationPath) {
-                                /* In the case that we right click to paste on the active directory instead of a node, we update our tree
-                                (active directory) instead of adding onto a specific node */
-                                this.displayTree(this.path, true);
-                            }
-                        }
-                        if (isCut) {
-                            /* Clear the paste option, because even if delete fails after, we have already done the copy */
-                            this.isLoading = true;
-                            this.fileToCopyOrCut = null;
-                            this.rightClickPropertiesFolder.splice(this.rightClickPropertiesFolder.map(item => item.text).indexOf("Paste"), 1);
-                            this.rightClickPropertiesPanel.splice(this.rightClickPropertiesPanel.map(item => item.text).indexOf("Paste"), 1);
-                            /* Delete (cut) portion */
-                            this.ussSrv.deleteFileOrFolder(pathAndName)
-                                .subscribe(resp => {
-                                this.isLoading = false;
-                                this.removeChild(fileNode);
-                                this.snackBar.open('Paste successful: ' + name, 'Dismiss', quickSnackbarOptions);
-                            }, error => {
-                                if (error.status == '500') { //Internal Server Error
-                                    this.snackBar.open("Copied successfully, but failed to cut '" + pathAndName + "' Server returned with: " + error._body, 'Dismiss', longSnackbarOptions);
+                            let copySubscription = this.ussSrv.copyFile(pathAndName, destinationPath + "/" + name)
+                                .subscribe({
+                                next: (resp) => {
+                                    if (this.rightClickedFile) {
+                                        if (this.rightClickedFile.children && this.rightClickedFile.children.length > 0) {
+                                            let expanded = this.rightClickedFile.expanded;
+                                            /* We recycle the same method used for opening (clicking on) a node. But instead of expanding it,
+                                            we keep the same expanded state, and just use it to add a node */
+                                            this.addChild(this.rightClickedFile, true);
+                                            this.rightClickedFile.expanded = expanded;
+                                        }
+                                        else if (this.path == destinationPath) {
+                                            /* In the case that we right click to paste on the active directory instead of a node, we update our tree
+                                            (active directory) instead of adding onto a specific node */
+                                            this.displayTree(this.path, true);
+                                        }
+                                    }
+                                    if (isCut) {
+                                        /* Clear the paste option, because even if delete fails after, we have already done the copy */
+                                        this.isLoading = true;
+                                        this.fileToCopyOrCut = null;
+                                        this.rightClickPropertiesFolder.splice(this.rightClickPropertiesFolder.map(item => item.text).indexOf("Paste"), 1);
+                                        this.rightClickPropertiesPanel.splice(this.rightClickPropertiesPanel.map(item => item.text).indexOf("Paste"), 1);
+                                        /* Delete (cut) portion */
+                                        this.ussSrv.deleteFileOrFolder(pathAndName)
+                                            .subscribe({
+                                            next: (resp) => {
+                                                this.isLoading = false;
+                                                this.removeChild(fileNode);
+                                                this.snackBar.open('Paste successful: ' + name, 'Dismiss', quickSnackbarOptions);
+                                            },
+                                            error: (error) => {
+                                                if (error.status == '500') { //Internal Server Error
+                                                    this.snackBar.open("Copied successfully, but failed to cut '" + pathAndName + "' Server returned with: " + error._body, 'Dismiss', longSnackbarOptions);
+                                                }
+                                                else if (error.status == '404') { //Not Found
+                                                    this.snackBar.open("Copied successfully, but '" + pathAndName + "' has already been deleted or does not exist.", 'Dismiss', defaultSnackbarOptions);
+                                                    this.removeChild(fileNode);
+                                                }
+                                                else if (error.status == '400' || error.status == '403') { //Bad Request
+                                                    this.snackBar.open("Copied successfully but failed to cut '" + pathAndName + "' This is probably due to a permission problem.", 'Dismiss', defaultSnackbarOptions);
+                                                }
+                                                else { //Unknown
+                                                    this.snackBar.open("Copied successfully, but unknown error cutting '" + error.status + "' occurred for '" + pathAndName + "' Server returned with: " + error._body, 'Dismiss', longSnackbarOptions);
+                                                }
+                                                this.isLoading = false;
+                                                this.log.severe(error);
+                                            }
+                                        });
+                                    }
+                                    else {
+                                        this.isLoading = false;
+                                        this.snackBar.open('Paste successful: ' + name, 'Dismiss', quickSnackbarOptions);
+                                    }
+                                },
+                                error: (error) => {
+                                    if (error.status == '500') { //Internal Server Error
+                                        this.snackBar.open("Paste failed: HTTP 500 from app-server or agent occurred for '" + pathAndName + "'. Server returned with: " + error._body, 'Dismiss', longSnackbarOptions);
+                                    }
+                                    else if (error.status == '404') { //Not Found
+                                        this.snackBar.open("Paste failed: '" + pathAndName + "' does not exist.", 'Dismiss', defaultSnackbarOptions);
+                                    }
+                                    else if (error.status == '400') { //Bad Request
+                                        this.snackBar.open("Paste failed: HTTP 400 occurred for '" + pathAndName + "'. Check that you have correct permissions for this action.", 'Dismiss', defaultSnackbarOptions);
+                                    }
+                                    else { //Unknown
+                                        this.snackBar.open("Paste failed: '" + error.status + "' occurred for '" + pathAndName + "' Server returned with: " + error._body, 'Dismiss', longSnackbarOptions);
+                                    }
+                                    this.isLoading = false;
+                                    this.log.severe(error);
                                 }
-                                else if (error.status == '404') { //Not Found
-                                    this.snackBar.open("Copied successfully, but '" + pathAndName + "' has already been deleted or does not exist.", 'Dismiss', defaultSnackbarOptions);
-                                    this.removeChild(fileNode);
-                                }
-                                else if (error.status == '400' || error.status == '403') { //Bad Request
-                                    this.snackBar.open("Copied successfully but failed to cut '" + pathAndName + "' This is probably due to a permission problem.", 'Dismiss', defaultSnackbarOptions);
-                                }
-                                else { //Unknown
-                                    this.snackBar.open("Copied successfully, but unknown error cutting '" + error.status + "' occurred for '" + pathAndName + "' Server returned with: " + error._body, 'Dismiss', longSnackbarOptions);
-                                }
-                                this.isLoading = false;
-                                this.log.severe(error);
                             });
+                            setTimeout(() => {
+                                if (copySubscription.closed == false) {
+                                    this.snackBar.open('Pasting ' + pathAndName + '... Larger payloads may take longer. Please be patient.', 'Dismiss', quickSnackbarOptions);
+                                }
+                            }, 4000);
+                        },
+                        error: (error) => {
+                            if (error.status == '403') { //Permission denied
+                                this.snackBar.open('Failed to access destination folder: Permission denied.', 'Dismiss', defaultSnackbarOptions);
+                            }
+                            else if (error.status == '0') {
+                                this.snackBar.open("Failed to communicate with the App server: " + error.status, 'Dismiss', defaultSnackbarOptions);
+                            }
+                            else if (error.status == '404') {
+                                this.snackBar.open("Destination folder not found. " + error.status, 'Dismiss', quickSnackbarOptions);
+                            }
+                            else {
+                                this.snackBar.open("An unknown error occurred: " + error.status, 'Dismiss', defaultSnackbarOptions);
+                            }
+                            this.log.severe(error);
                         }
-                        else {
-                            this.isLoading = false;
-                            this.snackBar.open('Paste successful: ' + name, 'Dismiss', quickSnackbarOptions);
-                        }
-                    }, error => {
-                        if (error.status == '500') { //Internal Server Error
-                            this.snackBar.open("Paste failed: HTTP 500 from app-server or agent occurred for '" + pathAndName + "'. Server returned with: " + error._body, 'Dismiss', longSnackbarOptions);
-                        }
-                        else if (error.status == '404') { //Not Found
-                            this.snackBar.open("Paste failed: '" + pathAndName + "' does not exist.", 'Dismiss', defaultSnackbarOptions);
-                        }
-                        else if (error.status == '400') { //Bad Request
-                            this.snackBar.open("Paste failed: HTTP 400 occurred for '" + pathAndName + "'. Check that you have correct permissions for this action.", 'Dismiss', defaultSnackbarOptions);
-                        }
-                        else { //Unknown
-                            this.snackBar.open("Paste failed: '" + error.status + "' occurred for '" + pathAndName + "' Server returned with: " + error._body, 'Dismiss', longSnackbarOptions);
-                        }
-                        this.isLoading = false;
-                        this.log.severe(error);
                     });
-                    setTimeout(() => {
-                        if (copySubscription.closed == false) {
-                            this.snackBar.open('Pasting ' + pathAndName + '... Larger payloads may take longer. Please be patient.', 'Dismiss', quickSnackbarOptions);
-                        }
-                    }, 4000);
-                }, error => {
-                    if (error.status == '403') { //Permission denied
-                        this.snackBar.open('Failed to access destination folder: Permission denied.', 'Dismiss', defaultSnackbarOptions);
-                    }
-                    else if (error.status == '0') {
-                        this.snackBar.open("Failed to communicate with the App server: " + error.status, 'Dismiss', defaultSnackbarOptions);
-                    }
-                    else if (error.status == '404') {
-                        this.snackBar.open("Destination folder not found. " + error.status, 'Dismiss', quickSnackbarOptions);
-                    }
-                    else {
-                        this.snackBar.open("An unknown error occurred: " + error.status, 'Dismiss', defaultSnackbarOptions);
-                    }
-                    this.log.severe(error);
-                });
+                }
+            },
+            error: (error) => {
+                if (error.status == '404') { // This happens when user attempts to paste a file that's been deleted after copying
+                    this.snackBar.open("Paste failed: Original '" + pathAndName + "' no longer exists.", 'Dismiss', defaultSnackbarOptions);
+                }
+                this.isLoading = false;
+                this.log.warn(error);
             }
-        }, error => {
-            if (error.status == '404') { // This happens when user attempts to paste a file that's been deleted after copying
-                this.snackBar.open("Paste failed: Original '" + pathAndName + "' no longer exists.", 'Dismiss', defaultSnackbarOptions);
-            }
-            this.isLoading = false;
-            this.log.warn(error);
         });
     }
     showPropertiesDialog(rightClickedFile) {
@@ -3793,35 +6016,38 @@ class FileBrowserUSSComponent {
             let pathForRename = this.getPathFromPathAndName(oldPath);
             if (oldName != nameFromNode) {
                 let newPath = `${pathForRename}/${nameFromNode}`;
-                this.ussSrv.renameFile(oldPath, newPath).subscribe(res => {
-                    this.snackBar.open("Renamed '" + oldName + "' to '" + nameFromNode + "'", 'Dismiss', quickSnackbarOptions);
-                    // this.updateUss(this.path); - We don't need to update the whole tree for 1 changed node (rename should be O(1) operation), 
-                    // but if problems come up uncomment this
-                    this.ussRenameEvent.emit(this.rightClickedEvent.node);
-                    if (this.showSearch) { // Update saved cache if we're using the search bar
-                        let nodeCached = this.findNodeByPath(this.dataCached, file.path)[0];
-                        if (nodeCached) {
-                            nodeCached.label = nameFromNode;
-                            nodeCached.path = newPath;
-                            nodeCached.name = nameFromNode;
+                this.ussSrv.renameFile(oldPath, newPath).subscribe({
+                    next: (res) => {
+                        this.snackBar.open("Renamed '" + oldName + "' to '" + nameFromNode + "'", 'Dismiss', quickSnackbarOptions);
+                        // this.updateUss(this.path); - We don't need to update the whole tree for 1 changed node (rename should be O(1) operation), 
+                        // but if problems come up uncomment this
+                        this.ussRenameEvent.emit(this.rightClickedEvent.node);
+                        if (this.showSearch) { // Update saved cache if we're using the search bar
+                            let nodeCached = this.findNodeByPath(this.dataCached, file.path)[0];
+                            if (nodeCached) {
+                                nodeCached.label = nameFromNode;
+                                nodeCached.path = newPath;
+                                nodeCached.name = nameFromNode;
+                            }
                         }
+                        file.label = nameFromNode;
+                        file.path = newPath;
+                        file.name = nameFromNode;
+                        return;
+                    },
+                    error: (error) => {
+                        if (error.status == '403') { //Internal Server Error
+                            this.snackBar.open("Failed to rename '" + file.path + "'. Bad permissions.", 'Dismiss', defaultSnackbarOptions);
+                        }
+                        else if (error.status == '404') { //Not Found
+                            this.snackBar.open("'" + file.path + "' could not be opened or does not exist.", 'Dismiss', defaultSnackbarOptions);
+                        }
+                        else { //Unknown
+                            this.snackBar.open("Failed to rename '" + file.path + "'. Error: " + error._body, 'Dismiss', longSnackbarOptions);
+                        }
+                        this.log.severe(error);
+                        return;
                     }
-                    file.label = nameFromNode;
-                    file.path = newPath;
-                    file.name = nameFromNode;
-                    return;
-                }, error => {
-                    if (error.status == '403') { //Internal Server Error
-                        this.snackBar.open("Failed to rename '" + file.path + "'. Bad permissions.", 'Dismiss', defaultSnackbarOptions);
-                    }
-                    else if (error.status == '404') { //Not Found
-                        this.snackBar.open("'" + file.path + "' could not be opened or does not exist.", 'Dismiss', defaultSnackbarOptions);
-                    }
-                    else { //Unknown
-                        this.snackBar.open("Failed to rename '" + file.path + "'. Error: " + error._body, 'Dismiss', longSnackbarOptions);
-                    }
-                    this.log.severe(error);
-                    return;
                 });
             }
         };
@@ -4139,119 +6365,120 @@ class FileBrowserUSSComponent {
         this.selectedNode = null;
         this.isLoading = true;
         let ussData = this.ussSrv.getFileContents(path);
-        ussData.subscribe(files => {
-            if (files.entries == undefined) { // Reduces console errors and other bugs by accidentally providing a USS file as USS path
-                return;
-            }
-            files.entries.sort(this.sortFn);
-            this.onDataChanged(files.entries);
-            const tempChildren = [];
-            for (let i = 0; i < files.entries.length; i++) {
-                if (files.entries[i].directory) {
-                    files.entries[i].children = [];
-                    files.entries[i].data = "Folder";
-                    files.entries[i].collapsedIcon = "fa fa-folder";
-                    files.entries[i].expandedIcon = "fa fa-folder-open";
+        ussData.subscribe({
+            next: (files) => {
+                this.isLoading = false;
+                if (!files || !files?.entries) { // Reduces console errors and other bugs by accidentally providing a USS file as USS path
+                    return;
                 }
-                else {
-                    files.entries[i].items = {};
-                    files.entries[i].icon = "fa fa-file";
-                    files.entries[i].data = "File";
-                }
-                files.entries[i].label = files.entries[i].name;
-                files.entries[i].id = i;
-                tempChildren.push(files.entries[i]);
-            }
-            this.isLoading = false;
-            if (update == true) { //Tree is displayed to update existing opened nodes, while maintaining currently opened trees 
-                let indexArray;
-                let dataArray; //represents the working FileTreeNode[] that will eventually be added to tempChildren and make up the tree
-                let networkArray; //represents the FileTreeNode[] obtained from the uss server, will iteratively replace dataArray as need be
-                let parentNode;
-                indexArray = [0];
-                dataArray = this.data;
-                networkArray = tempChildren;
-                while (indexArray[indexArray.length - 1] <= dataArray.length) {
-                    //Go back up a layer
-                    if (indexArray[indexArray.length - 1] == dataArray.length) {
-                        indexArray.pop();
-                        if (parentNode !== undefined && parentNode.parent !== undefined) {
-                            parentNode = parentNode.parent;
-                            dataArray = parentNode.children;
-                            networkArray = dataArray;
-                        }
-                        else {
-                            if (parentNode !== undefined) {
-                                for (let i = 0; i < tempChildren.length; i++) {
-                                    if (parentNode.label == tempChildren[i].label || parentNode.children == tempChildren[i].children) {
-                                        tempChildren[i] = parentNode;
-                                        break;
-                                    }
-                                }
-                            }
-                            dataArray = this.data;
-                            networkArray = tempChildren;
-                        }
-                    }
-                    else if (dataArray[indexArray[indexArray.length - 1]] !== undefined && dataArray[indexArray[indexArray.length - 1]].data == 'Folder'
-                        && dataArray[indexArray[indexArray.length - 1]].children !== undefined && dataArray[indexArray[indexArray.length - 1]].children.length !== 0) {
-                        //... if the children of dataArray with index in last element of indexArray are not empty, drill into them!
-                        parentNode = dataArray[indexArray[indexArray.length - 1]];
-                        dataArray = parentNode.children;
-                        networkArray = dataArray;
-                        indexArray[indexArray.length - 1]++;
-                        indexArray.push(0);
+                files.entries.sort(this.sortFn);
+                this.onDataChanged(files.entries);
+                const tempChildren = [];
+                for (let i = 0; i < files.entries.length; i++) {
+                    if (files.entries[i].directory) {
+                        files.entries[i].children = [];
+                        files.entries[i].data = "Folder";
+                        files.entries[i].collapsedIcon = "fa fa-folder";
+                        files.entries[i].expandedIcon = "fa fa-folder-open";
                     }
                     else {
-                        dataArray[indexArray[indexArray.length - 1]] = networkArray[indexArray[indexArray.length - 1]];
-                        indexArray[indexArray.length - 1]++; //go up index to check new element in data array
+                        files.entries[i].items = {};
+                        files.entries[i].icon = "fa fa-file";
+                        files.entries[i].data = "File";
+                    }
+                    files.entries[i].label = files.entries[i].name;
+                    files.entries[i].id = i;
+                    tempChildren.push(files.entries[i]);
+                }
+                this.isLoading = false;
+                if (update == true) { //Tree is displayed to update existing opened nodes, while maintaining currently opened trees 
+                    let indexArray;
+                    let dataArray; //represents the working FileTreeNode[] that will eventually be added to tempChildren and make up the tree
+                    let networkArray; //represents the FileTreeNode[] obtained from the uss server, will iteratively replace dataArray as need be
+                    let parentNode;
+                    indexArray = [0];
+                    dataArray = this.data;
+                    networkArray = tempChildren;
+                    while (indexArray[indexArray.length - 1] <= dataArray.length) {
+                        //Go back up a layer
+                        if (indexArray[indexArray.length - 1] == dataArray.length) {
+                            indexArray.pop();
+                            if (parentNode !== undefined && parentNode.parent !== undefined) {
+                                parentNode = parentNode.parent;
+                                dataArray = parentNode.children;
+                                networkArray = dataArray;
+                            }
+                            else {
+                                if (parentNode !== undefined) {
+                                    for (let i = 0; i < tempChildren.length; i++) {
+                                        if (parentNode.label == tempChildren[i].label || parentNode.children == tempChildren[i].children) {
+                                            tempChildren[i] = parentNode;
+                                            break;
+                                        }
+                                    }
+                                }
+                                dataArray = this.data;
+                                networkArray = tempChildren;
+                            }
+                        }
+                        else if (dataArray[indexArray[indexArray.length - 1]] !== undefined && dataArray[indexArray[indexArray.length - 1]].data == 'Folder'
+                            && dataArray[indexArray[indexArray.length - 1]].children !== undefined && dataArray[indexArray[indexArray.length - 1]].children.length !== 0) {
+                            //... if the children of dataArray with index in last element of indexArray are not empty, drill into them!
+                            parentNode = dataArray[indexArray[indexArray.length - 1]];
+                            dataArray = parentNode.children;
+                            networkArray = dataArray;
+                            indexArray[indexArray.length - 1]++;
+                            indexArray.push(0);
+                        }
+                        else {
+                            dataArray[indexArray[indexArray.length - 1]] = networkArray[indexArray[indexArray.length - 1]];
+                            indexArray[indexArray.length - 1]++; //go up index to check new element in data array
+                        }
                     }
                 }
-            }
-            this.log.debug("Tree has been updated.");
-            this.log.debug(tempChildren);
-            this.data = tempChildren;
-            if (this.showSearch) {
-                this.dataCached = this.data; // TODO: Implement logic to update tree of search queried results (so reverting the search filter doesn't fail)
-                if (!update) { // When a fresh tree is requested, it will get rid of this.data search queried results, so hide search bar
-                    this.showSearch = false;
+                this.log.debug("Tree has been updated.");
+                this.log.debug(tempChildren);
+                this.data = tempChildren;
+                if (this.showSearch) {
+                    this.dataCached = this.data; // TODO: Implement logic to update tree of search queried results (so reverting the search filter doesn't fail)
+                    if (!update) { // When a fresh tree is requested, it will get rid of this.data search queried results, so hide search bar
+                        this.showSearch = false;
+                    }
                 }
+                this.path = path;
+                this.onPathChanged(this.path);
+                // this.persistentDataService.getData()
+                //       .subscribe(data => {
+                //         this.dataObject = data.contents;
+                //         this.dataObject.ussInput = this.path;
+                //         this.dataObject.ussData = this.data;
+                //         this.persistentDataService.setData(this.dataObject)
+                //           .subscribe((res: any) => { });
+                //       })
+            },
+            error: (error) => {
+                this.isLoading = false;
+                if (error.status == '403') { //Permission denied
+                    this.snackBar.open('Failed to open: Permission denied.', 'Dismiss', defaultSnackbarOptions);
+                }
+                else if (error.status == '0') {
+                    this.snackBar.open("Failed to communicate with the App server: " + error.status, 'Dismiss', defaultSnackbarOptions);
+                }
+                else if (error.status == '404') {
+                    this.snackBar.open("File/folder not found. " + error.status, 'Dismiss', quickSnackbarOptions);
+                }
+                else {
+                    this.snackBar.open("An unknown error occurred: " + error.status, 'Dismiss', defaultSnackbarOptions);
+                }
+                this.log.severe(error);
             }
-            this.path = path;
-            this.onPathChanged(this.path);
-            // this.persistentDataService.getData()
-            //       .subscribe(data => {
-            //         this.dataObject = data.contents;
-            //         this.dataObject.ussInput = this.path;
-            //         this.dataObject.ussData = this.data;
-            //         this.persistentDataService.setData(this.dataObject)
-            //           .subscribe((res: any) => { });
-            //       })
-        }, error => {
-            this.isLoading = false;
-            if (error.status == '403') { //Permission denied
-                this.snackBar.open('Failed to open: Permission denied.', 'Dismiss', defaultSnackbarOptions);
-            }
-            else if (error.status == '0') {
-                this.snackBar.open("Failed to communicate with the App server: " + error.status, 'Dismiss', defaultSnackbarOptions);
-            }
-            else if (error.status == '404') {
-                this.snackBar.open("File/folder not found. " + error.status, 'Dismiss', quickSnackbarOptions);
-            }
-            else {
-                this.snackBar.open("An unknown error occurred: " + error.status, 'Dismiss', defaultSnackbarOptions);
-            }
-            this.log.severe(error);
         });
         this.refreshHistory(this.path);
     }
     refreshHistory(path) {
-        const sub = this.ussSearchHistory
+        this.ussSearchHistorySubscription = this.ussSearchHistory
             .saveSearchHistory(path)
-            .subscribe(() => {
-            if (sub)
-                sub.unsubscribe();
-        });
+            .subscribe();
     }
     clearSearchHistory() {
         this.ussSearchHistory.deleteSearchHistory().subscribe();
@@ -4355,37 +6582,40 @@ class FileBrowserUSSComponent {
     refreshFileMetadata(node) {
         let path = node.path;
         let someData = this.ussSrv.getFileMetadata(path);
-        someData.subscribe(result => {
-            if (result.directory) {
-                node.data = "Folder";
-                node.collapsedIcon = "fa fa-folder";
-                node.expandedIcon = "fa fa-folder-open";
+        someData.subscribe({
+            next: (result) => {
+                if (result.directory) {
+                    node.data = "Folder";
+                    node.collapsedIcon = "fa fa-folder";
+                    node.expandedIcon = "fa fa-folder-open";
+                }
+                else {
+                    node.items = {};
+                    node.icon = "fa fa-file";
+                    node.data = "File";
+                }
+                node.directory = result.directory;
+                node.mode = result.mode;
+                node.owner = result.owner;
+                node.group = result.group;
+                node.size = result.size;
+                node.ccsid = result.ccsid;
+                node.createdAt = result.createdAt;
+                return node;
+            },
+            error: e => {
+                if (e.status == 404) {
+                    this.snackBar.open("Failed to refresh '" + node.name + "' No longer exists or has been renamed.", 'Dismiss', defaultSnackbarOptions);
+                    this.removeChild(node);
+                }
+                else if (e.status == 403) {
+                    this.snackBar.open("Failed to refresh '" + node.name + "' Permission denied.", 'Dismiss', defaultSnackbarOptions);
+                }
+                else if (e.status == 500) {
+                    this.snackBar.open("Failed to refresh '" + node.name + "' Server returned with: " + e._body, 'Dismiss', longSnackbarOptions);
+                }
+                return node;
             }
-            else {
-                node.items = {};
-                node.icon = "fa fa-file";
-                node.data = "File";
-            }
-            node.directory = result.directory;
-            node.mode = result.mode;
-            node.owner = result.owner;
-            node.group = result.group;
-            node.size = result.size;
-            node.ccsid = result.ccsid;
-            node.createdAt = result.createdAt;
-            return node;
-        }, e => {
-            if (e.status == 404) {
-                this.snackBar.open("Failed to refresh '" + node.name + "' No longer exists or has been renamed.", 'Dismiss', defaultSnackbarOptions);
-                this.removeChild(node);
-            }
-            else if (e.status == 403) {
-                this.snackBar.open("Failed to refresh '" + node.name + "' Permission denied.", 'Dismiss', defaultSnackbarOptions);
-            }
-            else if (e.status == 500) {
-                this.snackBar.open("Failed to refresh '" + node.name + "' Server returned with: " + e._body, 'Dismiss', longSnackbarOptions);
-            }
-            return node;
         });
     }
     refreshFileMetadatdaUsingPath(path) {
@@ -4441,114 +6671,127 @@ class FileBrowserUSSComponent {
         this.displayTree(path, true);
     }
     createFile(pathAndName, node, update) {
-        this.ussSrv.makeFile(pathAndName).subscribe((res) => {
-            this.log.debug('Created: ' + pathAndName);
-            let path = this.getPathFromPathAndName(pathAndName);
-            let someData = this.ussSrv.getFileMetadata(pathAndName);
-            this.snackBar.open(`Successfully created file: "${pathAndName.substring(pathAndName.lastIndexOf('/') + 1)}"`, 'Dismiss', defaultSnackbarOptions);
-            someData.subscribe(result => {
-                // If the right-clicked 'node' is the correct, valid node
-                if (node.children && node.path == path) {
-                    let nodeToAdd = {
-                        id: node.children.length,
-                        label: this.getNameFromPathAndName(pathAndName),
-                        mode: result.mode,
-                        owner: result.owner,
-                        group: result.group,
-                        createdAt: result.createdAt,
-                        data: "File",
-                        directory: false,
-                        icon: "fa fa-file",
-                        items: {},
-                        name: this.getNameFromPathAndName(pathAndName),
-                        parent: node,
-                        path: pathAndName,
-                        size: result.size
-                    };
-                    node.children.push(nodeToAdd); //Add node to right clicked node
-                    if (this.showSearch) { // If we update a node in the working directory, we need to find that same node in the cached data
-                        let nodeCached = this.findNodeByPath(this.dataCached, node.path)[0];
-                        if (nodeCached) {
-                            nodeCached.children.push(nodeToAdd);
+        this.ussSrv.makeFile(pathAndName).subscribe({
+            next: (res) => {
+                this.log.debug('Created: ' + pathAndName);
+                let path = this.getPathFromPathAndName(pathAndName);
+                let someData = this.ussSrv.getFileMetadata(pathAndName);
+                this.snackBar.open(`Successfully created file: "${pathAndName.substring(pathAndName.lastIndexOf('/') + 1)}"`, 'Dismiss', defaultSnackbarOptions);
+                someData.subscribe({
+                    next: result => {
+                        // If the right-clicked 'node' is the correct, valid node
+                        if (node.children && node.path == path) {
+                            let nodeToAdd = {
+                                id: node.children.length,
+                                label: this.getNameFromPathAndName(pathAndName),
+                                mode: result.mode,
+                                owner: result.owner,
+                                group: result.group,
+                                createdAt: result.createdAt,
+                                data: "File",
+                                directory: false,
+                                icon: "fa fa-file",
+                                items: {},
+                                name: this.getNameFromPathAndName(pathAndName),
+                                parent: node,
+                                path: pathAndName,
+                                size: result.size
+                            };
+                            node.children.push(nodeToAdd); //Add node to right clicked node
+                            if (this.showSearch) { // If we update a node in the working directory, we need to find that same node in the cached data
+                                let nodeCached = this.findNodeByPath(this.dataCached, node.path)[0];
+                                if (nodeCached) {
+                                    nodeCached.children.push(nodeToAdd);
+                                }
+                            }
+                            node.expanded = true;
+                        }
+                        // ..otherwise treat folder creation without any context.
+                        else {
+                            if (path == this.path) { // If we are creating a folder at the parent level
+                                this.displayTree(path, true);
+                            }
+                            else if (update) { // If we want to update the tree
+                                this.addChild(node);
+                            }
+                            else { // If we are creating a new folder in a location we're not looking at
+                                this.displayTree(path, false); // ...plop the Explorer into the newly created location.
+                            }
                         }
                     }
-                    node.expanded = true;
-                }
-                // ..otherwise treat folder creation without any context.
-                else {
-                    if (path == this.path) { // If we are creating a folder at the parent level
-                        this.displayTree(path, true);
+                });
+            },
+            error: error => {
+                this.ussSrv.getFileMetadata(pathAndName).subscribe({
+                    next: response => {
+                        this.snackBar.open("Failed to create File. '" + pathAndName + "' already exists", 'Dismiss', defaultSnackbarOptions);
+                    },
+                    error: err => {
+                        this.snackBar.open("Failed to create File: '" + pathAndName + "'", 'Dismiss', defaultSnackbarOptions);
+                        this.log.severe(error);
                     }
-                    else if (update) { // If we want to update the tree
-                        this.addChild(node);
-                    }
-                    else { // If we are creating a new folder in a location we're not looking at
-                        this.displayTree(path, false); // ...plop the Explorer into the newly created location.
-                    }
-                }
-            });
-        }, error => {
-            this.ussSrv.getFileMetadata(pathAndName).subscribe(response => {
-                this.snackBar.open("Failed to create File. '" + pathAndName + "' already exists", 'Dismiss', defaultSnackbarOptions);
-            }, err => {
-                this.snackBar.open("Failed to create File: '" + pathAndName + "'", 'Dismiss', defaultSnackbarOptions);
-                this.log.severe(error);
-            });
+                });
+            }
         });
     }
     createFolder(pathAndName, node, update) {
         this.ussSrv.makeDirectory(pathAndName)
-            .subscribe(resp => {
-            this.log.debug('Created: ' + pathAndName);
-            let path = this.getPathFromPathAndName(pathAndName);
-            let someData = this.ussSrv.getFileMetadata(pathAndName);
-            someData.subscribe(result => {
-                // If the right-clicked 'node' is the correct, valid node
-                if (node.children && node.path == path) {
-                    let nodeToAdd = {
-                        id: node.children.length,
-                        children: [],
-                        label: this.getNameFromPathAndName(pathAndName),
-                        mode: result.mode,
-                        owner: result.owner,
-                        group: result.group,
-                        createdAt: result.createdAt,
-                        data: "Folder",
-                        directory: true,
-                        expandedIcon: "fa fa-folder-open",
-                        collapsedIcon: "fa fa-folder",
-                        name: this.getNameFromPathAndName(pathAndName),
-                        parent: node,
-                        path: pathAndName,
-                        size: result.size
-                    };
-                    node.children.push(nodeToAdd); //Add node to right clicked node
-                    if (this.showSearch) { // If we update a node in the working directory, we need to find that same node in the cached data
-                        let nodeCached = this.findNodeByPath(this.dataCached, node.path)[0];
-                        if (nodeCached) {
-                            nodeCached.children.push(nodeToAdd);
+            .subscribe({
+            next: resp => {
+                this.log.debug('Created: ' + pathAndName);
+                let path = this.getPathFromPathAndName(pathAndName);
+                let someData = this.ussSrv.getFileMetadata(pathAndName);
+                someData.subscribe({
+                    next: result => {
+                        // If the right-clicked 'node' is the correct, valid node
+                        if (node.children && node.path == path) {
+                            let nodeToAdd = {
+                                id: node.children.length,
+                                children: [],
+                                label: this.getNameFromPathAndName(pathAndName),
+                                mode: result.mode,
+                                owner: result.owner,
+                                group: result.group,
+                                createdAt: result.createdAt,
+                                data: "Folder",
+                                directory: true,
+                                expandedIcon: "fa fa-folder-open",
+                                collapsedIcon: "fa fa-folder",
+                                name: this.getNameFromPathAndName(pathAndName),
+                                parent: node,
+                                path: pathAndName,
+                                size: result.size
+                            };
+                            node.children.push(nodeToAdd); //Add node to right clicked node
+                            if (this.showSearch) { // If we update a node in the working directory, we need to find that same node in the cached data
+                                let nodeCached = this.findNodeByPath(this.dataCached, node.path)[0];
+                                if (nodeCached) {
+                                    nodeCached.children.push(nodeToAdd);
+                                }
+                            }
+                            node.expanded = true;
+                        }
+                        // ..otherwise treat folder creation without any context.
+                        else {
+                            if (path == this.path) { // If we are creating a folder at the parent level
+                                this.displayTree(path, true);
+                            }
+                            else if (update) { // If we want to update the tree
+                                this.addChild(node);
+                            }
+                            else { // If we are creating a new folder in a location we're not looking at
+                                this.displayTree(pathAndName, false); // ...plop the Explorer into the newly created location.
+                            }
                         }
                     }
-                    node.expanded = true;
+                });
+            },
+            error: error => {
+                if (error.status == '500') { //Internal Server Error
+                    this.snackBar.open("Failed to create directory: '" + pathAndName + "' This is probably due to a server agent problem.", 'Dismiss', defaultSnackbarOptions);
                 }
-                // ..otherwise treat folder creation without any context.
-                else {
-                    if (path == this.path) { // If we are creating a folder at the parent level
-                        this.displayTree(path, true);
-                    }
-                    else if (update) { // If we want to update the tree
-                        this.addChild(node);
-                    }
-                    else { // If we are creating a new folder in a location we're not looking at
-                        this.displayTree(pathAndName, false); // ...plop the Explorer into the newly created location.
-                    }
-                }
-            });
-        }, error => {
-            if (error.status == '500') { //Internal Server Error
-                this.snackBar.open("Failed to create directory: '" + pathAndName + "' This is probably due to a server agent problem.", 'Dismiss', defaultSnackbarOptions);
+                this.log.severe(error);
             }
-            this.log.severe(error);
         });
     }
     deleteFileOrFolder(rightClickedFile) {
@@ -4558,32 +6801,35 @@ class FileBrowserUSSComponent {
         this.deletionQueue.set(rightClickedFile.path, rightClickedFile);
         rightClickedFile.styleClass = "filebrowseruss-node-deleting";
         let deleteSubscription = this.ussSrv.deleteFileOrFolder(pathAndName)
-            .subscribe(resp => {
-            this.isLoading = false;
-            this.snackBar.open("Deleted '" + name + "'", 'Dismiss', quickSnackbarOptions);
-            this.removeChild(rightClickedFile);
-            this.deletionQueue.delete(rightClickedFile.path);
-            rightClickedFile.styleClass = "";
-            this.deleteClick.emit(this.rightClickedEvent.node);
-        }, error => {
-            if (error.status == '500') { //Internal Server Error
-                this.snackBar.open("Failed to delete '" + pathAndName + "' Server returned with: " + error._body, 'Dismiss', longSnackbarOptions);
-            }
-            else if (error.status == '404') { //Not Found
-                this.snackBar.open("Failed to delete '" + pathAndName + "'. Already been deleted or does not exist.", 'Dismiss', defaultSnackbarOptions);
+            .subscribe({
+            next: resp => {
+                this.isLoading = false;
+                this.snackBar.open("Deleted '" + name + "'", 'Dismiss', quickSnackbarOptions);
                 this.removeChild(rightClickedFile);
+                this.deletionQueue.delete(rightClickedFile.path);
+                rightClickedFile.styleClass = "";
+                this.deleteClick.emit(this.rightClickedEvent.node);
+            },
+            error: error => {
+                if (error.status == '500') { //Internal Server Error
+                    this.snackBar.open("Failed to delete '" + pathAndName + "' Server returned with: " + error._body, 'Dismiss', longSnackbarOptions);
+                }
+                else if (error.status == '404') { //Not Found
+                    this.snackBar.open("Failed to delete '" + pathAndName + "'. Already been deleted or does not exist.", 'Dismiss', defaultSnackbarOptions);
+                    this.removeChild(rightClickedFile);
+                }
+                else if (error.status == '400' || error.status == '403') { //Bad Request
+                    this.snackBar.open("Failed to delete '" + pathAndName + "' This is probably due to a permission problem.", 'Dismiss', defaultSnackbarOptions);
+                }
+                else { //Unknown
+                    this.snackBar.open("Unknown error '" + error.status + "' occurred for '" + pathAndName + "' Server returned with: " + error._body, 'Dismiss', longSnackbarOptions);
+                    //Error info gets printed in uss.crud.service.ts
+                }
+                this.deletionQueue.delete(rightClickedFile.path);
+                this.isLoading = false;
+                rightClickedFile.styleClass = "";
+                this.log.severe(error);
             }
-            else if (error.status == '400' || error.status == '403') { //Bad Request
-                this.snackBar.open("Failed to delete '" + pathAndName + "' This is probably due to a permission problem.", 'Dismiss', defaultSnackbarOptions);
-            }
-            else { //Unknown
-                this.snackBar.open("Unknown error '" + error.status + "' occurred for '" + pathAndName + "' Server returned with: " + error._body, 'Dismiss', longSnackbarOptions);
-                //Error info gets printed in uss.crud.service.ts
-            }
-            this.deletionQueue.delete(rightClickedFile.path);
-            this.isLoading = false;
-            rightClickedFile.styleClass = "";
-            this.log.severe(error);
         });
         setTimeout(() => {
             if (deleteSubscription.closed == false) {
@@ -4677,11 +6923,11 @@ class FileBrowserUSSComponent {
         return false;
     }
     static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "18.0.7", ngImport: i0, type: FileBrowserUSSComponent, deps: [{ token: i0.ElementRef }, { token: UssCrudService }, { token: UtilsService }, { token: SearchHistoryService }, { token: i1.MatDialog }, { token: i3$1.MatSnackBar }, { token: DownloaderService }, { token: Angular2InjectionTokens.LOGGER }, { token: Angular2InjectionTokens.LAUNCH_METADATA }, { token: Angular2InjectionTokens.PLUGIN_DEFINITION }, { token: Angular2InjectionTokens.WINDOW_ACTIONS, optional: true }], target: i0.ɵɵFactoryTarget.Component }); }
-    static { this.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "17.0.0", version: "18.0.7", type: FileBrowserUSSComponent, selector: "file-browser-uss", inputs: { inputStyle: "inputStyle", searchStyle: "searchStyle", treeStyle: "treeStyle", showUpArrow: "showUpArrow" }, outputs: { pathChanged: "pathChanged", dataChanged: "dataChanged", nodeClick: "nodeClick", nodeDblClick: "nodeDblClick", nodeRightClick: "nodeRightClick", newFolderClick: "newFolderClick", newFileClick: "newFileClick", fileUploaded: "fileUploaded", copyClick: "copyClick", deleteClick: "deleteClick", ussRenameEvent: "ussRenameEvent", rightClick: "rightClick", openInNewTab: "openInNewTab" }, providers: [UssCrudService, /*PersistentDataService,*/ SearchHistoryService], viewQueries: [{ propertyName: "treeComponent", first: true, predicate: TreeComponent, descendants: true }, { propertyName: "pathInputUSS", first: true, predicate: ["pathInputUSS"], descendants: true }, { propertyName: "searchUSS", first: true, predicate: ["searchUSS"], descendants: true }], ngImport: i0, template: "\n<!--\nThis program and the accompanying materials are\nmade available under the terms of the Eclipse Public License v2.0 which accompanies\nthis distribution, and is available at https://www.eclipse.org/legal/epl-v20.html\n\nSPDX-License-Identifier: EPL-2.0\n\nCopyright Contributors to the Zowe Project.\n-->\n\n<div style=\"height: 100%;\">\n\n  <!-- Tabs, searchbar, and loading indicator -->\n  @if (showUpArrow) {\n    <img [src]=\"'./assets/explorer-uparrow.png'\"\n      data-toggle=\"tooltip\"\n      class=\"filebrowseruss-pointer-logo\"\n      title=\"Go up to the parent level\" (click)=\"levelUp()\"\n      [ngStyle]=\"treeStyle\" tabindex=\"0\" (keydown.enter)=\"levelUp()\"\n      >\n  }\n\n  <div class=\"filebrowseruss-search\" [ngStyle] = \"searchStyle\">\n    <input #pathInputUSS\n      [(ngModel)]=\"path\"\n      list=\"searchUSSHistory\"\n      placeholder=\"Enter an absolute path...\"\n      [ngStyle] = \"inputStyle\"\n      class=\"filebrowseruss-search-input\"\n      (keydown.enter)=\"displayTree(path, false);\"\n      [disabled]=\"isLoading\"\n      (ngModelChange)=\"checkPathSlash($event)\">\n      <!-- TODO: make search history a directive to use in both uss and mvs-->\n      <datalist id=\"searchUSSHistory\">\n        @for (item of ussSearchHistory.searchHistoryVal; track item) {\n          <option [value]=\"item\"></option>\n        }\n      </datalist>\n    </div>\n    <div class=\"fa fa-spinner fa-spin filebrowseruss-loading-icon\" [hidden]=\"!isLoading\" style=\"margin-left: 9px;\"></div>\n    <div class=\"fa fa-refresh filebrowseruss-loading-icon\" title=\"Refresh whole directory\" (click)=\"displayTree(path, false);\" [hidden]=\"isLoading\" style=\"margin-left: 9px; cursor: pointer;\"></div>\n    <div class=\"file-tree-utilities\">\n      <div class=\"fa fa-minus-square-o filebrowser-icon\" title=\"Collapse Folders in Explorer\" (click)=\"collapseTree();\"></div>\n      <div class=\"fa fa-trash-o filebrowser-icon\" title=\"Delete\" (click)=\"showDeleteDialog(selectedNode);\"></div>\n      <div class=\"fa fa-folder-o filebrowser-icon\" title=\"Create New Folder\" (click)=\"showCreateFolderDialog(!selectedNode || (!selectedNode.parent && !selectedNode.directory) ? { 'path' : path } : selectedNode.directory ? selectedNode : selectedNode.parent);\"></div>\n      <div class=\"fa fa-eraser filebrowser-icon special-utility\" title=\"Clear Search History\" (click)=\"clearSearchHistory();\"></div>\n    </div>\n\n    <!-- Main tree -->\n    <div [hidden]=\"hideExplorer\" style=\"height: 100%;\">\n      <tree-root [treeData]=\"data\"\n        (clickEvent)=\"onNodeClick($event)\"\n        (dblClickEvent)=\"onNodeDblClick($event)\"\n        [ngStyle]=\"treeStyle\"\n        (rightClickEvent)=\"onNodeRightClick($event)\"\n        (panelRightClickEvent)=\"onPanelRightClick($event)\"\n        (dataChanged)=\"onDataChanged($event)\"\n      ></tree-root>\n    </div>\n\n    @if (showSearch) {\n      <div class=\"ui-inputgroup filebrowseruss-search-bottom-group\">\n        <span class=\"ui-inputgroup-addon\"><i class=\"fa fa-search filebrowseruss-search-bottom-icon\"></i></span>\n        <input type=\"text\" pInputText\n          placeholder=\"Search opened files/folders by name...\"\n          class=\"filebrowseruss-search-bottom-input\"\n          [formControl]=\"searchCtrl\"\n          #searchUSS>\n        </div>\n      }\n\n    </div>\n\n    <!--\n    This program and the accompanying materials are\n    made available under the terms of the Eclipse Public License v2.0 which accompanies\n    this distribution, and is available at https://www.eclipse.org/legal/epl-v20.html\n\n    SPDX-License-Identifier: EPL-2.0\n\n    Copyright Contributors to the Zowe Project.\n    -->", styles: [".filebrowseruss-search{width:fit-content;min-width:250px;margin-left:5px;display:inline-block;height:40px}.filebrowseruss-search-input{width:100%;min-height:30px;font-family:sans-serif;font-size:15px;height:35px;background-color:#464646;color:#fff;padding-left:5px;border:0px}.filebrowseruss-search-bottom-group{margin-top:-17px;position:relative}.filebrowseruss-search-bottom-icon{font-size:large;position:absolute;color:#d4d4d4;padding-left:5px}.filebrowseruss-search-bottom-input{padding-left:28px;width:calc(100% - 5px);min-height:30px;font-family:sans-serif;font-size:15px;height:35px;background-color:#313030;color:#fff;border:0px;margin-top:-10px}.filebrowseruss-search-bottom-input:focus{outline:none;border:1px solid rgb(161,160,160);border-radius:3px}.filebrowseruss-dialog-menu{background:#fff;padding:0;height:auto;width:auto}.filebrowseruss-pointer-logo{width:20px;height:20px;filter:brightness(3);cursor:pointer}.filebrowseruss-node-deleting{opacity:.5}.filebrowseruss-loading-icon{margin-left:8px!important;font-size:large!important}.file-tree-utilities{overflow:hidden;border:1px solid #464646}.filebrowser-icon{margin-right:9px;float:right;cursor:pointer}.special-utility{margin-left:9px}\n"], dependencies: [{ kind: "directive", type: i7$1.NgStyle, selector: "[ngStyle]", inputs: ["ngStyle"] }, { kind: "directive", type: i4.NgSelectOption, selector: "option", inputs: ["ngValue", "value"] }, { kind: "directive", type: i4.ɵNgSelectMultipleOption, selector: "option", inputs: ["ngValue", "value"] }, { kind: "directive", type: i4.DefaultValueAccessor, selector: "input:not([type=checkbox])[formControlName],textarea[formControlName],input:not([type=checkbox])[formControl],textarea[formControl],input:not([type=checkbox])[ngModel],textarea[ngModel],[ngDefaultControl]" }, { kind: "directive", type: i4.NgControlStatus, selector: "[formControlName],[ngModel],[formControl]" }, { kind: "directive", type: i4.NgModel, selector: "[ngModel]:not([formControlName]):not([formControl])", inputs: ["name", "disabled", "ngModel", "ngModelOptions"], outputs: ["ngModelChange"], exportAs: ["ngModel"] }, { kind: "directive", type: i10$1.InputText, selector: "[pInputText]", inputs: ["variant"] }, { kind: "directive", type: i4.FormControlDirective, selector: "[formControl]", inputs: ["formControl", "disabled", "ngModel"], outputs: ["ngModelChange"], exportAs: ["ngForm"] }, { kind: "component", type: TreeComponent, selector: "tree-root", inputs: ["treeData", "treeId", "style", "treeStyle"], outputs: ["clickEvent", "dblClickEvent", "rightClickEvent", "panelRightClickEvent"] }], encapsulation: i0.ViewEncapsulation.None }); }
+    static { this.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "17.0.0", version: "18.0.7", type: FileBrowserUSSComponent, selector: "file-browser-uss", inputs: { inputStyle: "inputStyle", searchStyle: "searchStyle", treeStyle: "treeStyle", showUpArrow: "showUpArrow" }, outputs: { pathChanged: "pathChanged", dataChanged: "dataChanged", nodeClick: "nodeClick", nodeDblClick: "nodeDblClick", nodeRightClick: "nodeRightClick", newFolderClick: "newFolderClick", newFileClick: "newFileClick", fileUploaded: "fileUploaded", copyClick: "copyClick", deleteClick: "deleteClick", ussRenameEvent: "ussRenameEvent", rightClick: "rightClick", openInNewTab: "openInNewTab" }, providers: [UssCrudService, /*PersistentDataService,*/ SearchHistoryService], viewQueries: [{ propertyName: "treeComponent", first: true, predicate: TreeComponent, descendants: true }, { propertyName: "pathInputUSS", first: true, predicate: ["pathInputUSS"], descendants: true }, { propertyName: "searchUSS", first: true, predicate: ["searchUSS"], descendants: true }], ngImport: i0, template: "<!--\nThis program and the accompanying materials are\nmade available under the terms of the Eclipse Public License v2.0 which accompanies\nthis distribution, and is available at https://www.eclipse.org/legal/epl-v20.html\n\nSPDX-License-Identifier: EPL-2.0\n\nCopyright Contributors to the Zowe Project.\n-->\n\n<div style=\"height: 100%;\">\n\n  <!-- Tabs, searchbar, and loading indicator -->\n  @if (showUpArrow) {\n  <img data-toggle=\"tooltip\" class=\"filebrowseruss-pointer-logo\" title=\"Go up to the parent level\" (click)=\"levelUp()\"\n    [ngStyle]=\"treeStyle\" tabindex=\"0\" (keydown.enter)=\"levelUp()\">\n  }\n\n  <div class=\"filebrowseruss-search\" [ngStyle]=\"searchStyle\">\n    <input #pathInputUSS [(ngModel)]=\"path\" list=\"searchUSSHistory\" placeholder=\"Enter an absolute path...\"\n      [ngStyle]=\"inputStyle\" class=\"filebrowseruss-search-input\" (keydown.enter)=\"displayTree(path, false);\"\n      [disabled]=\"isLoading\" (ngModelChange)=\"checkPathSlash($event)\">\n    <!-- TODO: make search history a directive to use in both uss and mvs-->\n    <datalist id=\"searchUSSHistory\">\n      @for (item of ussSearchHistory.searchHistoryVal; track item) {\n      <option [value]=\"item\"></option>\n      }\n    </datalist>\n  </div>\n  <div class=\"fa fa-spinner fa-spin filebrowseruss-loading-icon\" [hidden]=\"!isLoading\" style=\"margin-left: 9px;\"></div>\n  <div class=\"fa fa-refresh filebrowseruss-loading-icon\" title=\"Refresh whole directory\"\n    (click)=\"displayTree(path, false);\" [hidden]=\"isLoading\" style=\"margin-left: 9px; cursor: pointer;\"></div>\n  <div class=\"file-tree-utilities\">\n    <div class=\"fa fa-minus-square-o filebrowser-icon\" title=\"Collapse Folders in Explorer\" (click)=\"collapseTree();\">\n    </div>\n    <div class=\"fa fa-trash-o filebrowser-icon\" title=\"Delete\" (click)=\"showDeleteDialog(selectedNode);\"></div>\n    <div class=\"fa fa-folder-o filebrowser-icon\" title=\"Create New Folder\"\n      (click)=\"showCreateFolderDialog(!selectedNode || (!selectedNode.parent && !selectedNode.directory) ? { 'path' : path } : selectedNode.directory ? selectedNode : selectedNode.parent);\">\n    </div>\n    <div class=\"fa fa-eraser filebrowser-icon special-utility\" title=\"Clear Search History\"\n      (click)=\"clearSearchHistory();\"></div>\n  </div>\n\n  <!-- Main tree -->\n  <div [hidden]=\"hideExplorer\" style=\"height: 100%;\">\n    <tree-root [treeData]=\"data\" (clickEvent)=\"onNodeClick($event)\" (dblClickEvent)=\"onNodeDblClick($event)\"\n      [ngStyle]=\"treeStyle\" (rightClickEvent)=\"onNodeRightClick($event)\"\n      (panelRightClickEvent)=\"onPanelRightClick($event)\" (dataChanged)=\"onDataChanged($event)\"></tree-root>\n  </div>\n\n  @if (showSearch) {\n  <div class=\"ui-inputgroup filebrowseruss-search-bottom-group\">\n    <span class=\"ui-inputgroup-addon\"><i class=\"fa fa-search filebrowseruss-search-bottom-icon\"></i></span>\n    <input type=\"text\" pInputText placeholder=\"Search opened files/folders by name...\"\n      class=\"filebrowseruss-search-bottom-input\" [formControl]=\"searchCtrl\" #searchUSS>\n  </div>\n  }\n\n</div>\n\n<!--\n    This program and the accompanying materials are\n    made available under the terms of the Eclipse Public License v2.0 which accompanies\n    this distribution, and is available at https://www.eclipse.org/legal/epl-v20.html\n\n    SPDX-License-Identifier: EPL-2.0\n\n    Copyright Contributors to the Zowe Project.\n    -->", styles: [".filebrowseruss-search{width:fit-content;min-width:250px;margin-left:5px;display:inline-block;height:40px}.filebrowseruss-search-input{width:100%;min-height:30px;font-family:sans-serif;font-size:15px;height:35px;background-color:#464646;color:#fff;padding-left:5px;border:0px}.filebrowseruss-search-bottom-group{margin-top:-17px;position:relative}.filebrowseruss-search-bottom-icon{font-size:large;position:absolute;color:#d4d4d4;padding-left:5px}.filebrowseruss-search-bottom-input{padding-left:28px;width:calc(100% - 5px);min-height:30px;font-family:sans-serif;font-size:15px;height:35px;background-color:#313030;color:#fff;border:0px;margin-top:-10px}.filebrowseruss-search-bottom-input:focus{outline:none;border:1px solid rgb(161,160,160);border-radius:3px}.filebrowseruss-dialog-menu{background:#fff;padding:0;height:auto;width:auto}.filebrowseruss-pointer-logo{content:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAABmJLR0QAAAAAAAD5Q7t/AAAACXBIWXMAAAsSAAALEgHS3X78AAAA2UlEQVQ4y7XRwUkEQRSE4c9xDcAEFCYFYzCFCaGDavQgeDOEWTQBA1AQ9KCgpxUEQVh3vLyBgdnuw4APGprqqp96NP85KaU2pdTWPE0tjB73NUhTCd+ixTHuSpCmEO5xil2cE/T7IE0h3OIBWwx4Cm0GaQrhNS5xEIDr0GaQaYNx3zU6fAegiXs3gZzNADnnMdjlnDch76LBEFqH85zzzZhbTfcJyL4VD+N9Ey3q3xjzO/FsS6ZVBTDECpYCPvATDd6XAF7xEp63JYBnXOAIj0sAn7iK+1fJ9AcOn0qIhbHEXwAAAABJRU5ErkJggg==);width:20px;height:20px;filter:brightness(3);cursor:pointer}.filebrowseruss-node-deleting{opacity:.5}.filebrowseruss-loading-icon{margin-left:8px!important;font-size:large!important}.file-tree-utilities{overflow:hidden;border:1px solid #464646}.filebrowser-icon{margin-right:9px;float:right;cursor:pointer}.special-utility{margin-left:9px}\n"], dependencies: [{ kind: "directive", type: i7$1.NgStyle, selector: "[ngStyle]", inputs: ["ngStyle"] }, { kind: "directive", type: i4.NgSelectOption, selector: "option", inputs: ["ngValue", "value"] }, { kind: "directive", type: i4.ɵNgSelectMultipleOption, selector: "option", inputs: ["ngValue", "value"] }, { kind: "directive", type: i4.DefaultValueAccessor, selector: "input:not([type=checkbox])[formControlName],textarea[formControlName],input:not([type=checkbox])[formControl],textarea[formControl],input:not([type=checkbox])[ngModel],textarea[ngModel],[ngDefaultControl]" }, { kind: "directive", type: i4.NgControlStatus, selector: "[formControlName],[ngModel],[formControl]" }, { kind: "directive", type: i4.NgModel, selector: "[ngModel]:not([formControlName]):not([formControl])", inputs: ["name", "disabled", "ngModel", "ngModelOptions"], outputs: ["ngModelChange"], exportAs: ["ngModel"] }, { kind: "directive", type: i10$1.InputText, selector: "[pInputText]", inputs: ["variant"] }, { kind: "directive", type: i4.FormControlDirective, selector: "[formControl]", inputs: ["formControl", "disabled", "ngModel"], outputs: ["ngModelChange"], exportAs: ["ngForm"] }, { kind: "component", type: TreeComponent, selector: "tree-root", inputs: ["treeData", "treeId", "style", "treeStyle"], outputs: ["clickEvent", "dblClickEvent", "rightClickEvent", "panelRightClickEvent"] }], encapsulation: i0.ViewEncapsulation.None }); }
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "18.0.7", ngImport: i0, type: FileBrowserUSSComponent, decorators: [{
             type: Component,
-            args: [{ selector: 'file-browser-uss', encapsulation: ViewEncapsulation.None, providers: [UssCrudService, /*PersistentDataService,*/ SearchHistoryService], template: "\n<!--\nThis program and the accompanying materials are\nmade available under the terms of the Eclipse Public License v2.0 which accompanies\nthis distribution, and is available at https://www.eclipse.org/legal/epl-v20.html\n\nSPDX-License-Identifier: EPL-2.0\n\nCopyright Contributors to the Zowe Project.\n-->\n\n<div style=\"height: 100%;\">\n\n  <!-- Tabs, searchbar, and loading indicator -->\n  @if (showUpArrow) {\n    <img [src]=\"'./assets/explorer-uparrow.png'\"\n      data-toggle=\"tooltip\"\n      class=\"filebrowseruss-pointer-logo\"\n      title=\"Go up to the parent level\" (click)=\"levelUp()\"\n      [ngStyle]=\"treeStyle\" tabindex=\"0\" (keydown.enter)=\"levelUp()\"\n      >\n  }\n\n  <div class=\"filebrowseruss-search\" [ngStyle] = \"searchStyle\">\n    <input #pathInputUSS\n      [(ngModel)]=\"path\"\n      list=\"searchUSSHistory\"\n      placeholder=\"Enter an absolute path...\"\n      [ngStyle] = \"inputStyle\"\n      class=\"filebrowseruss-search-input\"\n      (keydown.enter)=\"displayTree(path, false);\"\n      [disabled]=\"isLoading\"\n      (ngModelChange)=\"checkPathSlash($event)\">\n      <!-- TODO: make search history a directive to use in both uss and mvs-->\n      <datalist id=\"searchUSSHistory\">\n        @for (item of ussSearchHistory.searchHistoryVal; track item) {\n          <option [value]=\"item\"></option>\n        }\n      </datalist>\n    </div>\n    <div class=\"fa fa-spinner fa-spin filebrowseruss-loading-icon\" [hidden]=\"!isLoading\" style=\"margin-left: 9px;\"></div>\n    <div class=\"fa fa-refresh filebrowseruss-loading-icon\" title=\"Refresh whole directory\" (click)=\"displayTree(path, false);\" [hidden]=\"isLoading\" style=\"margin-left: 9px; cursor: pointer;\"></div>\n    <div class=\"file-tree-utilities\">\n      <div class=\"fa fa-minus-square-o filebrowser-icon\" title=\"Collapse Folders in Explorer\" (click)=\"collapseTree();\"></div>\n      <div class=\"fa fa-trash-o filebrowser-icon\" title=\"Delete\" (click)=\"showDeleteDialog(selectedNode);\"></div>\n      <div class=\"fa fa-folder-o filebrowser-icon\" title=\"Create New Folder\" (click)=\"showCreateFolderDialog(!selectedNode || (!selectedNode.parent && !selectedNode.directory) ? { 'path' : path } : selectedNode.directory ? selectedNode : selectedNode.parent);\"></div>\n      <div class=\"fa fa-eraser filebrowser-icon special-utility\" title=\"Clear Search History\" (click)=\"clearSearchHistory();\"></div>\n    </div>\n\n    <!-- Main tree -->\n    <div [hidden]=\"hideExplorer\" style=\"height: 100%;\">\n      <tree-root [treeData]=\"data\"\n        (clickEvent)=\"onNodeClick($event)\"\n        (dblClickEvent)=\"onNodeDblClick($event)\"\n        [ngStyle]=\"treeStyle\"\n        (rightClickEvent)=\"onNodeRightClick($event)\"\n        (panelRightClickEvent)=\"onPanelRightClick($event)\"\n        (dataChanged)=\"onDataChanged($event)\"\n      ></tree-root>\n    </div>\n\n    @if (showSearch) {\n      <div class=\"ui-inputgroup filebrowseruss-search-bottom-group\">\n        <span class=\"ui-inputgroup-addon\"><i class=\"fa fa-search filebrowseruss-search-bottom-icon\"></i></span>\n        <input type=\"text\" pInputText\n          placeholder=\"Search opened files/folders by name...\"\n          class=\"filebrowseruss-search-bottom-input\"\n          [formControl]=\"searchCtrl\"\n          #searchUSS>\n        </div>\n      }\n\n    </div>\n\n    <!--\n    This program and the accompanying materials are\n    made available under the terms of the Eclipse Public License v2.0 which accompanies\n    this distribution, and is available at https://www.eclipse.org/legal/epl-v20.html\n\n    SPDX-License-Identifier: EPL-2.0\n\n    Copyright Contributors to the Zowe Project.\n    -->", styles: [".filebrowseruss-search{width:fit-content;min-width:250px;margin-left:5px;display:inline-block;height:40px}.filebrowseruss-search-input{width:100%;min-height:30px;font-family:sans-serif;font-size:15px;height:35px;background-color:#464646;color:#fff;padding-left:5px;border:0px}.filebrowseruss-search-bottom-group{margin-top:-17px;position:relative}.filebrowseruss-search-bottom-icon{font-size:large;position:absolute;color:#d4d4d4;padding-left:5px}.filebrowseruss-search-bottom-input{padding-left:28px;width:calc(100% - 5px);min-height:30px;font-family:sans-serif;font-size:15px;height:35px;background-color:#313030;color:#fff;border:0px;margin-top:-10px}.filebrowseruss-search-bottom-input:focus{outline:none;border:1px solid rgb(161,160,160);border-radius:3px}.filebrowseruss-dialog-menu{background:#fff;padding:0;height:auto;width:auto}.filebrowseruss-pointer-logo{width:20px;height:20px;filter:brightness(3);cursor:pointer}.filebrowseruss-node-deleting{opacity:.5}.filebrowseruss-loading-icon{margin-left:8px!important;font-size:large!important}.file-tree-utilities{overflow:hidden;border:1px solid #464646}.filebrowser-icon{margin-right:9px;float:right;cursor:pointer}.special-utility{margin-left:9px}\n"] }]
+            args: [{ selector: 'file-browser-uss', encapsulation: ViewEncapsulation.None, providers: [UssCrudService, /*PersistentDataService,*/ SearchHistoryService], template: "<!--\nThis program and the accompanying materials are\nmade available under the terms of the Eclipse Public License v2.0 which accompanies\nthis distribution, and is available at https://www.eclipse.org/legal/epl-v20.html\n\nSPDX-License-Identifier: EPL-2.0\n\nCopyright Contributors to the Zowe Project.\n-->\n\n<div style=\"height: 100%;\">\n\n  <!-- Tabs, searchbar, and loading indicator -->\n  @if (showUpArrow) {\n  <img data-toggle=\"tooltip\" class=\"filebrowseruss-pointer-logo\" title=\"Go up to the parent level\" (click)=\"levelUp()\"\n    [ngStyle]=\"treeStyle\" tabindex=\"0\" (keydown.enter)=\"levelUp()\">\n  }\n\n  <div class=\"filebrowseruss-search\" [ngStyle]=\"searchStyle\">\n    <input #pathInputUSS [(ngModel)]=\"path\" list=\"searchUSSHistory\" placeholder=\"Enter an absolute path...\"\n      [ngStyle]=\"inputStyle\" class=\"filebrowseruss-search-input\" (keydown.enter)=\"displayTree(path, false);\"\n      [disabled]=\"isLoading\" (ngModelChange)=\"checkPathSlash($event)\">\n    <!-- TODO: make search history a directive to use in both uss and mvs-->\n    <datalist id=\"searchUSSHistory\">\n      @for (item of ussSearchHistory.searchHistoryVal; track item) {\n      <option [value]=\"item\"></option>\n      }\n    </datalist>\n  </div>\n  <div class=\"fa fa-spinner fa-spin filebrowseruss-loading-icon\" [hidden]=\"!isLoading\" style=\"margin-left: 9px;\"></div>\n  <div class=\"fa fa-refresh filebrowseruss-loading-icon\" title=\"Refresh whole directory\"\n    (click)=\"displayTree(path, false);\" [hidden]=\"isLoading\" style=\"margin-left: 9px; cursor: pointer;\"></div>\n  <div class=\"file-tree-utilities\">\n    <div class=\"fa fa-minus-square-o filebrowser-icon\" title=\"Collapse Folders in Explorer\" (click)=\"collapseTree();\">\n    </div>\n    <div class=\"fa fa-trash-o filebrowser-icon\" title=\"Delete\" (click)=\"showDeleteDialog(selectedNode);\"></div>\n    <div class=\"fa fa-folder-o filebrowser-icon\" title=\"Create New Folder\"\n      (click)=\"showCreateFolderDialog(!selectedNode || (!selectedNode.parent && !selectedNode.directory) ? { 'path' : path } : selectedNode.directory ? selectedNode : selectedNode.parent);\">\n    </div>\n    <div class=\"fa fa-eraser filebrowser-icon special-utility\" title=\"Clear Search History\"\n      (click)=\"clearSearchHistory();\"></div>\n  </div>\n\n  <!-- Main tree -->\n  <div [hidden]=\"hideExplorer\" style=\"height: 100%;\">\n    <tree-root [treeData]=\"data\" (clickEvent)=\"onNodeClick($event)\" (dblClickEvent)=\"onNodeDblClick($event)\"\n      [ngStyle]=\"treeStyle\" (rightClickEvent)=\"onNodeRightClick($event)\"\n      (panelRightClickEvent)=\"onPanelRightClick($event)\" (dataChanged)=\"onDataChanged($event)\"></tree-root>\n  </div>\n\n  @if (showSearch) {\n  <div class=\"ui-inputgroup filebrowseruss-search-bottom-group\">\n    <span class=\"ui-inputgroup-addon\"><i class=\"fa fa-search filebrowseruss-search-bottom-icon\"></i></span>\n    <input type=\"text\" pInputText placeholder=\"Search opened files/folders by name...\"\n      class=\"filebrowseruss-search-bottom-input\" [formControl]=\"searchCtrl\" #searchUSS>\n  </div>\n  }\n\n</div>\n\n<!--\n    This program and the accompanying materials are\n    made available under the terms of the Eclipse Public License v2.0 which accompanies\n    this distribution, and is available at https://www.eclipse.org/legal/epl-v20.html\n\n    SPDX-License-Identifier: EPL-2.0\n\n    Copyright Contributors to the Zowe Project.\n    -->", styles: [".filebrowseruss-search{width:fit-content;min-width:250px;margin-left:5px;display:inline-block;height:40px}.filebrowseruss-search-input{width:100%;min-height:30px;font-family:sans-serif;font-size:15px;height:35px;background-color:#464646;color:#fff;padding-left:5px;border:0px}.filebrowseruss-search-bottom-group{margin-top:-17px;position:relative}.filebrowseruss-search-bottom-icon{font-size:large;position:absolute;color:#d4d4d4;padding-left:5px}.filebrowseruss-search-bottom-input{padding-left:28px;width:calc(100% - 5px);min-height:30px;font-family:sans-serif;font-size:15px;height:35px;background-color:#313030;color:#fff;border:0px;margin-top:-10px}.filebrowseruss-search-bottom-input:focus{outline:none;border:1px solid rgb(161,160,160);border-radius:3px}.filebrowseruss-dialog-menu{background:#fff;padding:0;height:auto;width:auto}.filebrowseruss-pointer-logo{content:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAABmJLR0QAAAAAAAD5Q7t/AAAACXBIWXMAAAsSAAALEgHS3X78AAAA2UlEQVQ4y7XRwUkEQRSE4c9xDcAEFCYFYzCFCaGDavQgeDOEWTQBA1AQ9KCgpxUEQVh3vLyBgdnuw4APGprqqp96NP85KaU2pdTWPE0tjB73NUhTCd+ixTHuSpCmEO5xil2cE/T7IE0h3OIBWwx4Cm0GaQrhNS5xEIDr0GaQaYNx3zU6fAegiXs3gZzNADnnMdjlnDch76LBEFqH85zzzZhbTfcJyL4VD+N9Ey3q3xjzO/FsS6ZVBTDECpYCPvATDd6XAF7xEp63JYBnXOAIj0sAn7iK+1fJ9AcOn0qIhbHEXwAAAABJRU5ErkJggg==);width:20px;height:20px;filter:brightness(3);cursor:pointer}.filebrowseruss-node-deleting{opacity:.5}.filebrowseruss-loading-icon{margin-left:8px!important;font-size:large!important}.file-tree-utilities{overflow:hidden;border:1px solid #464646}.filebrowser-icon{margin-right:9px;float:right;cursor:pointer}.special-utility{margin-left:9px}\n"] }]
         }], ctorParameters: () => [{ type: i0.ElementRef }, { type: UssCrudService }, { type: UtilsService }, { type: SearchHistoryService }, { type: i1.MatDialog }, { type: i3$1.MatSnackBar }, { type: DownloaderService }, { type: undefined, decorators: [{
                     type: Inject,
                     args: [Angular2InjectionTokens.LOGGER]
@@ -5182,11 +7428,11 @@ class ZluxFileTreeComponent {
         });
     }
     static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "18.0.7", ngImport: i0, type: ZluxFileTreeComponent, deps: [{ token: UtilsService }, { token: i0.ElementRef }, { token: i0.ChangeDetectorRef }, { token: KeybindingService }, { token: Angular2InjectionTokens.LOGGER }], target: i0.ɵɵFactoryTarget.Component }); }
-    static { this.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "17.0.0", version: "18.0.7", type: ZluxFileTreeComponent, selector: "zlux-file-tree", inputs: { spawnModal: "spawnModal", toggleSearchInput: "toggleSearchInput", selectPath: "selectPath", style: "style", headerStyle: "headerStyle", inputStyle: "inputStyle", searchStyle: "searchStyle", treeStyle: "treeStyle", theme: "theme" }, outputs: { fileOutput: "fileOutput", nodeClick: "nodeClick", nodeDblClick: "nodeDblClick", newFolderClick: "newFolderClick", fileUploaded: "fileUploaded", copyClick: "copyClick", deleteClick: "deleteClick", ussRenameEvent: "ussRenameEvent", datasetSelect: "datasetSelect", ussSelect: "ussSelect", pathChanged: "pathChanged", dataChanged: "dataChanged", rightClick: "rightClick", openInNewTab: "openInNewTab", createDataset: "createDataset" }, providers: [UtilsService /*, PersistentDataService*/], viewQueries: [{ propertyName: "ussComponent", first: true, predicate: FileBrowserUSSComponent, descendants: true }, { propertyName: "mvsComponent", first: true, predicate: FileBrowserMVSComponent, descendants: true }, { propertyName: "fileExplorerGlobal", first: true, predicate: ["fileExplorerGlobal"], descendants: true, static: true }], ngImport: i0, template: "<!--\nThis program and the accompanying materials are\nmade available under the terms of the Eclipse Public License v2.0 which accompanies\nthis distribution, and is available at https://www.eclipse.org/legal/epl-v20.html\n\nSPDX-License-Identifier: EPL-2.0\n\nCopyright Contributors to the Zowe Project.\n-->\n\n<div class=\"fileexplorer-global\" #fileExplorerGlobal>\n  <nav data-tabs class=\"fileexplorer-tabs\" role=\"navigation\">\n    <div class=\"fileexplorer-tabs-trigger\" tabindex=\"-1\">\n      <a href=\"javascript:void(0)\" class=\"bx--tabs-trigger-text\" tabindex=\"-1\"></a>\n\n    </div>\n    <ul class=\"fileexplorer-tabs-list\" role=\"tablist\" [ngStyle]=\"headerStyle\">\n      @for (tab of tabs; track tab) {\n      <li [ngClass]=\"tab.index == currentIndex ? 'fileexplorer-tab-selected' : 'fileexplorer-tab'\"\n        (click)=\"setIndex(tab.index)\" id=\"tab-{{tab.index}}\" role=\"presentation\" [ngStyle]=\"headerStyle\"\n        class=\"bx--tabs__nav-item\">\n        <a class=\"fileexplorer-tabs-text\" href=\"javascript:void(0)\" role=\"tab\" aria-selected=\"false\"\n          [ngStyle]=\"headerStyle\">{{tab.name}}</a>\n      </li>\n      }\n    </ul>\n  </nav>\n  <div class=\"fileexplorer-browser-module\" [ngStyle]=\"style\">\n    <file-browser-uss #ussComponent [hidden]=\"currentIndex != 0\" (nodeClick)=\"onNodeClick($event)\"\n      (nodeDblClick)=\"onNodeDblClick($event)\" (openInNewTab)=\"onOpenInNewTab($event)\"\n      (newFolderClick)=\"onNewFolderClick($event)\" (fileUploaded)=\"onFileUploaded($event)\"\n      (deleteClick)=\"onDeleteClick($event)\" (ussRenameEvent)=\"onUSSRenameEvent($event)\"\n      (copyClick)=\"onCopyClick($event)\" (rightClick)=\"onRightClick($event)\" (pathChanged)=\"onPathChanged($event)\"\n      (dataChanged)=\"onDataChanged($event)\" [style]=\"style\" [inputStyle]=\"inputStyle\" [treeStyle]=\"treeStyle\"\n      [searchStyle]=\"searchStyle\" [showUpArrow]=\"showUpArrow\"></file-browser-uss>\n    <file-browser-mvs #mvsComponent [hidden]=\"currentIndex != 1\" (nodeClick)=\"onNodeClick($event)\"\n      (nodeDblClick)=\"onNodeDblClick($event)\" (openInNewTab)=\"onOpenInNewTab($event)\"\n      (deleteClick)=\"onDeleteClick($event)\" (rightClick)=\"onRightClick($event)\" (pathChanged)=\"onPathChanged($event)\"\n      (dataChanged)=\"onDataChanged($event)\" (createDataset)=\"onCreateDataset($event)\" [inputStyle]=\"inputStyle\"\n      [treeStyle]=\"treeStyle\" [searchStyle]=\"searchStyle\" [style]=\"style\"\n      [showUpArrow]=\"showUpArrow\"></file-browser-mvs>\n  </div>\n</div>\n\n<!--\nThis program and the accompanying materials are\nmade available under the terms of the Eclipse Public License v2.0 which accompanies\nthis distribution, and is available at https://www.eclipse.org/legal/epl-v20.html\n\nSPDX-License-Identifier: EPL-2.0\n\n<!--\nThis program and the accompanying materials are\nmade available under the terms of the Eclipse Public License v2.0 which accompanies\nthis distribution, and is available at https://www.eclipse.org/legal/epl-v20.html\n\nSPDX-License-Identifier: EPL-2.0\n\nCopyright Contributors to the Zowe Project.\n-->", styles: [".fileexplorer-browser-module{margin-left:10px;margin-top:10px;height:100%}.fileexplorer-global{height:100%}.fileexplorer-tabs{height:25px;text-align:center;padding-bottom:30px}.fileexplorer-tab{font-size:15px;color:#007bff;height:35px;width:170px;padding-top:6px;margin-left:-10px}.fileexplorer-tab-selected{font-size:15px;height:35px;width:165px;font-weight:700;padding-top:6px;margin-left:-7px;color:#005abb;background-color:#d4d4d4}.fileexplorer-tabs-list{-webkit-column-count:2;-moz-column-count:2;column-count:2;width:100%;height:35px;background-color:#464646;cursor:pointer}.fileexplorer-tabs-text{color:inherit;text-decoration:none;background-color:transparent}\n"], dependencies: [{ kind: "directive", type: i7$1.NgClass, selector: "[ngClass]", inputs: ["class", "ngClass"] }, { kind: "directive", type: i7$1.NgStyle, selector: "[ngStyle]", inputs: ["ngStyle"] }, { kind: "component", type: FileBrowserMVSComponent, selector: "file-browser-mvs", inputs: ["inputStyle", "searchStyle", "treeStyle", "style", "showUpArrow"], outputs: ["pathChanged", "dataChanged", "nodeClick", "nodeDblClick", "rightClick", "deleteClick", "openInNewTab", "createDataset"] }, { kind: "component", type: FileBrowserUSSComponent, selector: "file-browser-uss", inputs: ["inputStyle", "searchStyle", "treeStyle", "showUpArrow"], outputs: ["pathChanged", "dataChanged", "nodeClick", "nodeDblClick", "nodeRightClick", "newFolderClick", "newFileClick", "fileUploaded", "copyClick", "deleteClick", "ussRenameEvent", "rightClick", "openInNewTab"] }], encapsulation: i0.ViewEncapsulation.None }); }
+    static { this.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "17.0.0", version: "18.0.7", type: ZluxFileTreeComponent, selector: "zlux-file-tree", inputs: { spawnModal: "spawnModal", toggleSearchInput: "toggleSearchInput", selectPath: "selectPath", style: "style", headerStyle: "headerStyle", inputStyle: "inputStyle", searchStyle: "searchStyle", treeStyle: "treeStyle", theme: "theme" }, outputs: { fileOutput: "fileOutput", nodeClick: "nodeClick", nodeDblClick: "nodeDblClick", newFolderClick: "newFolderClick", fileUploaded: "fileUploaded", copyClick: "copyClick", deleteClick: "deleteClick", ussRenameEvent: "ussRenameEvent", datasetSelect: "datasetSelect", ussSelect: "ussSelect", pathChanged: "pathChanged", dataChanged: "dataChanged", rightClick: "rightClick", openInNewTab: "openInNewTab", createDataset: "createDataset" }, providers: [UtilsService /*, PersistentDataService*/], viewQueries: [{ propertyName: "ussComponent", first: true, predicate: FileBrowserUSSComponent, descendants: true }, { propertyName: "mvsComponent", first: true, predicate: FileBrowserMVSComponent, descendants: true }, { propertyName: "fileExplorerGlobal", first: true, predicate: ["fileExplorerGlobal"], descendants: true, static: true }], ngImport: i0, template: "<!--\nThis program and the accompanying materials are\nmade available under the terms of the Eclipse Public License v2.0 which accompanies\nthis distribution, and is available at https://www.eclipse.org/legal/epl-v20.html\n\nSPDX-License-Identifier: EPL-2.0\n\nCopyright Contributors to the Zowe Project.\n-->\n\n<div class=\"fileexplorer-global\" #fileExplorerGlobal>\n  <nav data-tabs class=\"fileexplorer-tabs\" role=\"navigation\">\n    <div class=\"fileexplorer-tabs-trigger\" tabindex=\"-1\">\n      <a href=\"javascript:void(0)\" class=\"bx--tabs-trigger-text\" tabindex=\"-1\"></a>\n\n    </div>\n    <ul class=\"fileexplorer-tabs-list\" role=\"tablist\" [ngStyle]=\"headerStyle\">\n      @for (tab of tabs; track tab) {\n      <li [ngClass]=\"tab.index == currentIndex ? 'fileexplorer-tab-selected' : 'fileexplorer-tab'\"\n        (click)=\"setIndex(tab.index)\" id=\"tab-{{tab.index}}\" role=\"presentation\" [ngStyle]=\"headerStyle\"\n        class=\"bx--tabs__nav-item\">\n        <a class=\"fileexplorer-tabs-text\" href=\"javascript:void(0)\" role=\"tab\" aria-selected=\"false\"\n          [ngStyle]=\"headerStyle\">{{tab.name}}</a>\n      </li>\n      }\n    </ul>\n  </nav>\n  <div class=\"fileexplorer-browser-module\" [ngStyle]=\"style\">\n    <file-browser-uss #ussComponent [hidden]=\"currentIndex != 0\" (nodeClick)=\"onNodeClick($event)\"\n      (nodeDblClick)=\"onNodeDblClick($event)\" (openInNewTab)=\"onOpenInNewTab($event)\"\n      (newFolderClick)=\"onNewFolderClick($event)\" (fileUploaded)=\"onFileUploaded($event)\"\n      (deleteClick)=\"onDeleteClick($event)\" (ussRenameEvent)=\"onUSSRenameEvent($event)\"\n      (copyClick)=\"onCopyClick($event)\" (rightClick)=\"onRightClick($event)\" (pathChanged)=\"onPathChanged($event)\"\n      (dataChanged)=\"onDataChanged($event)\" [style]=\"style\" [inputStyle]=\"inputStyle\" [treeStyle]=\"treeStyle\"\n      [searchStyle]=\"searchStyle\" [showUpArrow]=\"showUpArrow\"></file-browser-uss>\n    <file-browser-mvs #mvsComponent [hidden]=\"currentIndex != 1\" (nodeClick)=\"onNodeClick($event)\"\n      (nodeDblClick)=\"onNodeDblClick($event)\" (openInNewTab)=\"onOpenInNewTab($event)\"\n      (deleteClick)=\"onDeleteClick($event)\" (rightClick)=\"onRightClick($event)\" (pathChanged)=\"onPathChanged($event)\"\n      (dataChanged)=\"onDataChanged($event)\" (createDataset)=\"onCreateDataset($event)\" [inputStyle]=\"inputStyle\"\n      [treeStyle]=\"treeStyle\" [searchStyle]=\"searchStyle\" [style]=\"style\"\n      [showUpArrow]=\"showUpArrow\"></file-browser-mvs>\n  </div>\n</div>\n\n<!--\nThis program and the accompanying materials are\nmade available under the terms of the Eclipse Public License v2.0 which accompanies\nthis distribution, and is available at https://www.eclipse.org/legal/epl-v20.html\n\nSPDX-License-Identifier: EPL-2.0\n\n<!--\nThis program and the accompanying materials are\nmade available under the terms of the Eclipse Public License v2.0 which accompanies\nthis distribution, and is available at https://www.eclipse.org/legal/epl-v20.html\n\nSPDX-License-Identifier: EPL-2.0\n\nCopyright Contributors to the Zowe Project.\n-->", styles: [".fileexplorer-browser-module{margin-left:10px;margin-top:10px;height:100%}.fileexplorer-global{height:100%}.fileexplorer-tabs{height:25px;text-align:center;padding-bottom:30px}.fileexplorer-tab{font-size:15px;color:#007bff;height:35px;width:170px;padding-top:6px;margin-left:-10px}.fileexplorer-tab-selected{font-size:15px;height:35px;width:165px;font-weight:700;padding-top:6px;margin-left:-7px;color:#005abb;background-color:#d4d4d4}.fileexplorer-tabs-list{-webkit-column-count:2;-moz-column-count:2;column-count:2;width:100%;height:35px;background-color:#464646;cursor:pointer}.fileexplorer-tabs-text{color:inherit;text-decoration:none;background-color:transparent}ul{padding-left:0!important}\n"], dependencies: [{ kind: "directive", type: i7$1.NgClass, selector: "[ngClass]", inputs: ["class", "ngClass"] }, { kind: "directive", type: i7$1.NgStyle, selector: "[ngStyle]", inputs: ["ngStyle"] }, { kind: "component", type: FileBrowserMVSComponent, selector: "file-browser-mvs", inputs: ["inputStyle", "searchStyle", "treeStyle", "style", "showUpArrow"], outputs: ["pathChanged", "dataChanged", "nodeClick", "nodeDblClick", "rightClick", "deleteClick", "openInNewTab", "createDataset"] }, { kind: "component", type: FileBrowserUSSComponent, selector: "file-browser-uss", inputs: ["inputStyle", "searchStyle", "treeStyle", "showUpArrow"], outputs: ["pathChanged", "dataChanged", "nodeClick", "nodeDblClick", "nodeRightClick", "newFolderClick", "newFileClick", "fileUploaded", "copyClick", "deleteClick", "ussRenameEvent", "rightClick", "openInNewTab"] }], encapsulation: i0.ViewEncapsulation.None }); }
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "18.0.7", ngImport: i0, type: ZluxFileTreeComponent, decorators: [{
             type: Component,
-            args: [{ selector: 'zlux-file-tree', encapsulation: ViewEncapsulation.None, providers: [UtilsService /*, PersistentDataService*/], template: "<!--\nThis program and the accompanying materials are\nmade available under the terms of the Eclipse Public License v2.0 which accompanies\nthis distribution, and is available at https://www.eclipse.org/legal/epl-v20.html\n\nSPDX-License-Identifier: EPL-2.0\n\nCopyright Contributors to the Zowe Project.\n-->\n\n<div class=\"fileexplorer-global\" #fileExplorerGlobal>\n  <nav data-tabs class=\"fileexplorer-tabs\" role=\"navigation\">\n    <div class=\"fileexplorer-tabs-trigger\" tabindex=\"-1\">\n      <a href=\"javascript:void(0)\" class=\"bx--tabs-trigger-text\" tabindex=\"-1\"></a>\n\n    </div>\n    <ul class=\"fileexplorer-tabs-list\" role=\"tablist\" [ngStyle]=\"headerStyle\">\n      @for (tab of tabs; track tab) {\n      <li [ngClass]=\"tab.index == currentIndex ? 'fileexplorer-tab-selected' : 'fileexplorer-tab'\"\n        (click)=\"setIndex(tab.index)\" id=\"tab-{{tab.index}}\" role=\"presentation\" [ngStyle]=\"headerStyle\"\n        class=\"bx--tabs__nav-item\">\n        <a class=\"fileexplorer-tabs-text\" href=\"javascript:void(0)\" role=\"tab\" aria-selected=\"false\"\n          [ngStyle]=\"headerStyle\">{{tab.name}}</a>\n      </li>\n      }\n    </ul>\n  </nav>\n  <div class=\"fileexplorer-browser-module\" [ngStyle]=\"style\">\n    <file-browser-uss #ussComponent [hidden]=\"currentIndex != 0\" (nodeClick)=\"onNodeClick($event)\"\n      (nodeDblClick)=\"onNodeDblClick($event)\" (openInNewTab)=\"onOpenInNewTab($event)\"\n      (newFolderClick)=\"onNewFolderClick($event)\" (fileUploaded)=\"onFileUploaded($event)\"\n      (deleteClick)=\"onDeleteClick($event)\" (ussRenameEvent)=\"onUSSRenameEvent($event)\"\n      (copyClick)=\"onCopyClick($event)\" (rightClick)=\"onRightClick($event)\" (pathChanged)=\"onPathChanged($event)\"\n      (dataChanged)=\"onDataChanged($event)\" [style]=\"style\" [inputStyle]=\"inputStyle\" [treeStyle]=\"treeStyle\"\n      [searchStyle]=\"searchStyle\" [showUpArrow]=\"showUpArrow\"></file-browser-uss>\n    <file-browser-mvs #mvsComponent [hidden]=\"currentIndex != 1\" (nodeClick)=\"onNodeClick($event)\"\n      (nodeDblClick)=\"onNodeDblClick($event)\" (openInNewTab)=\"onOpenInNewTab($event)\"\n      (deleteClick)=\"onDeleteClick($event)\" (rightClick)=\"onRightClick($event)\" (pathChanged)=\"onPathChanged($event)\"\n      (dataChanged)=\"onDataChanged($event)\" (createDataset)=\"onCreateDataset($event)\" [inputStyle]=\"inputStyle\"\n      [treeStyle]=\"treeStyle\" [searchStyle]=\"searchStyle\" [style]=\"style\"\n      [showUpArrow]=\"showUpArrow\"></file-browser-mvs>\n  </div>\n</div>\n\n<!--\nThis program and the accompanying materials are\nmade available under the terms of the Eclipse Public License v2.0 which accompanies\nthis distribution, and is available at https://www.eclipse.org/legal/epl-v20.html\n\nSPDX-License-Identifier: EPL-2.0\n\n<!--\nThis program and the accompanying materials are\nmade available under the terms of the Eclipse Public License v2.0 which accompanies\nthis distribution, and is available at https://www.eclipse.org/legal/epl-v20.html\n\nSPDX-License-Identifier: EPL-2.0\n\nCopyright Contributors to the Zowe Project.\n-->", styles: [".fileexplorer-browser-module{margin-left:10px;margin-top:10px;height:100%}.fileexplorer-global{height:100%}.fileexplorer-tabs{height:25px;text-align:center;padding-bottom:30px}.fileexplorer-tab{font-size:15px;color:#007bff;height:35px;width:170px;padding-top:6px;margin-left:-10px}.fileexplorer-tab-selected{font-size:15px;height:35px;width:165px;font-weight:700;padding-top:6px;margin-left:-7px;color:#005abb;background-color:#d4d4d4}.fileexplorer-tabs-list{-webkit-column-count:2;-moz-column-count:2;column-count:2;width:100%;height:35px;background-color:#464646;cursor:pointer}.fileexplorer-tabs-text{color:inherit;text-decoration:none;background-color:transparent}\n"] }]
+            args: [{ selector: 'zlux-file-tree', encapsulation: ViewEncapsulation.None, providers: [UtilsService /*, PersistentDataService*/], template: "<!--\nThis program and the accompanying materials are\nmade available under the terms of the Eclipse Public License v2.0 which accompanies\nthis distribution, and is available at https://www.eclipse.org/legal/epl-v20.html\n\nSPDX-License-Identifier: EPL-2.0\n\nCopyright Contributors to the Zowe Project.\n-->\n\n<div class=\"fileexplorer-global\" #fileExplorerGlobal>\n  <nav data-tabs class=\"fileexplorer-tabs\" role=\"navigation\">\n    <div class=\"fileexplorer-tabs-trigger\" tabindex=\"-1\">\n      <a href=\"javascript:void(0)\" class=\"bx--tabs-trigger-text\" tabindex=\"-1\"></a>\n\n    </div>\n    <ul class=\"fileexplorer-tabs-list\" role=\"tablist\" [ngStyle]=\"headerStyle\">\n      @for (tab of tabs; track tab) {\n      <li [ngClass]=\"tab.index == currentIndex ? 'fileexplorer-tab-selected' : 'fileexplorer-tab'\"\n        (click)=\"setIndex(tab.index)\" id=\"tab-{{tab.index}}\" role=\"presentation\" [ngStyle]=\"headerStyle\"\n        class=\"bx--tabs__nav-item\">\n        <a class=\"fileexplorer-tabs-text\" href=\"javascript:void(0)\" role=\"tab\" aria-selected=\"false\"\n          [ngStyle]=\"headerStyle\">{{tab.name}}</a>\n      </li>\n      }\n    </ul>\n  </nav>\n  <div class=\"fileexplorer-browser-module\" [ngStyle]=\"style\">\n    <file-browser-uss #ussComponent [hidden]=\"currentIndex != 0\" (nodeClick)=\"onNodeClick($event)\"\n      (nodeDblClick)=\"onNodeDblClick($event)\" (openInNewTab)=\"onOpenInNewTab($event)\"\n      (newFolderClick)=\"onNewFolderClick($event)\" (fileUploaded)=\"onFileUploaded($event)\"\n      (deleteClick)=\"onDeleteClick($event)\" (ussRenameEvent)=\"onUSSRenameEvent($event)\"\n      (copyClick)=\"onCopyClick($event)\" (rightClick)=\"onRightClick($event)\" (pathChanged)=\"onPathChanged($event)\"\n      (dataChanged)=\"onDataChanged($event)\" [style]=\"style\" [inputStyle]=\"inputStyle\" [treeStyle]=\"treeStyle\"\n      [searchStyle]=\"searchStyle\" [showUpArrow]=\"showUpArrow\"></file-browser-uss>\n    <file-browser-mvs #mvsComponent [hidden]=\"currentIndex != 1\" (nodeClick)=\"onNodeClick($event)\"\n      (nodeDblClick)=\"onNodeDblClick($event)\" (openInNewTab)=\"onOpenInNewTab($event)\"\n      (deleteClick)=\"onDeleteClick($event)\" (rightClick)=\"onRightClick($event)\" (pathChanged)=\"onPathChanged($event)\"\n      (dataChanged)=\"onDataChanged($event)\" (createDataset)=\"onCreateDataset($event)\" [inputStyle]=\"inputStyle\"\n      [treeStyle]=\"treeStyle\" [searchStyle]=\"searchStyle\" [style]=\"style\"\n      [showUpArrow]=\"showUpArrow\"></file-browser-mvs>\n  </div>\n</div>\n\n<!--\nThis program and the accompanying materials are\nmade available under the terms of the Eclipse Public License v2.0 which accompanies\nthis distribution, and is available at https://www.eclipse.org/legal/epl-v20.html\n\nSPDX-License-Identifier: EPL-2.0\n\n<!--\nThis program and the accompanying materials are\nmade available under the terms of the Eclipse Public License v2.0 which accompanies\nthis distribution, and is available at https://www.eclipse.org/legal/epl-v20.html\n\nSPDX-License-Identifier: EPL-2.0\n\nCopyright Contributors to the Zowe Project.\n-->", styles: [".fileexplorer-browser-module{margin-left:10px;margin-top:10px;height:100%}.fileexplorer-global{height:100%}.fileexplorer-tabs{height:25px;text-align:center;padding-bottom:30px}.fileexplorer-tab{font-size:15px;color:#007bff;height:35px;width:170px;padding-top:6px;margin-left:-10px}.fileexplorer-tab-selected{font-size:15px;height:35px;width:165px;font-weight:700;padding-top:6px;margin-left:-7px;color:#005abb;background-color:#d4d4d4}.fileexplorer-tabs-list{-webkit-column-count:2;-moz-column-count:2;column-count:2;width:100%;height:35px;background-color:#464646;cursor:pointer}.fileexplorer-tabs-text{color:inherit;text-decoration:none;background-color:transparent}ul{padding-left:0!important}\n"] }]
         }], ctorParameters: () => [{ type: UtilsService }, { type: i0.ElementRef }, { type: i0.ChangeDetectorRef }, { type: KeybindingService }, { type: undefined, decorators: [{
                     type: Inject,
                     args: [Angular2InjectionTokens.LOGGER]

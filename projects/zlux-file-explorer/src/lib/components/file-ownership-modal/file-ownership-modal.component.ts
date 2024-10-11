@@ -105,8 +105,8 @@ export class FileOwnershipModal {
     let url: string = ZoweZLUX.uriBroker.unixFileUri('chown', this.path, undefined, undefined, undefined, false, undefined, undefined, undefined, undefined, this.recursive, this.owner, this.group);
     this.http.post(url, null, { observe: 'response' }).pipe(
       finalize(() => this.closeDialog()),
-    ).subscribe(
-      (res: any) => {
+    ).subscribe({
+      next: (res: any) => {
         if (res.status == 200) {
           this.snackBar.open(this.path + ' has been successfully changed to Owner: ' + this.owner + " Group: " + this.group + ".",
             'Dismiss', defaultSnackbarOptions);
@@ -117,10 +117,10 @@ export class FileOwnershipModal {
             'Dismiss', defaultSnackbarOptions);
         }
       },
-      err => {
+      error: (err) => {
         this.handleErrorObservable(err);
       }
-    );
+    });
   }
 
 

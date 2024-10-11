@@ -1,5 +1,3 @@
-
-
 /*
   This program and the accompanying materials are
   made available under the terms of the Eclipse Public License v2.0 which accompanies
@@ -10,17 +8,17 @@
   Copyright Contributors to the Zowe Project.
 */
 
-.fileexplorer-browser-module{
+.fileexplorer-browser-module {
   margin-left: 10px;
   margin-top: 10px;
   height: 100%;
 }
 
-.fileexplorer-global{
+.fileexplorer-global {
   height: 100%;
 }
 
-.fileexplorer-tabs{
+.fileexplorer-tabs {
   height: 25px;
   text-align: center;
   padding-bottom: 30px;
@@ -62,6 +60,9 @@
   background-color: transparent;
 }
 
+ul {
+  padding-left: 0px !important;
+}
 
 
 /*
@@ -73,4 +74,3 @@
   
   Copyright Contributors to the Zowe Project.
 */
-
