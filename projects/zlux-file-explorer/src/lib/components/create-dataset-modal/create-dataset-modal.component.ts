@@ -82,7 +82,7 @@ const DATASETNAMETYPE = new Map<string, dsntParams>([
     '../../shared/modal.component.scss']
 })
 export class CreateDatasetModal {
-  public properties:any = {
+  public properties: any = {
     template: '',
     name: '',
     allocationUnit: '',
@@ -222,7 +222,7 @@ export class CreateDatasetModal {
     }
   }
 
-  onDirBlockChange(value:any): void {
+  onDirBlockChange(value: any): void {
     this.dirBlockTouched = true;
     if (parseInt(this.properties.directoryBlocks) > 16777215) {
       this.isDirBlockValid = false;

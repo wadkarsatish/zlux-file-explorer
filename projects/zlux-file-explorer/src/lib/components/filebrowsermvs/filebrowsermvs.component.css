@@ -44,7 +44,7 @@
   cursor: pointer;
 }
 
-.ui-tree-empty-message {
+.p-tree-empty-message {
   color: transparent;
   height: 0px;
 }

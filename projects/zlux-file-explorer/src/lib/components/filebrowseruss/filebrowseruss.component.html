@@ -49,10 +49,14 @@ Copyright Contributors to the Zowe Project.
   </div>
 
   @if (showSearch) {
-  <div class="ui-inputgroup filebrowseruss-search-bottom-group">
-    <span class="ui-inputgroup-addon"><i class="fa fa-search filebrowseruss-search-bottom-icon"></i></span>
-    <input type="text" pInputText placeholder="Search opened files/folders by name..."
-      class="filebrowseruss-search-bottom-input" [formControl]="searchCtrl" #searchUSS>
+  <div class="filebrowseruss-search-bottom-group">
+    <p-inputGroup>
+      <p-inputGroupAddon>
+        <i class="fa fa-search filebrowseruss-search-bottom-icon"></i>
+      </p-inputGroupAddon>
+      <input type="text" pInputText placeholder="Search opened files/folders by name..."
+        class="filebrowseruss-search-bottom-input" [formControl]="searchCtrl" #searchUSS>
+    </p-inputGroup>
   </div>
   }
 

@@ -49,54 +49,59 @@ import { MenuModule } from 'primeng/menu';
 import { DialogModule } from "primeng/dialog";
 import { ContextMenuModule } from "primeng/contextmenu";
 import { InputTextModule } from "primeng/inputtext";
+import { InputGroupModule } from 'primeng/inputgroup';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 
 @NgModule({
-    declarations: [
-        FileBrowserMVSComponent,
-        FileBrowserUSSComponent,
-        ZluxFileTreeComponent,
-        FilePropertiesModal,
-        FilePermissionsModal,
-        FileOwnershipModal,
-        FileTaggingModal,
-        DatasetPropertiesModal,
-        DeleteFileModal,
-        CreateFolderModal,
-        CreateFileModal,
-        UploadModal,
-        TreeComponent,
-        CreateDatasetModal],
-    imports: [
-        CommonModule,
-        FormsModule,
-        TreeModule,
-        MenuModule,
-        MatDialogModule,
-        DialogModule,
-        ContextMenuModule,
-        MatTableModule,
-        MatSnackBarModule,
-        MatFormFieldModule,
-        MatIconModule,
-        MatInputModule,
-        MatListModule,
-        MatCheckboxModule,
-        MatButtonModule,
-        MatButtonToggleModule,
-        MatTooltipModule,
-        MatSelectModule,
-        MatAutocompleteModule,
-        ZluxTabbingModule,
-        MatSlideToggleModule,
-        InputTextModule,
-        ReactiveFormsModule
-    ],
-    exports: [ZluxFileTreeComponent],
-    providers: [
-        KeybindingService,
-        UploaderService,
-        DownloaderService
-    ]
+  declarations: [
+    FileBrowserMVSComponent,
+    FileBrowserUSSComponent,
+    ZluxFileTreeComponent,
+    FilePropertiesModal,
+    FilePermissionsModal,
+    FileOwnershipModal,
+    FileTaggingModal,
+    DatasetPropertiesModal,
+    DeleteFileModal,
+    CreateFolderModal,
+    CreateFileModal,
+    UploadModal,
+    TreeComponent,
+    CreateDatasetModal
+  ],
+  imports: [
+    CommonModule,
+    FormsModule,
+    TreeModule,
+    MenuModule,
+    MatDialogModule,
+    DialogModule,
+    ContextMenuModule,
+    MatTableModule,
+    MatSnackBarModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+    MatListModule,
+    MatCheckboxModule,
+    MatButtonModule,
+    MatButtonToggleModule,
+    MatTooltipModule,
+    MatSelectModule,
+    MatAutocompleteModule,
+    ZluxTabbingModule,
+    MatSlideToggleModule,
+    InputTextModule,
+    InputGroupModule,
+    InputGroupAddonModule,
+    ReactiveFormsModule
+  ],
+  exports: [ZluxFileTreeComponent],
+  providers: [
+    KeybindingService,
+    UploaderService,
+    DownloaderService
+  ]
 })
 export class ZluxFileTreeModule { }
 

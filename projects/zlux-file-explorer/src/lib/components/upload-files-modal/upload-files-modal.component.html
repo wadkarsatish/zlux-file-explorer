@@ -1,4 +1,3 @@
-
 <!--
 This program and the accompanying materials are
 made available under the terms of the Eclipse Public License v2.0 which accompanies
@@ -9,59 +8,64 @@ SPDX-License-Identifier: EPL-2.0
 Copyright Contributors to the Zowe Project.
 -->
 <zlux-tab-trap></zlux-tab-trap>
-<!-- FA Icon is determined by class name, so we hardcode the style here -->
-<mat-icon style="font-size: 30px; position: absolute;">cloud_upload</mat-icon>
-<!-- Intentional lazy recycling of "create" modal CSS, TODO: move to shared/modal css -->
-<button mat-dialog-close class="close-dialog-btn"><i class="fa fa-close"></i></button>
-<h2 mat-dialog-title class="modal-content-body">Upload Files in {{folderPath}}</h2>
+<div class="padding-1">
+  <div class="d-flex">
+    <div class="modal-icon-container">
+      <!-- FA Icon is determined by class name, so we hardcode the style here -->
+      <mat-icon style="font-size: 30px; position: absolute;">cloud_upload</mat-icon>
+    </div>
+    <div>
+      <!-- Intentional lazy recycling of "create" modal CSS, TODO: move to shared/modal css -->
+      <h2 mat-dialog-title class="modal-mat-header">Upload Files in {{folderPath}}</h2>
+    </div>
+    <div>
+      <button mat-dialog-close class="close-dialog-btn"><i class="fa fa-close"></i></button>
+    </div>
 
-<button mat-button class="modal-mat-button add" (click)="addFile()">Select File</button>
+  </div>
+  <button mat-button class="modal-mat-button add" (click)="addFile()">Select File</button>
 
-<div style="max-height: 400px; overflow-y:scroll;">
-  <ul>
-    @for (file of files; track file; let i = $index) {
+  <div style="max-height: 400px; overflow-y:scroll;">
+    <ul>
+      @for (file of files; track file; let i = $index) {
       <li class="">
         <label>
           {{ file.name }}
         </label>
         <mat-form-field appearance="fill" style="margin-left: 36px;">
-          <input matInput required type="text"
-            [(ngModel)]="selectedOption"
-            (ngModelChange)="onValueChange($event)"
-            [matAutocomplete]="auto"
-            [errorStateMatcher]="matcher"
-            #encodingInput="ngModel"
-            placeholder="Select target encoding"
-            >
-            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayFn">
-              @for (option of encodings; track option) {
-                <mat-option [value]="option.value">
-                  {{ option.name }}
-                </mat-option>
-              }
-            </mat-autocomplete>
-            @if (encodingInput.hasError('required')) {
-              <mat-error>
-                Encoding is required
-              </mat-error>
+          <input matInput required type="text" [(ngModel)]="selectedOption" (ngModelChange)="onValueChange($event)"
+            [matAutocomplete]="auto" [errorStateMatcher]="matcher" #encodingInput="ngModel"
+            placeholder="Select target encoding">
+          <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayFn">
+            @for (option of encodings; track option) {
+            <mat-option [value]="option.value">
+              {{ option.name }}
+            </mat-option>
             }
-          </mat-form-field>
-          <a href="https://www.ibm.com/docs/en/zos/2.1.0?topic=ccsids-encoding-scheme" target="_blank">
-            <i class="fa fa-question-circle dataset-properties-question-circle"></i>
-          </a>
-        </li>
+          </mat-autocomplete>
+          @if (encodingInput.hasError('required')) {
+          <mat-error>
+            Encoding is required
+          </mat-error>
+          }
+        </mat-form-field>
+        <a href="https://www.ibm.com/docs/en/zos/2.1.0?topic=ccsids-encoding-scheme" target="_blank">
+          <i class="fa fa-question-circle dataset-properties-question-circle"></i>
+        </a>
+      </li>
       }
     </ul>
   </div>
 
   <mat-dialog-actions>
-    <button mat-button mat-dialog-close class="modal-mat-button create" (click)="uploadHandlerSetup()" [disabled]="!selectedOptionValid">Upload</button>
+    <button mat-button mat-dialog-close class="modal-mat-button create" (click)="uploadHandlerSetup()"
+      [disabled]="!selectedOptionValid">Upload</button>
     <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
   </mat-dialog-actions>
+</div>
+<input type="file" style="display: none" #fileUpload (change)="onFileUploaded($event)">
 
-  <input type="file" style="display: none" #fileUpload (change)="onFileUploaded($event)">
-
-  <!--
+<!--
   This program and the accompanying materials are
   made available under the terms of the Eclipse Public License v2.0 which accompanies
   this distribution, and is available at https://www.eclipse.org/legal/epl-v20.html
