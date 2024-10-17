@@ -15,7 +15,7 @@
     "tslib": "^2.3.0"
   },
   "sideEffects": false,
-  "module": "fesm2022/zowe-zlux-angular-file-tree.mjs",
+  "module": "fesm2022/zlux-angular-file-tree.mjs",
   "typings": "index.d.ts",
   "exports": {
     "./package.json": {
@@ -23,9 +23,9 @@
     },
     ".": {
       "types": "./index.d.ts",
-      "esm2022": "./esm2022/zowe-zlux-angular-file-tree.mjs",
-      "esm": "./esm2022/zowe-zlux-angular-file-tree.mjs",
-      "default": "./fesm2022/zowe-zlux-angular-file-tree.mjs"
+      "esm2022": "./esm2022/zlux-angular-file-tree.mjs",
+      "esm": "./esm2022/zlux-angular-file-tree.mjs",
+      "default": "./fesm2022/zlux-angular-file-tree.mjs"
     }
   }
 }
