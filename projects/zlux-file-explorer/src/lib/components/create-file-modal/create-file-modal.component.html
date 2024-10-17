@@ -23,7 +23,7 @@ Copyright Contributors to the Zowe Project.
     </div>
   </div>
   <mat-dialog-content>
-    File name:
+    <label>File name:</label>
     <mat-form-field style="margin-left: 15px;">
       <input id="create-file-input" name="name" [pattern]="filePattern" matInput type="text" [(ngModel)]="fileName">
       @if (fileName) {
@@ -36,7 +36,7 @@ Copyright Contributors to the Zowe Project.
   </mat-dialog-content>
 
   <mat-dialog-content>
-    Path:
+    <label>Path:</label>
     <mat-form-field style="margin-left: 45px;">
       <input id="create-path-input" [pattern]="" matInput type="text" [(ngModel)]="dirPath">
       @if (dirPath) {

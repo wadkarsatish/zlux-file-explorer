@@ -21,7 +21,7 @@ Copyright Contributors to the Zowe Project.
       <input [(ngModel)]="path" list="searchMVSHistory" placeholder="Enter a dataset query..."
         class="filebrowsermvs-search-input" (keydown.enter)="updateTreeView(path);" [ngStyle]="inputStyle">
       <!-- TODO: make search history a directive to use in both uss and mvs-->
-      <mat-button-toggle-group id="qualGroup" #group="matButtonToggleGroup">
+      <mat-button-toggle-group id="qualGroup" name="qualGroup"  #group="matButtonToggleGroup" [hideSingleSelectionIndicator]="true">
         <mat-button-toggle [checked]="additionalQualifiers" class="qualButton"
           (click)="additionalQualifiers = !additionalQualifiers" aria-label="Include additional qualifiers"
           title="Include Additional Qualifiers">

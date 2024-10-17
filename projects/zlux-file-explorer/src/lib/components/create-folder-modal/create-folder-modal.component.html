@@ -23,7 +23,7 @@ Copyright Contributors to the Zowe Project.
     </div>
   </div>
   <mat-dialog-content>
-    Directory name:
+    <label>Directory name:</label>
     <mat-form-field style="margin-left: 15px;">
       <input id="create-directory-input" name="name" [pattern]="folderPattern" matInput type="text"
         [(ngModel)]="folderName">
@@ -37,7 +37,7 @@ Copyright Contributors to the Zowe Project.
   </mat-dialog-content>
 
   <mat-dialog-content>
-    Path:
+    <label>Path:</label>
     <mat-form-field style="margin-left: 80px;">
       <input id="create-path-input" [pattern]="" matInput type="text" [(ngModel)]="folderPath">
       @if (folderPath) {

@@ -49,7 +49,10 @@ const SEARCH_ID = 'uss';
   selector: 'file-browser-uss',
   templateUrl: './filebrowseruss.component.html',
   encapsulation: ViewEncapsulation.None,
-  styleUrls: ['./filebrowseruss.component.css'],
+  styleUrls: [
+    './filebrowseruss.component.css',
+    "../../../../../../node_modules/primeng/resources/primeng.min.css",
+  ],
   providers: [UssCrudService, /*PersistentDataService,*/ SearchHistoryService]
 })
 

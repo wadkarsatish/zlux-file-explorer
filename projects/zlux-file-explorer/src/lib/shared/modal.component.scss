@@ -176,8 +176,24 @@ mat-dialog-actions {
 }
 
 .mat-mdc-form-field-focus-overlay,
-.mdc-text-field--focused {
+.mdc-text-field--focused,
+.mat-mdc-text-field-wrapper:hover {
   background-color: #fff !important;
+}
+
+.mat-mdc-form-field-infix {
+  padding-top: 8px !important;
+  padding-bottom: 8px !important;
+  min-height: 2rem !important;
+}
+
+.mdc-text-field {
+  padding: 0px !important;
+}
+
+label {
+  color: rgb(0, 0, 0);
+  font-size: 14px;
 }
 
 /*
