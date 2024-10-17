@@ -1,0 +1,64 @@
+<!--
+This program and the accompanying materials are
+made available under the terms of the Eclipse Public License v2.0 which accompanies
+this distribution, and is available at https://www.eclipse.org/legal/epl-v20.html
+
+SPDX-License-Identifier: EPL-2.0
+
+Copyright Contributors to the Zowe Project.
+-->
+<zlux-tab-trap hiddenIds="createfileclearicon1,createfileclearicon2" hiddenPos="2,4"></zlux-tab-trap>
+<div class="padding-1">
+  <div class="d-flex">
+    <div class="modal-icon-container">
+      <!-- FA Icon is determined by class name, so we hardcode the style here -->
+      <mat-icon style="font-size: 30px; position: absolute;">create_new_file</mat-icon>
+    </div>
+    <!-- <i class="{{fileIcon}}" style="font-size: 30px;position: absolute;margin-top: 2px;margin-left: 3px;color: #000000;"></i> -->
+    <div>
+      <h2 mat-dialog-title class="modal-content-body">Create a File</h2>
+    </div>
+    <div>
+      <button mat-dialog-close class="close-dialog-btn"><i class="fa fa-close"></i></button>
+    </div>
+  </div>
+  <mat-dialog-content>
+    <label>File name:</label>
+    <mat-form-field style="margin-left: 15px;">
+      <input id="create-file-input" name="name" [pattern]="filePattern" matInput type="text" [(ngModel)]="fileName">
+      @if (fileName) {
+      <button class="modal-clear-button" mat-button matSuffix mat-icon-button tabindex="-1" aria-label="Clear"
+        (click)="fileName=''">
+        <mat-icon class="create-file-clear-icon">close</mat-icon>
+      </button>
+      }
+    </mat-form-field>
+  </mat-dialog-content>
+
+  <mat-dialog-content>
+    <label>Path:</label>
+    <mat-form-field style="margin-left: 45px;">
+      <input id="create-path-input" [pattern]="" matInput type="text" [(ngModel)]="dirPath">
+      @if (dirPath) {
+      <button class="modal-clear-button" mat-button matSuffix mat-icon-button tabindex="-1" aria-label="Clear"
+        (click)="dirPath=''">
+        <mat-icon class="create-file-clear-icon">close</mat-icon>
+      </button>
+      }
+    </mat-form-field>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button mat-dialog-close class="modal-mat-button create" (click)="createFile()"
+      [disabled]="!fileName || !dirPath">Create</button>
+    <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
+  </mat-dialog-actions>
+</div>
+<!--
+    This program and the accompanying materials are
+    made available under the terms of the Eclipse Public License v2.0 which accompanies
+    this distribution, and is available at https://www.eclipse.org/legal/epl-v20.html
+
+    SPDX-License-Identifier: EPL-2.0
+
+    Copyright Contributors to the Zowe Project.
+    -->

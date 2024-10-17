@@ -1,26 +1,43 @@
+/* To learn more about Typescript configuration file: https://www.typescriptlang.org/docs/handbook/tsconfig-json.html. */
+/* To learn more about Angular compiler options: https://angular.dev/reference/configs/angular-compiler-options. */
 {
-  "extends": "./zlux/zlux-app-manager/virtual-desktop/plugin-config/tsconfig.base.json",
-  "include": [
-    "src/**/*.ts",
-    //"../zlux-platform/interface/src/mvd-hosting.d.ts"
-  ],
   "compileOnSave": false,
   "compilerOptions": {
-    "outDir": "./out_tsc",
-    "baseUrl": "./src/app",
-    "sourceMap": true,
-    "declaration": true,
-    "declarationDir": ".",
-    "module": "amd",
-    "moduleResolution": "node",
+    "outDir": "./dist/out-tsc",
+    "strict": false,
+    "strictPropertyInitialization": false,
+    "noImplicitAny": false,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
     "skipLibCheck": true,
-    "emitDecoratorMetadata": true,
+    "esModuleInterop": true,
+    "sourceMap": true,
+    "declaration": false,
     "experimentalDecorators": true,
-    "target": "es5",
+    "moduleResolution": "bundler",
+    "importHelpers": true,
+    "target": "ES2022",
+    "module": "ES2022",
+    "useDefineForClassFields": false,
     "lib": [
-      "es2016",
+      "ES2022",
       "dom"
     ],
-    "paths": {}
+    "paths": {
+      "zlux-file-explorer": [
+        "./dist/zlux-file-explorer"
+      ]
+    },
+    "types": [
+      "../../zlux-platform/interface/src/index.d.ts"
+    ]
+  },
+  "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": true
   }
 }

@@ -1,0 +1,104 @@
+.mat-mdc-dialog-title {
+  font: 500 20px/32px Roboto, "Helvetica Neue", sans-serif;
+  text-align: center;
+}
+
+.header {
+  flex-grow: 1;
+  text-align: center;
+}
+
+.title-design {
+  padding: 2px;
+  border-bottom: 2px solid;
+}
+
+.mat-mdc-dialog-container {
+  width: 1000px !important;
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.column1 {
+  float: left;
+  margin-left: 12px;
+  width: 45%;
+  padding: 10px;
+}
+
+.column2 {
+  float: right;
+  margin-left: 30px;
+  width: 45%;
+  padding: 10px;
+}
+
+.mat-mdc-dialog-content {
+  box-sizing: border-box;
+  padding: 5px 0px 5px 35px;
+  width: 940px;
+  overflow: hidden;
+}
+
+.mat-mdc-dialog-content {
+  label {
+    float: left;
+    width: 175px;
+    padding-top: 10px;
+    font-weight: 500;
+  }
+}
+
+.mat-mdc-form-field {
+  font-size: inherit;
+  font-weight: 400;
+  line-height: 1.125;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  width: 200px;
+}
+
+.mat-mdc-select {
+  font-family: Roboto, "Helvetica Neue", sans-serif
+}
+
+.mat-mdc-option {
+  background: white;
+}
+
+.mat-mdc-option.mat-mdc-active {
+  background: rgb(218, 217, 217) !important;
+}
+
+.mat-mdc-option:hover {
+  background: rgb(239, 238, 238);
+}
+
+::ng-deep .mat-mdc-select-panel {
+  box-shadow: 0 0 5px 1px grey;
+  margin-top: 10px;
+}
+
+.mat-mdc-dialog-actions {
+  justify-content: flex-end;
+}
+
+.required:before {
+  content: "* ";
+  color: black;
+}
+
+.mandatory {
+  font-style: Roboto, "Helvetica Neue", sans-serif;
+  text-align: left;
+  margin-left: 20px;
+}
+
+.errorClass {
+  margin-left: 20px;
+  color: red;
+  position: relative;
+}

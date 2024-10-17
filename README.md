@@ -66,13 +66,6 @@ cd zlux-file-explorer
 npm uninstall
 ```
 
-### node-sass vendor folder not found
-If you experience this issue
-```
-node node_modules/node-sass/scripts/install.js
-npm rebuild node-sass
-```
-
 ## Develop your app with local version of FT - Option 2 Local path
 An alternative to option 1 is to use a local path.
 

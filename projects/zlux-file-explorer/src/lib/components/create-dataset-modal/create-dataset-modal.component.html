@@ -1,0 +1,157 @@
+<!--
+This program and the accompanying materials are
+made available under the terms of the Eclipse Public License v2.0 which accompanies
+this distribution, and is available at https://www.eclipse.org/legal/epl-v20.html
+
+SPDX-License-Identifier: EPL-2.0
+
+Copyright Contributors to the Zowe Project.
+-->
+<zlux-tab-trap></zlux-tab-trap>
+<div class="padding-1">
+  <div class="d-flex">
+    <div class="header">
+      <h2 mat-dialog-title>
+        <span class="title-design">ALLOCATE NEW DATA SET</span>
+      </h2>
+    </div>
+    <div>
+      <button mat-dialog-close class="close-dialog-btn"><i class="fa fa-close"></i></button>
+    </div>
+  </div>
+  <p class="mandatory">Mandatory fields are marked with an asterisk</p>
+  <mat-dialog-content>
+    <label class="required" style="margin-left: 6px">Data Set Name:</label>
+    <mat-form-field floatLabel="auto" [style.width.px]=300>
+      <input matInput type="text" maxlength="44" placeholder="High-level qualifier must start with a TSO ID"
+        [pattern]="datasetNamePattern" [(ngModel)]="properties.name" #nameInput="ngModel" [errorStateMatcher]="matcher"
+        oninput="this.value = this.value.toUpperCase()">
+      <mat-error>Invalid Name</mat-error>
+    </mat-form-field>
+    <div class="row">
+      <div class="column1">
+        <label class="required">Data Set Name Type:</label>
+        <mat-form-field floatLabel="auto">
+          <mat-select class="select-encoding" tabindex="0" placeholder="Blank for PS Dataset"
+            [(ngModel)]="properties.datasetNameType" #datasetNameType
+            (selectionChange)="setDatasetNameTypeProperties(datasetNameType.value)">
+            <mat-option>Blank</mat-option>
+            @for (datasetNameType of datasetNameTypeOptions; track datasetNameType) {
+            <mat-option [value]="datasetNameType">
+              {{datasetNameType}}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="column2">
+        <label>Data Set Organization:</label>
+        <mat-form-field>
+          <input matInput [(ngModel)]="properties.organization" readonly #dsorg>
+        </mat-form-field>
+      </div>
+    </div>
+    <p></p>
+    <label style="margin-left: 310px; width: 148px; font-size: larger; font-weight: bold;">TEMPLATE:</label>
+    <mat-form-field style="width: 150px; font-weight: bold; margin-top: 3px;" floatLabel="auto">
+      <mat-select class="select-encoding" tabindex="0" placeholder="Select" [(ngModel)]="properties.template"
+        #templateInput (selectionChange)="onTemplateChange(templateInput.value)">
+        <mat-option>None</mat-option>
+        @for (template of templateOptions; track template) {
+        <mat-option [value]="template">
+          {{template}}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+    <div class="row">
+      <div class="column1">
+        <label class="required">Allocation Unit:</label>
+        <mat-form-field floatLabel="auto">
+          <mat-select class="select-encoding" tabindex="0" placeholder="Select" [(ngModel)]="properties.allocationUnit"
+            #allocUnit (selectionChange)="onAllocUnitChange(allocUnit.value)">
+            @for (allocationUnit of allocationUnitOptions; track allocationUnit) {
+            <mat-option [value]="allocationUnit">
+              {{allocationUnit}}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+        <label class="required">Primary Space:</label>
+        <mat-form-field>
+          <input matInput [pattern]="numericPatternExZero" [(ngModel)]="properties.primarySpace"
+            #primarySpaceInput="ngModel" [errorStateMatcher]="matcher"
+            (ngModelChange)="onPrimeSpaceChange(primarySpaceInput.value)" #primeSpace>
+          <mat-error>Invalid Primary Space</mat-error>
+        </mat-form-field>
+        <label class="required">Record Length:</label>
+        <mat-form-field>
+          <input matInput [pattern]="numericPattern" [(ngModel)]="properties.recordLength" #recLengthInput="ngModel"
+            [errorStateMatcher]="matcher" (ngModelChange)="onRecLengthChange(recLengthInput.value)" #recordLength>
+          <mat-error>Invalid Record Length</mat-error>
+        </mat-form-field>
+        <label class="required">Directory Blocks:</label>
+        <mat-form-field floatLabel="auto">
+          <input matInput [pattern]="numericPattern" placeholder="0 for PS Data Set"
+            [(ngModel)]="properties.directoryBlocks" #dirBlockInput="ngModel" [errorStateMatcher]="matcher"
+            (ngModelChange)="onDirBlockChange(dirBlockInput.value)" #dirblocks>
+          <mat-error>Invalid Directory Blocks</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="column2">
+        <label>Average Record Unit:</label>
+        <mat-form-field floatLabel="auto">
+          <mat-select class="select-encoding" tabindex="0" placeholder="Select"
+            [(ngModel)]="properties.averageRecordUnit">
+            @for (averageRecordUnit of recordUnitOptions; track averageRecordUnit) {
+            <mat-option [value]="averageRecordUnit">
+              {{averageRecordUnit}}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+        <label class="required">Secondary Space:</label>
+        <mat-form-field>
+          <input matInput [pattern]="numericPatternExZero" [(ngModel)]="properties.secondarySpace"
+            #secSpaceInput="ngModel" [errorStateMatcher]="matcher"
+            (ngModelChange)="onSecondSpaceChange(secSpaceInput.value)" #secondSpace>
+          <mat-error>Invalid Secondary Space</mat-error>
+        </mat-form-field>
+        <label class="required">Record Format:</label>
+        <mat-form-field floatLabel="auto">
+          <mat-select class="select-encoding" tabindex="0" placeholder="Select" [(ngModel)]="properties.recordFormat"
+            #recordFormat (selectionChange)="onRecordFormatChange(recordFormat.value)">
+            @for (recordFormat of recordFormatOptions; track recordFormat) {
+            <mat-option [value]="recordFormat">
+              {{recordFormat}}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+        <label>Block Size :</label>
+        <mat-form-field>
+          <input matInput [pattern]="numericPatternExZero" [(ngModel)]="properties.blockSize" #blockSize="ngModel"
+            [errorStateMatcher]="matcher" (ngModelChange)="onBlockSizeChange(blockSize.value)">
+          <mat-error>Invalid Block Size</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+  </mat-dialog-content>
+  <div [hidden]="isDirBlockValid" class="errorClass">{{dirBlockError}}</div>
+  <div [hidden]="isPrimeSpaceValid" class="errorClass">{{primarySpaceError}}</div>
+  <div [hidden]="isSecondSpaceValid" class="errorClass">{{secondarySpaceError}}</div>
+  <div [hidden]="isRecLengthValid" class="errorClass">{{recordLengthError}}</div>
+  <div [hidden]="isBlockSizeValid" class="errorClass">{{blockSizeError}}</div>
+  <div [hidden]="isRecordFormatValid" class="errorClass">{{recordFormatErrorMessage}}</div>
+  <div [hidden]="isAllocUnitValid" class="errorClass">{{allocUnitErrorMessage}}</div>
+  <mat-dialog-actions>
+    <button mat-button mat-stroked-button class="right" color="primary" [mat-dialog-close]="properties"
+      [disabled]="!properties.name || !properties.allocationUnit || !properties.primarySpace || !properties.secondarySpace || !properties.directoryBlocks || !properties.recordFormat || !properties.recordLength || nameInput.invalid || primarySpaceInput.invalid || secSpaceInput.invalid || dirBlockInput.invalid || recLengthInput.invalid || blockSize.invalid || !isDirBlockValid || !isPrimeSpaceValid || !isSecondSpaceValid || !isRecLengthValid || !isBlockSizeValid || !isRecordFormatValid || !isAllocUnitValid">
+      Save
+    </button>
+  </mat-dialog-actions>
+</div>
+<!--
+This program and the accompanying materials are
+made available under the terms of the Eclipse Public License v2.0 which accompanies
+this distribution, and is available at https://www.eclipse.org/legal/epl-v20.html
+
+SPDX-License-Identifier: EPL-2.0
+
+Copyright Contributors to the Zowe Project.
+-->
