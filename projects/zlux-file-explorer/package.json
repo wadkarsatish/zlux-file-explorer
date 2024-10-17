@@ -1,5 +1,5 @@
 {
-  "name": "@zowe/zlux-angular-file-tree",
+  "name": "zlux-angular-file-tree",
   "version": "2.0.0",
   "peerDependencies": {
     "@angular/animations": "~18.0.0",
