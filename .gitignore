@@ -11,7 +11,6 @@
 /web
 /tmp
 /out-tsc
-/dist
 
 # dependencies
 node_modules
@@ -40,6 +39,7 @@ node_modules
 npm-debug.log
 testem.log
 /typings
+.angular
 
 # e2e
 /e2e/*.js
